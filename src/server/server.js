@@ -3,7 +3,11 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongo = require('mongoose');
 
-var db = mongo.connect('mongodb://localhost:27017/initiative-tracker', function (err, response) {
+var Hero = require('./models/hero');
+var Monster = require('./models/moster');
+var Encounter = require('./models/encounter');
+
+var db = mongo.connect('mongodb://initiative_tracker_admin:initiative_tracker_password@ds119060.mlab.com:19060/initiative_tracker', function (err, response) {
     if (err) { console.log(err); }
     else { console.log('Connected to ' + db, '+', response); }
 });
@@ -21,18 +25,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-var Schema = mongo.Schema;
-
-var UsersSchema = new Schema({
-    name: { type: String },
-    address: { type: String },
-}, { versionKey: false });
-
-
-var model = mongo.model('users', UsersSchema, 'users');
-
-app.post("/api/SaveUser", function (req, res) {
-    var mod = new model(req.body);
+app.post("/api/SaveHero", function (req, res) {
+    var mod = new Hero(req.body);
     if (req.body.mode == "Save") {
         mod.save(function (err, data) {
             if (err) {
@@ -44,7 +38,13 @@ app.post("/api/SaveUser", function (req, res) {
         });
     }
     else {
-        model.findByIdAndUpdate(req.body.id, { name: req.body.name, address: req.body.address },
+        Hero.findByIdAndUpdate(req.body.id, {
+            name: req.body.name,
+            player: req.body.player,
+            HP: req.body.HP,
+            AC: req.body.AC,
+            initiative_mod: req.body.initiative_mod
+        },
             function (err, data) {
                 if (err) {
                     res.send(err);
@@ -59,7 +59,7 @@ app.post("/api/SaveUser", function (req, res) {
 })
 
 app.post("/api/deleteUser", function (req, res) {
-    model.remove({ _id: req.body.id }, function (err) {
+    Hero.findByIdAndRemove(req.body.id, function (err) {
         if (err) {
             res.send(err);
         }
@@ -72,7 +72,7 @@ app.post("/api/deleteUser", function (req, res) {
 
 
 app.get("/api/getUser", function (req, res) {
-    model.find({}, function (err, data) {
+    Hero.findById(req.body.id, function (err, data) {
         if (err) {
             res.send(err);
         }

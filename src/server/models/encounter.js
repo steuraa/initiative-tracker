@@ -1,6 +1,4 @@
 var mongo = require('mongoose');
-var Hero = require('./hero');
-var Monster = require('./monster');
 var Schema = mongo.Schema;
 
 var EncounterSchema = new Schema({

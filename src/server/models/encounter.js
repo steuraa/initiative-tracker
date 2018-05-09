@@ -1,10 +1,12 @@
 var mongo = require('mongoose');
+var Hero = require('./hero');
+var Monster = require('./monster');
 var Schema = mongo.Schema;
 
 var EncounterSchema = new Schema({
     participants: { type: Number, min: 2 },
-    heroes: [{type: Schema.Types.ObjectId, ref: Hero}],
-    monsters: [{type: Schema.Types.ObjectId, ref: Monster}]
+    heroes: [{type: Schema.Types.ObjectId, ref: 'Hero'}],
+    monsters: [{type: Schema.Types.ObjectId, ref: 'Monster'}]
 }, { versionKey: false });
 
 EncounterSchema

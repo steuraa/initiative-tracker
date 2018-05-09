@@ -3,9 +3,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongo = require('mongoose');
 
-var Hero = require('./models/hero');
-var Monster = require('./models/moster');
-var Encounter = require('./models/encounter');
+// var Hero = require('./models/hero');
+// var Monster = require('./models/monster');
+// var Encounter = require('./models/encounter');
+var encounterRouter = require('./routes/encounterRoutes');
+var heroRouter = require('./routes/heroRoutes');
+var monsterRouter = require('./routes/monsterRoutes');
 
 var db = mongo.connect('mongodb://initiative_tracker_admin:initiative_tracker_password@ds119060.mlab.com:19060/initiative_tracker', function (err, response) {
     if (err) { console.log(err); }
@@ -25,63 +28,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.post("/api/SaveHero", function (req, res) {
-    var mod = new Hero(req.body);
-    if (req.body.mode == "Save") {
-        mod.save(function (err, data) {
-            if (err) {
-                res.send(err);
-            }
-            else {
-                res.send({ data: "Record has been Inserted..!!" });
-            }
-        });
-    }
-    else {
-        Hero.findByIdAndUpdate(req.body.id, {
-            name: req.body.name,
-            player: req.body.player,
-            HP: req.body.HP,
-            AC: req.body.AC,
-            initiative_mod: req.body.initiative_mod
-        },
-            function (err, data) {
-                if (err) {
-                    res.send(err);
-                }
-                else {
-                    res.send({ data: "Record has been Updated..!!" });
-                }
-            });
-
-
-    }
-})
-
-app.post("/api/deleteUser", function (req, res) {
-    Hero.findByIdAndRemove(req.body.id, function (err) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.send({ data: "Record has been Deleted..!!" });
-        }
-    });
-})
-
-
-
-app.get("/api/getUser", function (req, res) {
-    Hero.findById(req.body.id, function (err, data) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
-})
-
+app.use('/api', heroRouter);
+app.use('/api', monsterRouter);
+app.use('/api', encounterRouter);
 
 app.listen(8080, function () {
 

@@ -8,11 +8,11 @@ import { AppComponent } from './app.component';
 import { TrackerComponent } from './tracker-module/components/tracker.component';
 
 const routes: Routes = [
+  // {
+  //   path: '', pathMatch: 'full', component: AppComponent
+  // },
   {
-    path: '', pathMatch: 'full', component: AppComponent
-  },
-  {
-    path: 'home',
+    path: '',
     loadChildren: './tracker-module/tracker.module#TrackerModule'
   },
   {

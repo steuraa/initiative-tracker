@@ -1,7 +1,7 @@
-var mongo = require('mongoose');
-var Schema = mongo.Schema;
+const mongo = require('mongoose');
+const Schema = mongo.Schema;
 
-var HeroSchema = new Schema({
+const HeroSchema = new Schema({
     name: { type: String, required: true },
     player: { type: String },
     HP: { type: Number, required: true },
@@ -15,4 +15,4 @@ HeroSchema
     return '/heroes/' + this._id;
 });
 
-module.exports =  mongo.model('Hero', HeroSchema, 'heroes');
+module.exports.Hero =  mongo.model('Hero', HeroSchema, 'heroes');

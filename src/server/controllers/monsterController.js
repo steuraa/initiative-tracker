@@ -1,8 +1,8 @@
-var Monster = require('../models/monster');
+const Monster = require('../models/monster').Monster;
 
 exports.saveMonster = function (req, res) {
-    var mod = new Monster(req.body);
-    if (req.body.mode == "Save") {
+  const mod = new Monster(req.body);
+    if (req.body.mode === "Save") {
         mod.save(function (err, data) {
             if (err) {
                 res.send(err);

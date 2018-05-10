@@ -1,0 +1,31 @@
+@import '../helpers/variables';
+
+#tracker-container {
+  box-sizing: border-box;
+  height: 100%;
+}
+.left-sidebar {
+  margin: 0 0.625rem 0 1.25rem;
+  flex-flow: column nowrap;
+  height: 100%;
+  background-color: $dark-green;
+  #control-bar-container {
+    height: 10%;
+  }
+
+  #selection-sidebar-container {
+    height: 90%;
+  }
+}
+
+
+.center-field {
+  height: 100%;
+  background-color: $dark-green;
+}
+
+.right-sidebar {
+  height: 100%;
+  background-color: $dark-green;
+  margin: 0 1.25rem 0 0.625rem;
+}

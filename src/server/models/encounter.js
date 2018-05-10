@@ -16,4 +16,4 @@ EncounterSchema
     return '/encounters/' + this._id;
 });
 
-module.exports = mongo.model('Encounter', EncounterSchema, 'encounters');
+module.exports.Encounter = mongo.model('Encounter', EncounterSchema, 'encounters');

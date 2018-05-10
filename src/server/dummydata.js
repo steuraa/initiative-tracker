@@ -3,54 +3,57 @@
 console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb://your_username:your_password@your_dabase_url');
 
 // Get arguments passed on command line
-var userArgs = process.argv.slice(2);
+const userArgs = process.argv.slice(2);
+console.log(userArgs[0]);
 if (!userArgs[0].startsWith('mongodb://')) {
     console.log('ERROR: You need to specify a valid mongodb URL as the first argument');
     return
 }
+return;
+const async = require('async');
+const Hero = require('./models/hero').Hero;
+const Monster = require('./models/monster').Monster;
 
-var async = require('async')
-var Hero = require('./models/hero')
-var Monster = require('./models/monster')
 
-
-var mongoose = require('mongoose');
-var mongoDB = userArgs[0];
+const mongoose = require('mongoose');
+const mongoDB = userArgs[0];
+// noinspection JSIgnoredPromiseFromCall
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+// noinspection JSUnusedLocalSymbols
+const db = mongoose.connection;
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var heroes = []
-var monsters = []
+const heroes = [];
+const monsters = [];
 
 function heroCreate(name, player, HP, AC, initiative_mod, cb) {
-  hero = {name:name , HP: HP, AC: AC, initiative_mod: initiative_mod };
-  if (player != false) hero.player = player
-  
-  var hero = new Hero(hero);
-       
+  let tempHero = {name:name , HP: HP, AC: AC, initiative_mod: initiative_mod };
+  if (player !== false) tempHero.player = player;
+
+  const hero = new Hero(tempHero);
+
   hero.save(function (err) {
     if (err) {
-      cb(err, null)
+      cb(err, null);
       return
     }
     console.log('New Hero: ' + hero);
-    heroes.push(hero)
+    heroes.push(hero);
     cb(null, hero)
   }  );
 }
 
 function monsterCreate(name, HP, AC, initiative_mod, cb) {
-  var monster = new Monster({name:name , HP: HP, AC: AC, initiative_mod: initiative_mod });
-       
+  const monster = new Monster({name:name , HP: HP, AC: AC, initiative_mod: initiative_mod });
+
   monster.save(function (err) {
     if (err) {
       cb(err, null);
       return;
     }
     console.log('New Monster: ' + monster);
-    monsters.push(monster)
+    monsters.push(monster);
     cb(null, monster);
   }   );
 }
@@ -104,17 +107,18 @@ async.series([
     createMonsters
 ],
 // Optional callback
-function(err, results) {
+function(err) {
     if (err) {
         console.log('FINAL ERR: '+err);
     }
     else {
         console.log('Monsters: '+ monsters);
         console.log('Heroes: '+ heroes);
-        
+
     }
     // All done, disconnect from database
-    mongoose.connection.close();
+    // noinspection JSIgnoredPromiseFromCall
+  mongoose.connection.close();
 });
 
 

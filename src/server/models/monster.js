@@ -15,4 +15,4 @@ MonsterSchema
 });
 
 
-module.exports = mongo.model('Monster', MonsterSchema, 'monsters');
+module.exports.Monster = mongo.model('Monster', MonsterSchema, 'monsters');

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TrackerModule } from './tracker-module/tracker.module';
 import { EncounterModule } from './encounter-module/encounter.module';
 import { AppComponent } from './app.component';
-import { TrackerComponent } from './tracker-module/components/tracker-component/tracker.component';
+import { TrackerComponent } from './tracker-module/components/tracker.component';
 
 const routes: Routes = [
   {

@@ -1,8 +1,8 @@
-var Hero = require('../models/hero');
+const Hero = require('../models/hero.js').Hero;
 
 exports.saveHero = function (req, res) {
-    var mod = new Hero(req.body);
-    if (req.body.mode == "Save") {
+  const mod = new Hero(req.body);
+    if (req.body.mode === "Save") {
         mod.save(function (err, data) {
             if (err) {
                 res.send(err);

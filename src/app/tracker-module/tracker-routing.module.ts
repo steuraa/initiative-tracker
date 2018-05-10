@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrackerComponent } from './components/tracker-component/tracker.component';
+import { TrackerComponent } from './components/tracker.component';
 
 const routes: Routes = [
     {path: '', component: TrackerComponent}

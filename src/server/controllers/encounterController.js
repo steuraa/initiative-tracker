@@ -1,8 +1,8 @@
-var Encounter = require('../models/encounter');
+const Encounter = require('../models/encounter.js').Encounter;
 
 exports.saveEncounter = function (req, res) {
-    var mod = new Encounter(req.body);
-    if (req.body.mode == "Save") {
+    const mod = new Encounter(req.body);
+    if (req.body.mode === "Save") {
         mod.save(function (err, data) {
             if (err) {
                 res.send(err);

@@ -1,12 +1,13 @@
-var mongo = require('mongoose');
-var Hero = require('./hero');
-var Monster = require('./monster');
-var Schema = mongo.Schema;
+const mongo = require('mongoose');
+const Hero = require('./hero');
+const Monster = require('./monster');
+const Schema = mongo.Schema;
 
-var EncounterSchema = new Schema({
+const EncounterSchema = new Schema({
+    name: { type: String, required: true },
     participants: { type: Number, min: 2 },
-    heroes: [{type: Schema.Types.ObjectId, ref: 'Hero'}],
-    monsters: [{type: Schema.Types.ObjectId, ref: 'Monster'}]
+    heroes: ['Hero'],
+    monsters: ['Monster']
 }, { versionKey: false });
 
 EncounterSchema

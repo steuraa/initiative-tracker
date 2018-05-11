@@ -2,4 +2,7 @@
   <p>
     selection-sidebar works!
   </p>
+  <ng-container *ngFor="let item of itemsToDisplay">
+    <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
+  </ng-container>
 </div>

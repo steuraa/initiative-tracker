@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule} from 'ngx-bootstrap/buttons';
 import { GroupedServices } from './services/grouped-services';
+import { ListItemComponent } from './components/list-item/list-item.component';
 
 @NgModule({
   imports: [
@@ -13,10 +14,11 @@ import { GroupedServices } from './services/grouped-services';
   providers: [
     GroupedServices
   ],
-  declarations: [],
+  declarations: [ListItemComponent],
   exports: [
     FormsModule,
-    ButtonsModule
+    ButtonsModule,
+    ListItemComponent
   ]
 })
 export class SharedModule { }

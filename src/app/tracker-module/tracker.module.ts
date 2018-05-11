@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared-module/shared.module';
 import { TrackerRoutingModule} from './tracker-routing.module';
 import { TrackerComponent} from './components/tracker.component';
 import { ControlBarComponent } from './components/control-bar/control-bar.component';
@@ -10,6 +11,7 @@ import { SelectionSidebarComponent } from './components/selection-sidebar/select
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     TrackerRoutingModule
   ],
   declarations: [

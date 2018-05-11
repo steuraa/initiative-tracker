@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var monsterController = require('../controllers/monsterController');
+const monsterController = require('../controllers/monsterController');
 
-router.get('/saveMonster', monsterController.saveMonster);
+router.post('/saveMonster', monsterController.saveMonster);
 
 router.post('/deleteMonster', monsterController.deleteMonster);
 

@@ -2,28 +2,37 @@ const Hero = require('../models/hero.js').Hero;
 
 exports.saveHero = function (req, res) {
   const mod = new Hero(req.body);
-  if (req.body.id) {
-    mod.save(function (err, data) {
+  if (!req.body.hero.id) {
+    Hero.findOne({'name': req.body.hero.name}, function (err, hero) {
       if (err) {
-        res.send(err);
+        mod.save(function (err, data) {
+          if (err) {
+            res.status(400).send(err);
+          }
+          else {
+            res.status(201).send({body: data});
+          }
+        });
+      } else {
+        res.status(404).json('Duplicate hero');
       }
-      else {
-        res.status(201).send({body: data});
-      }
-    });
+    })
   }
   else {
     if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
       Hero.findByIdAndUpdate(req.body.id, {
           name: req.body.name,
           player: req.body.player,
-          HP: req.body.HP,
-          AC: req.body.AC,
-          initiative_mod: req.body.initiative_mod
+          creature_class: req.body.creature_class,
+          description: req.body.description,
+          hp: req.body.hp,
+          ac: req.body.ac,
+          init_mod: req.body.init_mod,
+          abilities: req.body.abilities
         },
         function (err, data) {
           if (err) {
-            res.send(err);
+            res.status(400).send(err);
           }
           else {
             res.status(200).send({body: data});
@@ -65,7 +74,7 @@ exports.getHero = function (req, res) {
 };
 
 exports.getAllHeroes = function (req, res) {
-  Hero.find(function (err, data) {
+  Hero.find({}, 'name ac hp id', function (err, data) {
     if (err) {
       res.status(204).send(err);
     } else {

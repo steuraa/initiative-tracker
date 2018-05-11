@@ -51,7 +51,7 @@ exports.getEncounter = function (req, res) {
 };
 
 exports.getAllEncounters = function (req, res) {
-  Encounter.find(function (err, data) {
+  Encounter.find({}, 'name id', function (err, data) {
     if (err) {
       res.status(204).send(err);
     } else {

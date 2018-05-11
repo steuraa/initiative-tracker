@@ -3,7 +3,7 @@ var router = express.Router();
 
 var heroController = require('../controllers/heroController');
 
-router.get('/saveHero', heroController.saveHero);
+router.post('/saveHero', heroController.saveHero);
 
 router.post('/deleteHero', heroController.deleteHero);
 

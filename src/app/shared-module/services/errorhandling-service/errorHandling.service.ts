@@ -26,7 +26,7 @@ export class ErrorHandlingService {
     } else {
       if (error.error) {
         const errorItems = new Array<RequestErrorItem>();
-        const errorItem = new RequestErrorItem(error.error, error.message);
+        const errorItem = new RequestErrorItem(error.status, error.error);
         errorItems.push(errorItem);
         return new RequestError(error.status, errorItems);
       }

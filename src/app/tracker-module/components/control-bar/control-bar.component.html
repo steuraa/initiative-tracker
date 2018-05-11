@@ -1,5 +1,9 @@
 <div id="control-bar-container">
-  <p>
-    control works!
-  </p>
+ <div class="btn-group" (ngModelChange)="optionSelected($event)" id="button-group" btnRadioGroup [ngModel]="selectedOption">
+   <div><label class="btn btn-success button" btnRadio="hero" tabindex="0" role="button" aria-label="hero"><img src="../../../../assets/images/hero-24.png"></label></div>
+   <div><label class="btn btn-success button" btnRadio="monster" tabindex="0" role="button" aria-label="monster"><img src="../../../../assets/images/monster2-24.png"></label></div>
+   <div><label class="btn btn-success button" btnRadio="enc" tabindex="0" role="button" aria-label="encounter"><img src="../../../../assets/images/encounter-24.png"></label></div>
+   <div><label class="btn btn-success button" btnRadio="qa" tabindex="0" role="button" aria-label="eq"><i class="fa fa-plus"></i></label></div>
+   <div><label class="btn btn-success button" btnRadio="start" tabindex="0" aria-label="start"><i class="fa fa-play"></i></label></div>
+ </div>
 </div>

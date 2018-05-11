@@ -8,9 +8,20 @@
   margin: 0 0.625rem 0 1.25rem;
   flex-flow: column nowrap;
   height: 100%;
-  background-color: $dark-green;
+  background-color: $light-brown;
   #control-bar-container {
     height: 10%;
+    margin-top: 0.625rem;
+
+    #button-group {
+      width: 100%;
+      background-color: $light-gray;
+      display: flex;
+
+      .button:focus {
+        box-shadow: none;
+      }
+    }
   }
 
   #selection-sidebar-container {
@@ -21,11 +32,11 @@
 
 .center-field {
   height: 100%;
-  background-color: $dark-green;
+  background-color: $light-brown;
 }
 
 .right-sidebar {
   height: 100%;
-  background-color: $dark-green;
+  background-color: $light-brown;
   margin: 0 1.25rem 0 0.625rem;
 }

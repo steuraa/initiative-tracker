@@ -1,0 +1,19 @@
+@import "../helpers/variables";
+.btn {
+  border-radius: unset;
+
+}
+
+.btn-success:not(:disabled):not(.disabled) {
+  background-color: $light-gray;
+  border-color: $dark-gray;
+  width: 51px;
+  height: 100%;
+  color: black;
+}
+
+.btn-success:not(:disabled):not(.disabled).active {
+  background-color: $dark-gray;
+  border-color: $dark-gray;
+  color: black;
+}

@@ -1,4 +1,7 @@
 <div id="selection-sidebar-container">
-  <app-control-bar [buttonOptions]="buttonOptions" (emitType)="typeSelected($event)"></app-control-bar>
-  <app-selection-sidebar-overview [itemsToDisplay]="itemsToDisplay" (featureSelected)="featureSelected($event)"></app-selection-sidebar-overview>
+  <!--<app-selection-sidebar-overview [itemsToDisplay]="itemsToDisplay" (featureSelected)="featureSelected($event)"></app-selection-sidebar-overview>-->
+  <ng-container *ngFor="let item of itemsToDisplay">
+    <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
+  </ng-container>
+
 </div>

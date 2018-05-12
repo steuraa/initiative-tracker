@@ -15,24 +15,10 @@ import 'rxjs/add/operator/takeUntil';
 export class SelectionSidebarComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   itemsToDisplay: Array<any>;
-  buttonOptions = [
-    {
-      selected: true,
-      value: 'hero',
-      source: '../../../../assets/images/hero-24.png'
-    },
-    {
-      value: 'monster',
-      source: '../../../../assets/images/monster2-24.png'
-    },
-    {
-      value: 'encounter',
-      source: '../../../../assets/images/encounter-24.png'
-    }
-  ];
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService) {
     this.storeService.listSubject.takeUntil(this.ngUnsubscribe).subscribe(list => {
+      console.log('itemsToDisplay::', list);
       if (list) {
         this.itemsToDisplay = list;
       }
@@ -42,35 +28,13 @@ export class SelectionSidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  featureSelected(evt: Monster | Hero) {
-    console.log('featureSelected::evt:: ', evt);
+  itemSelected(evt: Monster | Hero) {
     if (evt.type === 'monster') {
       this.monsterService.getMonsterById(evt.id);
     } else if (evt.type === 'hero') {
       this.heroService.getHeroById(evt.id);
     } else {
       console.log('TODO: Encounterservice');
-    }
-  }
-
-  typeSelected(type) {
-    console.log('type::', type);
-    switch (type) {
-      case 'hero': {
-        this.heroService.getAllHeroes();
-        break;
-      }
-      case 'monster': {
-        this.monsterService.getAllMonsters();
-        break;
-      }
-      case 'enc': {
-        console.log('TODO: Encounters');
-        break;
-      }
-      default: {
-        console.log('TODO: Start encounter');
-      }
     }
   }
 

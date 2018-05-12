@@ -47,7 +47,7 @@ export class HeroApiService {
   }
 
   saveHero(hero): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/saveHero', {'hero': hero})
+    return this.http.post(this.backend + '/api/saveHero', hero)
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -61,7 +61,7 @@ export class HeroApiService {
   }
 
   deleteHero(id: string): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/deleteHero', {params: {'id': id}})
+    return this.http.post(this.backend + '/api/deleteHero', {'id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

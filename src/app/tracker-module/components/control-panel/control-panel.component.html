@@ -1,0 +1,34 @@
+<div id="control-panel-container">
+  <div class="btn-group feature-buttons" (ngModelChange)="selectType($event)" id="button-group" btnRadioGroup
+       [ngModel]="selectedFeature">
+    <div><label class="btn btn-success option-button" btnRadio="hero" tabindex="0"><img class="btn-image"
+                                                                                        src="../../../../assets/images/hero-24.png"></label>
+    </div>
+    <div><label class="btn btn-success option-button" btnRadio="monster" tabindex="0"><img class="btn-image"
+                                                                                           src="../../../../assets/images/monster-24.png"></label>
+    </div>
+    <div><label class="btn btn-success option-button" btnRadio="encounter" tabindex="0"><img class="btn-image"
+                                                                                             src="../../../../assets/images/encounter-24.png"></label>
+    </div>
+  </div>
+  <div class="btn-group encounter-buttons">
+    <button value="saveEnc" class="btn btn-success button option-button" (click)="saveEncounter()"><label
+      tabindex="0"><img
+      class="btn-image" src="../../../../assets/images/plus-24.png"></label></button>
+    <button value="startEnc" class="btn btn-success button option-button" (click)="startEncounter()"><label
+      tabindex="0"><img
+      class="btn-image" src="../../../../assets/images/play-24.png"></label></button>
+  </div>
+  <div class="btn-group overview-buttons">
+    <button value="selectFeat" class="btn btn-success button option-button" (click)="selectFeature(true)"><label
+      tabindex="0"><img
+      class="btn-image" src="../../../../assets/images/select-24.png"></label></button>
+    <button value="editFeat" class="btn btn-success button option-button" (click)="editFeature(true)"><label
+      tabindex="0"><img
+      class="btn-image" src="../../../../assets/images/edit-24.png"></label></button>
+    <button value="closeFeat" class="btn btn-success button option-button" (click)="closeFeature(true)"><label
+      tabindex="0"><img
+      class="btn-image" src="../../../../assets/images/close-24.png"></label></button>
+  </div>
+
+</div>

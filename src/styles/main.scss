@@ -8,6 +8,7 @@
 //@import 'layout/layout';
 // Components and modules
 @import 'components/base';
-@import 'components/_overwrites.scss';
 @import 'components/header';
+@import 'components/overwrites';
+@import 'components/shared';
 @import 'components/tracker';

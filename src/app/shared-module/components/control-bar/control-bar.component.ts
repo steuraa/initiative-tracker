@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 })
 export class ControlBarComponent implements OnChanges {
   @Input() buttonOptions: any;
-  @Output() emitType: EventEmitter<any> = new EventEmitter<any>();
+  @Output() emitButton: EventEmitter<any> = new EventEmitter<any>();
   selectedOption = '';
 
   constructor() {
@@ -19,14 +19,14 @@ export class ControlBarComponent implements OnChanges {
       this.buttonOptions.forEach(b => {
         if (b.selected) {
           this.selectedOption = b.value;
-          this.emitType.next(b.value);
+          this.emitButton.next(b.value);
         }
       });
     }
   }
 
   optionSelected(evt) {
-    this.emitType.next(evt);
+    this.emitButton.next(evt);
 
   }
 

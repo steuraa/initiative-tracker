@@ -47,7 +47,7 @@ export class MonsterApiService {
   }
 
   saveMonster(monster): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/saveMonster', {'monster': monster})
+    return this.http.post(this.backend + '/api/saveMonster', monster)
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

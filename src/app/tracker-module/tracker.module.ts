@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared-module/shared.module';
 import { TrackerRoutingModule } from './tracker-routing.module';
-import { TrackerComponent } from './components/tracker.component';
-import { OverviewSidebarComponent } from './components/overview-sidebar/overview-sidebar.component';
 import { CentralFieldComponent } from './components/central-field/central-field.component';
+import { ControlPanelComponent } from './components/control-panel/control-panel.component';
+import { OverviewSidebarComponent } from './components/overview-sidebar/overview-sidebar.component';
+import { OverviewCharScreenComponent } from './components/overview-sidebar/overview-char-screen/overview-char-screen.component';
 import { SelectionSidebarComponent } from './components/selection-sidebar/selection-sidebar.component';
-import { SelectionSidebarOverviewComponent } from './components/selection-sidebar/selection-sidebar-overview/selection-sidebar-overview.component';
+import { TrackerComponent } from './components/tracker.component';
 
 @NgModule({
   imports: [
@@ -16,16 +17,18 @@ import { SelectionSidebarOverviewComponent } from './components/selection-sideba
   ],
   declarations: [
     CentralFieldComponent,
+    ControlPanelComponent,
     OverviewSidebarComponent,
+    OverviewCharScreenComponent,
     SelectionSidebarComponent,
-    SelectionSidebarOverviewComponent,
     TrackerComponent
   ],
   exports: [
     CentralFieldComponent,
+    ControlPanelComponent,
     OverviewSidebarComponent,
+    OverviewCharScreenComponent,
     SelectionSidebarComponent,
-    SelectionSidebarOverviewComponent,
     TrackerComponent
   ]
 })

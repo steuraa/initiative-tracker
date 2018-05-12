@@ -27,9 +27,9 @@ export class SelectionSidebarComponent implements OnInit {
   itemSelected(evt: Monster | Hero) {
     console.log('itemSelected::evt:: ', evt);
     if (evt.type === 'monster') {
-      this.monsterService.getMonsterById(evt.id).subscribe();
+      this.monsterService.getMonsterById(evt.id);
     } else if (evt.type === 'hero') {
-      this.heroesService.getHeroById(evt.id).subscribe();
+      this.heroesService.getHeroById(evt.id);
     } else {
       console.log('TODO: Encounterservice');
     }

@@ -28,15 +28,11 @@ export class ControlBarComponent implements OnInit {
     };
     switch (evt) {
       case 'hero': {
-        this.heroService.getAllHeroes().subscribe(res => {
-          console.log('heroes');
-        });
+        this.heroService.getAllHeroes();
         break;
       }
       case 'monster': {
-        this.monsterService.getAllMonsters().subscribe(res => {
-          console.log('monsters');
-        });
+        this.monsterService.getAllMonsters();
         break;
       }
       case 'enc': {

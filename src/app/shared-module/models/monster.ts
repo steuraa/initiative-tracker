@@ -7,18 +7,18 @@ export class Monster {
   hp: number;
   ac: number;
   init_mod: number;
-  abilities?: Array<any> = [];
+  abilities?: Array<any>;
 
   constructor(json: any) {
     if (json && json._id) {
       this.id = json._id;
       this.name = json.name;
-      this.creature_class = json.creature_class;
-      this.description = json.description;
       this.hp = json.hp;
       this.ac = json.ac;
-      this.init_mod = json.init_mod;
-      if (json.abilities) {
+      if (json.creature_class) {
+        this.init_mod = json.init_mod;
+        this.creature_class = json.creature_class;
+        this.description = json.description;
         this.abilities = json.abilities;
       }
     }

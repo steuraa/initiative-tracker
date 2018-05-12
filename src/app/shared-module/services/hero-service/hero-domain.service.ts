@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Hero } from '../../models/hero';
 import { HeroApiService } from './hero-api.service';
 import { StoreService } from '../store-service/store.service';
@@ -10,9 +9,9 @@ export class HeroDomainService {
   constructor(private heroApiService: HeroApiService, private storeService: StoreService) {
   }
 
-  getAllHeroes(): Observable<Array<Hero>> {
-    return this.heroApiService.getAllHeroes()
-      .map(res => {
+  getAllHeroes(): void {
+    this.heroApiService.getAllHeroes()
+      .subscribe(res => {
         if (res.data.length && !res.data.status) {
           const heroes = [];
           res.data.forEach(r => {
@@ -26,9 +25,9 @@ export class HeroDomainService {
       });
   }
 
-  getHeroById(id: string): Observable<Hero> {
-    return this.heroApiService.getHeroById(id)
-      .map(res => {
+  getHeroById(id: string): void {
+    this.heroApiService.getHeroById(id)
+      .subscribe(res => {
         if (res.data && !res.data.status) {
           this.storeService.passSingleItem(new Hero(res.data));
           return new Hero(res.data);
@@ -38,9 +37,9 @@ export class HeroDomainService {
       });
   }
 
-  saveHero(hero: Hero) {
-    return this.heroApiService.saveHero(hero)
-      .map(res => {
+  saveHero(hero: Hero): void {
+    this.heroApiService.saveHero(hero)
+      .subscribe(res => {
         if (res.data && !res.data.status) {
           this.storeService.passSingleItem(new Hero(res.data));
           return new Hero(res.data);

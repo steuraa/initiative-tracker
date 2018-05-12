@@ -5,8 +5,8 @@ export class Encounter {
   id: string;
   type = 'encounter';
   name: string;
-  heroes?: Array<Hero> = [];
-  monsters?: Array<Monster> = [];
+  heroes?: Array<Hero>;
+  monsters?: Array<Monster>;
 
   constructor(json) {
     if (json && json._id) {

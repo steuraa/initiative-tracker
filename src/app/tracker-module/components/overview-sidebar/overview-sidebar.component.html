@@ -1,5 +1,8 @@
 <div class="overview-sidebar-container">
-  <p>
-    overview-sidebar works!
+  <p *ngIf="item">
+    {{item.name}}
+  </p>
+  <p *ngIf="!item">
+    No item selected
   </p>
 </div>

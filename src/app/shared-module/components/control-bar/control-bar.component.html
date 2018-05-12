@@ -1,0 +1,7 @@
+<div id="control-bar-container">
+ <div class="btn-group" (ngModelChange)="optionSelected($event)" id="button-group" btnRadioGroup [ngModel]="selectedOption">
+   <!--<div><label class="btn btn-success button" btnRadio="qa" tabindex="0" role="button" aria-label="eq"><i class="fa fa-plus"></i></label></div>-->
+   <!--<div><label class="btn btn-success button" btnRadio="start" tabindex="0" aria-label="start"><i class="fa fa-play"></i></label></div>-->
+   <div *ngFor="let b of buttonOptions"><label class="btn btn-success button" btnRadio={{b.value}} tabindex="0"><img src={{b.source}}></label></div>
+ </div>
+</div>

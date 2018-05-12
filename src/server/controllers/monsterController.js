@@ -1,9 +1,9 @@
 const Monster = require('../models/monster').Monster;
 
 exports.saveMonster = function (req, res) {
-  const mod = new Monster(req.body.monster);
-  if (!req.body.monster.id) {
-    Monster.findOne({'name': req.body.monster.name}, function (err, monster) {
+  const mod = new Monster(req.body);
+  if (!req.body.id) {
+    Monster.findOne({'name': req.body.name}, function (err, monster) {
       if (err) {
         mod.save(function (err, data) {
           if (err) {
@@ -28,7 +28,7 @@ exports.saveMonster = function (req, res) {
           ac: req.body.ac,
           init_mod: req.body.init_mod,
           abilities: req.body.abilities
-        },
+        }, {'new': true},
         function (err, data) {
           if (err) {
             res.status(400).send(err);

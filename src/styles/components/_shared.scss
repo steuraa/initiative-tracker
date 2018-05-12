@@ -1,0 +1,33 @@
+@import "../helpers/variables";
+
+#control-bar-container {
+  margin: 0.625rem 0;
+
+  #button-group {
+    background-color: $light-gray;
+
+    .option-button {
+      border-radius: unset;
+      background-color: $light-gray;
+      border-color: $dark-gray;
+      //width: 20%;
+      height: 100%;
+      color: black;
+    }
+    .option-button.active {
+      background-color: $dark-gray;
+      border-color: $dark-gray;
+    }
+    .option-button:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid $light-green;
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid $red;
+}

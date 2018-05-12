@@ -1,5 +1,7 @@
 #app-header {
   margin: 0.3rem;
-  background-color: #036d01;
-  height: 50px;
+  background-color: $light-brown;
+  border-radius: 0.38rem;
+  box-shadow: inset 0px 0px 10px 5px $black;
+  height: 7%;
 }

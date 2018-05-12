@@ -2,41 +2,97 @@
 
 #tracker-container {
   box-sizing: border-box;
-  height: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 88%;
 }
-.left-sidebar {
-  margin: 0 0.625rem 0 1.25rem;
-  flex-flow: column nowrap;
-  height: 100%;
+
+#control-panel-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 8%;
+  margin: 0.375rem;
   background-color: $light-brown;
-  #control-bar-container {
-    height: 10%;
-    margin-top: 0.625rem;
+  border-radius: 0.38rem;
+  box-shadow: inset 0px 0px 10px 5px $black;
 
-    #button-group {
-      width: 100%;
-      background-color: $light-gray;
-      display: flex;
-
-      .button:focus {
-        box-shadow: none;
-      }
-    }
+  .btn-group {
+    height: 3.5rem;
+    align-items: center;
   }
+
+  .feature-buttons {
+    margin-left: 1rem;
+  }
+
+  .encounter-buttons {
+  }
+
+  .overview-buttons {
+    margin-right: 1rem;
+  }
+
+  .option-button {
+    border-radius: unset;
+    background-color: $light-gray;
+    border-color: $dark-gray;
+    //width: 20%;
+    //height: 50%;
+    color: black;
+  }
+  .option-button.active {
+    background-color: $dark-gray;
+    border-color: $dark-gray;
+  }
+  .option-button:focus {
+    box-shadow: none;
+  }
+}
+
+#left-sidebar {
+  display: inline-block;
+  margin: 0 0.625rem 0 0.375rem;
+  padding: 1rem;
+  height: 100%;
+  min-width: 17.5rem;
+  background-color: $light-brown;
+  border-radius: 0.38rem;
+  box-shadow: inset 0px 0px 10px 5px $black;
 
   #selection-sidebar-container {
     height: 90%;
   }
 }
 
-
-.center-field {
+#center-field {
+  flex-grow: 3;
+  padding: 1rem;
+  display: inline-block;
   height: 100%;
   background-color: $light-brown;
+  border-radius: 0.38rem;
+  box-shadow: inset 0px 0px 10px 5px $black;
+
+  #charForm {
+    //margin
+  }
 }
 
-.right-sidebar {
+#right-sidebar {
+  display: inline-block;
+  margin: 0 0.375rem 0 0.625rem;
+  padding: 1rem;
   height: 100%;
+  min-width: 17.5rem;
   background-color: $light-brown;
-  margin: 0 1.25rem 0 0.625rem;
+  border-radius: 0.38rem;
+  box-shadow: inset 0px 0px 10px 5px $black;
+
+  .number-control {
+    display: inline-block;
+    width: 3rem;
+    padding: 0.375rem;
+  }
 }

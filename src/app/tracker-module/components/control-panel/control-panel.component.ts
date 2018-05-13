@@ -23,7 +23,7 @@ export class ControlPanelComponent {
     this.heroService.getAllHeroes();
   }
 
-  selectFeature(evt) {
+  selectFeature() {
     let encounterFeature;
     if (this.selectedFeature.type === 'monster') {
       encounterFeature = new EncounterMonster(this.selectedFeature);
@@ -41,8 +41,8 @@ export class ControlPanelComponent {
     this.storeService.editFeature(evt);
   }
 
-  saveEncounter(evt) {
-    console.log('saveEnc::', evt);
+  addEncounter() {
+    this.storeService.startEncounter();
   }
 
   startEncounter(evt) {

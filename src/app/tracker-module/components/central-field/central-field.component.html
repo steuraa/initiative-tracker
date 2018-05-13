@@ -1,10 +1,49 @@
 <div class="central-field-container">
-  <div id="hero-field" *ngIf="tempEncounter">
-    <h3>Heroes:</h3>
-    <app-encounter-item *ngFor="let h of tempEncounter.heroes" [participant]="h"></app-encounter-item>
-  </div>
-  <div id="monster-field" *ngIf="tempEncounter">
-    <h3>Monsters:</h3>
-    <app-encounter-item *ngFor="let m of tempEncounter.monsters" [participant]="m"></app-encounter-item>
-  </div>
+  <form #encounterForm="ngForm" *ngIf="tempEncounter">
+    <div class="form-group">
+      <label for="name">Encounter name</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="tempEncounter.name" required>
+    </div>
+    <table id="hero-field" *ngIf="tempEncounter">
+      <h3>Heroes:</h3>
+      <tr>
+        <th class="number-column"></th>
+        <th class="text-column">Name</th>
+        <th class="text-column">Player</th>
+        <th class="number-column">HP</th>
+        <th class="number-column">AC</th>
+        <th class="number-column">Init</th>
+      </tr>
+      <tr *ngFor="let h of tempEncounter.heroes; let i = index" required>
+        <td class="number-column" (click)="removeHero(i)"><img src="../../../../assets/images/close-24.png"></td>
+        <td class="text-column">{{h.name}}</td>
+        <td class="text-column" *ngIf="h.type==='hero'"><input type="text" required #Name="ngModel"
+                                                               [(ngModel)]="h.player" name="Name-{{i}}"></td>
+        <td class="number-column">{{h.hp}}</td>
+        <td class="number-column">{{h.ac}}</td>
+        <td class="number-column">{{h.init_mod}}</td>
+      </tr>
+
+    </table>
+    <table id="monster-field" *ngIf="tempEncounter">
+      <h3>Monsters:</h3>
+      <tr>
+        <th class="number-column"></th>
+        <th class="text-column">Name</th>
+        <th class="number-column">HP</th>
+        <th class="number-column">AC</th>
+        <th class="number-column">Init</th>
+      </tr>
+      <tr *ngFor="let m of tempEncounter.monsters; let i = index" required>
+        <td class="number-column" (click)="removeMonster(i)"><img src="../../../../assets/images/close-24.png"></td>
+        <td class="text-column">{{m.name}}</td>
+        <td class="number-column">{{m.hp}}</td>
+        <td class="number-column">{{m.ac}}</td>
+        <td class="number-column">{{m.init_mod}}</td>
+      </tr>
+    </table>
+
+    <button [disabled]="!encounterForm.form.valid" (click)="save()" class="btn btn-success">Save
+    </button>
+  </form>
 </div>

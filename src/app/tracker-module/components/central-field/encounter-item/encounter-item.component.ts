@@ -1,17 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-encounter-item',
+  /* tslint:disable-next-line */
+  selector: '[app-encounter-item]',
   templateUrl: './encounter-item.component.html',
   styleUrls: ['./encounter-item.component.scss']
 })
-export class EncounterItemComponent implements OnInit {
+export class EncounterItemComponent {
   @Input() participant: any;
-
-  constructor() {
+  @Input() index: any;
+  @Output() removeEmit: EventEmitter<any> = new EventEmitter<any>();
+  remove() {
+    this.removeEmit.next({feature: this.participant, index: this.index});
   }
-
-  ngOnInit() {
-  }
-
 }

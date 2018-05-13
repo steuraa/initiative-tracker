@@ -9,6 +9,8 @@ export class StoreService {
   errorSubject: Observable<any> = this.errorSubjectSource.asObservable();
   private encounterSubjectSource: Subject<any> = new Subject<any>();
   encounterSubject: Observable<any> = this.encounterSubjectSource.asObservable();
+  private startEncounterSubjectSource: Subject<any> = new Subject<any>();
+  startEncounterSubject: Observable<any> = this.startEncounterSubjectSource.asObservable();
   private listSubjectSource: Subject<any> = new Subject<any>();
   listSubject: Observable<any> = this.listSubjectSource.asObservable();
   private singleItemSubjectSource: Subject<any> = new Subject<any>();
@@ -33,6 +35,10 @@ export class StoreService {
     if (encounter) {
       this.encounterSubjectSource.next(encounter);
     }
+  }
+
+  startEncounter() {
+    this.startEncounterSubjectSource.next('start');
   }
 
   passList(list) {

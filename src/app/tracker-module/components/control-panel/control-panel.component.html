@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="btn-group encounter-buttons">
-    <button value="saveEnc" class="btn btn-success button option-button" (click)="saveEncounter()"><label
+    <button value="saveEnc" class="btn btn-success button option-button" (click)="addEncounter()"><label
       tabindex="0"><img
       class="btn-image" src="../../../../assets/images/plus-24.png"></label></button>
     <button value="startEnc" class="btn btn-success button option-button" (click)="startEncounter()"><label
@@ -30,6 +30,6 @@
       tabindex="0"><img
       class="btn-image" src="../../../../assets/images/close-24.png"></label></button>
   </div>
-  <div class="placeholder-block"*ngIf="!selectedFeature"></div>
+  <div class="placeholder-block" *ngIf="!selectedFeature"></div>
 
 </div>

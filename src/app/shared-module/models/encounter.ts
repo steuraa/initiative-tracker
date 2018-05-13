@@ -2,13 +2,13 @@ import { Hero } from './hero';
 import { Monster } from './monster';
 
 export class Encounter {
-  id: string;
+  id?: string;
   type = 'encounter';
   name: string;
   heroes?: Array<Hero>;
   monsters?: Array<Monster>;
 
-  constructor(json) {
+  constructor(json?) {
     if (json && json._id) {
       this.id = json._id;
       this.name = json.name;
@@ -24,6 +24,10 @@ export class Encounter {
           this.monsters.push(new Monster(m));
         });
       }
+    } else {
+      this.name = '';
+      this.heroes = [];
+      this.monsters = [];
     }
   }
 }

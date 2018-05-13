@@ -1,1 +1,7 @@
-<p>{{participant.name}} {{participant.player}} {{participant.hp}} {{participant.ac}} {{participant.init_mod}}</p>
+<td class="text-column">{{participant.name}}</td>
+<td class="text-column" *ngIf="participant.type==='hero'"><input type="text" required #Name="ngModel" [(ngModel)]="participant.player" name="Name-{{index}}"></td>
+<td class="number-column">{{participant.hp}}</td>
+<td class="number-column">{{participant.ac}}</td>
+<td class="number-column">{{participant.init_mod}}</td>
+<td class="text-column" *ngIf="participant.type==='monster'"></td>
+<td (click)="remove()"><img src="../../../../../assets/images/close-24.png"></td>

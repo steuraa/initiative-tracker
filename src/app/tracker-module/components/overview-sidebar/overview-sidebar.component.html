@@ -11,11 +11,6 @@
         <input type="text" class="form-control" id="class" name="class" [(ngModel)]="tempItem.creature_class" required>
       </div>
 
-      <div class="form-group" *ngIf="player">
-        <label for="player">Player</label>
-        <input type="text" class="form-control" id="player" name="player" [(ngModel)]="tempItem.player" >
-      </div>
-
       <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description" required></textarea>

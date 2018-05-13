@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Hero } from '../../../shared-module/models/hero';
 import { Monster } from '../../../shared-module/models/monster';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
-import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
+import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
+import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
+import { StoreService } from '../../../shared-module/services/store-service/store.service';
 import 'rxjs/add/operator/takeUntil';
 
 @Component({
@@ -16,9 +17,9 @@ export class SelectionSidebarComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   itemsToDisplay: Array<any>;
 
-  constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService) {
+  constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
+              private encounterService: EncounterDomainService) {
     this.storeService.listSubject.takeUntil(this.ngUnsubscribe).subscribe(list => {
-      console.log('itemsToDisplay::', list);
       if (list) {
         this.itemsToDisplay = list;
       }
@@ -34,7 +35,7 @@ export class SelectionSidebarComponent implements OnInit, OnDestroy {
     } else if (evt.type === 'hero') {
       this.heroService.getHeroById(evt.id);
     } else {
-      console.log('TODO: Encounterservice');
+      this.encounterService.getEncounterById(evt.id);
     }
   }
 

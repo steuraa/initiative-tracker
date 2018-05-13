@@ -12,14 +12,16 @@ export class Encounter {
     if (json && json._id) {
       this.id = json._id;
       this.name = json.name;
-      if (json.heroes.length) {
+      if (json.heroes && json.heroes.length) {
+        this.heroes = [];
         json.heroes.forEach(h => {
           this.heroes.push(new Hero(h));
         });
       }
-      if (json.monsters.length) {
-        json.monsters.forEach(h => {
-          this.monsters.push(new Monster(h));
+      if (json.monsters && json.monsters.length) {
+        this.monsters = [];
+        json.monsters.forEach(m => {
+          this.monsters.push(new Monster(m));
         });
       }
     }

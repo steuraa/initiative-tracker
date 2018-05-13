@@ -1,5 +1,10 @@
 <div class="central-field-container">
-  <p>
-    central-field works!
-  </p>
+  <div id="hero-field" *ngIf="tempEncounter">
+    <h3>Heroes:</h3>
+    <app-encounter-item *ngFor="let h of tempEncounter.heroes" [participant]="h"></app-encounter-item>
+  </div>
+  <div id="monster-field" *ngIf="tempEncounter">
+    <h3>Monsters:</h3>
+    <app-encounter-item *ngFor="let m of tempEncounter.monsters" [participant]="m"></app-encounter-item>
+  </div>
 </div>

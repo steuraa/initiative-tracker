@@ -1,5 +1,24 @@
+export class EncounterHero {
+  type = 'hero';
+  name: string;
+  player: string;
+  hp: number;
+  ac: number;
+  init_mod: number;
+
+  constructor(json) {
+    if (json) {
+      this.name = json.name;
+      this.hp = json.hp;
+      this.ac = json.ac;
+      this.player = json.player;
+      this.init_mod = json.init_mod;
+    }
+  }
+}
+
 export class Hero {
-  id: string;
+  id?: string;
   type = 'hero';
   name: string;
   player?: string;
@@ -25,6 +44,12 @@ export class Hero {
         this.description = json.description;
         this.abilities = json.abilities;
       }
+    } else if (json) {
+      this.name = json.name;
+      this.player = json.player;
+      this.hp = json.hp;
+      this.ac = json.ac;
+      this.init_mod = json.init_mod;
     }
   }
 }

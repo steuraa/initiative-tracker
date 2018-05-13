@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { EncounterHero, Hero } from '../../../shared-module/models/hero';
+import { EncounterMonster, Monster } from '../../../shared-module/models/monster';
+import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
 import { StoreService } from '../../../shared-module/services/store-service/store.service';
@@ -9,14 +12,25 @@ import { StoreService } from '../../../shared-module/services/store-service/stor
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent {
-  selectedFeature = 'hero';
+  selectedType = 'hero';
+  selectedFeature: Hero | Monster;
 
-  constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService) {
+  constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
+              private encounterService: EncounterDomainService) {
+    this.storeService.singleItemSubject.subscribe(res => {
+      this.selectedFeature = res;
+    });
     this.heroService.getAllHeroes();
   }
 
   selectFeature(evt) {
-    this.storeService.selectFeature(evt);
+    let encounterFeature;
+    if (this.selectedFeature.type === 'monster') {
+      encounterFeature = new EncounterMonster(this.selectedFeature);
+    } else {
+      encounterFeature = new EncounterHero(this.selectedFeature);
+    }
+    this.storeService.selectFeature(encounterFeature);
   }
 
   closeFeature(evt) {
@@ -36,13 +50,12 @@ export class ControlPanelComponent {
   }
 
   selectType(evt) {
-    console.log('selectFeat::evt::', evt);
     if (evt === 'monster') {
       this.monsterService.getAllMonsters();
     } else if (evt === 'hero') {
       this.heroService.getAllHeroes();
     } else {
-      console.log('TODO: Encounterservice');
+      this.encounterService.getAllEncounters();
     }
   }
 }

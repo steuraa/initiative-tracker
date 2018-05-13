@@ -7,6 +7,8 @@ import 'rxjs/add/observable/of';
 export class StoreService {
   private errorSubjectSource: Subject<any> = new Subject<any>();
   errorSubject: Observable<any> = this.errorSubjectSource.asObservable();
+  private encounterSubjectSource: Subject<any> = new Subject<any>();
+  encounterSubject: Observable<any> = this.encounterSubjectSource.asObservable();
   private listSubjectSource: Subject<any> = new Subject<any>();
   listSubject: Observable<any> = this.listSubjectSource.asObservable();
   private singleItemSubjectSource: Subject<any> = new Subject<any>();
@@ -27,6 +29,12 @@ export class StoreService {
     }
   }
 
+  passEncounter(encounter) {
+    if (encounter) {
+      this.encounterSubjectSource.next(encounter);
+    }
+  }
+
   passList(list) {
     if (list) {
       this.listSubjectSource.next(list);
@@ -41,6 +49,7 @@ export class StoreService {
 
   selectFeature(feature) {
     if (feature) {
+      console.log('storeService::selectFeature::feature::', feature);
       this.selectFeatureSubjectSource.next(feature);
     }
   }

@@ -2,15 +2,21 @@ const Encounter = require('../models/encounter.js').Encounter;
 
 exports.saveEncounter = function (req, res) {
   const mod = new Encounter(req.body);
-  if (req.body.mode === "Save") {
-    mod.save(function (err, data) {
+  if (!req.body.id) {
+    Encounter.findOne({'name': req.body.name}, function (err, hero) {
       if (err) {
-        res.send(err);
+        mod.save(function (err, data) {
+          if (err) {
+            res.send(err);
+          }
+          else {
+            res.status(201).send({body: data});
+          }
+        });
+      } else {
+        res.status(404).json('Duplicate encounter');
       }
-      else {
-        res.status(201).send({body: data});
-      }
-    });
+    })
   }
   else {
     Encounter.findByIdAndUpdate(req.body.id, {
@@ -18,7 +24,7 @@ exports.saveEncounter = function (req, res) {
         round: req.body.round,
         heroes: req.body.heroes,
         monsters: req.body.monsters,
-      },
+      }, {'new': true},
       function (err, data) {
         if (err) {
           res.send(err);

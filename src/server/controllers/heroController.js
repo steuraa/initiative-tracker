@@ -3,7 +3,7 @@ const Hero = require('../models/hero.js').Hero;
 exports.saveHero = function (req, res) {
   const mod = new Hero(req.body);
   if (!req.body.id) {
-    Hero.findOne({'name': req.body.hero.name}, function (err, hero) {
+    Hero.findOne({'name': req.body.name}, function (err, hero) {
       if (err) {
         mod.save(function (err, data) {
           if (err) {

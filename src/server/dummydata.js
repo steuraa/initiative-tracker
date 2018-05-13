@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 
+
 console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb://your_username:your_password@your_dabase_url');
 
 // Get arguments passed on command line
@@ -12,6 +13,7 @@ if (!userArgs[0].startsWith('mongodb://')) {
 const async = require('async');
 const Hero = require('./models/hero').Hero;
 const Monster = require('./models/monster').Monster;
+const Encounter = require('./models/encounter').Encounter;
 
 
 const mongoose = require('mongoose');
@@ -25,6 +27,7 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 
 const heroes = [];
 const monsters = [];
+const encounters = [];
 
 function heroCreate(name, player, creature_class, description, hp, ac, init_mod, abilities, cb) {
   let tempHero = {
@@ -71,6 +74,28 @@ function monsterCreate(name, creature_class, description, hp, ac, init_mod, abil
     console.log('New Monster: ' + monster);
     monsters.push(monster);
     cb(null, monster);
+  });
+}
+
+
+
+function encounterCreate(name, round, heroes, monsters, cb) {
+  let tempEncounter = {
+    name: name,
+    round: round,
+    heroes: heroes,
+    monsters: monsters,
+  };
+  const encounter = new Encounter(tempEncounter);
+
+  encounter.save(function (err) {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    console.log('New Monster: ' + encounter);
+    encounters.push(encounter);
+    cb(null, encounter);
   });
 }
 
@@ -138,10 +163,28 @@ function createMonsters(cb) {
     cb);
 }
 
+function createEncounters(cb) {
+  async.parallel([
+      function (callback) {
+        encounterCreate('First encounter', 1, [
+          {name: 'MinMax', player: 'Herbert', hp: 9, ac: 14, init_mod: -3},
+          {name: 'Shem', player: 'Paul', hp: 11, ac: 18, init_mod: 2},
+          {name: 'Ellumyr', player: 'Mitch', hp: 8, ac: 12, init_mod: 0}
+        ], [
+          {name: 'Zombie', hp: 22, ac: 8, init_mod: 0},
+          {name: 'Zombie', hp: 22, ac: 8, init_mod: 0}
+        ], callback);
+      },
+    ],
+    // optional callback
+    cb);
+}
+
 
 async.series([
-    createHeroes,
-    createMonsters
+    // createHeroes,
+    // createMonsters
+  createEncounters
   ],
 // Optional callback
   function (err) {
@@ -151,6 +194,7 @@ async.series([
     else {
       console.log('Monsters: ' + monsters);
       console.log('Heroes: ' + heroes);
+      console.log('Encounters: ', + encounters)
 
     }
     // All done, disconnect from database

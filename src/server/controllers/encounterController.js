@@ -14,7 +14,8 @@ exports.saveEncounter = function (req, res) {
   }
   else {
     Encounter.findByIdAndUpdate(req.body.id, {
-        participants: req.body.participants,
+        name: req.body.name,
+        round: req.body.round,
         heroes: req.body.heroes,
         monsters: req.body.monsters,
       },
@@ -29,7 +30,7 @@ exports.saveEncounter = function (req, res) {
   }
 };
 
-exports.getEncounter = function (req, res) {
+exports.getEncounterById = function (req, res) {
   if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
     Encounter.findById(req.body.id)
     // .populate('heroes')

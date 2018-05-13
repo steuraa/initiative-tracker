@@ -1,7 +1,7 @@
-var mongo = require('mongoose');
-var Schema = mongo.Schema;
+const mongo = require('mongoose');
+const Schema = mongo.Schema;
 
-var MonsterSchema = new Schema({
+const MonsterSchema = new Schema({
   name: {type: String, required: true},
   creature_class: {type: String, required: true},
   description: {type: String, required: true},
@@ -9,13 +9,15 @@ var MonsterSchema = new Schema({
   ac: {type: Number, required: true},
   init_mod: {type: Number, required: true},
   abilities: [{type: String}]
-}, {versionKey: false});
+});
 
-MonsterSchema
-  .virtual('url')
-  .get(function () {
-    return '/monsters/' + this._id;
-  });
+const EncounterMonsterSchema = new Schema({
+  name: {type: String, required: true},
+  hp: {type: Number, required: true},
+  ac: {type: Number, required: true},
+  init_mod: {type: Number, required: true}
+});
 
+module.exports.EncounterMonster = EncounterMonsterSchema;
 
 module.exports.Monster = mongo.model('Monster', MonsterSchema, 'monsters');

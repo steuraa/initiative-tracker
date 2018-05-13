@@ -11,12 +11,16 @@ const HeroSchema = new Schema({
   init_mod: {type: Number, required: true},
   abilities: [{type: String}]
 
-}, {versionKey: false});
+});
 
-HeroSchema
-  .virtual('url')
-  .get(function () {
-    return '/heroes/' + this._id;
-  });
+const EncounterHeroSchema = new Schema({
+  name: {type: String, required: true},
+  player: {type: String, required: true},
+  hp: {type: Number, required: true},
+  ac: {type: Number, required: true},
+  init_mod: {type: Number, required: true}
+});
+
+module.exports.EncounterHero = EncounterHeroSchema;
 
 module.exports.Hero = mongo.model('Hero', HeroSchema, 'heroes');

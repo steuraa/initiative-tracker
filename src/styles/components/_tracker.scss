@@ -81,9 +81,28 @@
   .text-column {
     min-width: 4rem;
   }
+
+  .text-column:not(disabled) {
+    input {
+      max-width: 7rem;
+    }
+  }
+
   .number-column {
     min-width: 1rem;
+    max-width: 3rem;
     padding-left: 1rem;
+  }
+
+  .disabled-input {
+    border: none;
+    display: inline;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0;
+    width: auto;
+    color: black;
+    background-color: inherit;
   }
 }
 

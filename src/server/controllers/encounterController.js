@@ -4,7 +4,7 @@ exports.saveEncounter = function (req, res) {
   const mod = new Encounter(req.body);
   if (!req.body.id) {
     Encounter.findOne({'name': req.body.name}, function (err, hero) {
-      if (err) {
+      if (!hero) {
         mod.save(function (err, data) {
           if (err) {
             res.send(err);

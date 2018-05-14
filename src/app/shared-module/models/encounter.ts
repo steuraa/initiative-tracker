@@ -4,6 +4,7 @@ import { Monster } from './monster';
 export class Encounter {
   id?: string;
   type = 'encounter';
+  round: number;
   name: string;
   heroes?: Array<Hero>;
   monsters?: Array<Monster>;
@@ -12,6 +13,9 @@ export class Encounter {
     if (json && json._id) {
       this.id = json._id;
       this.name = json.name;
+      if (!json.round) {
+        this.round = 1;
+      }
       if (json.heroes && json.heroes.length) {
         this.heroes = [];
         json.heroes.forEach(h => {
@@ -26,6 +30,7 @@ export class Encounter {
       }
     } else {
       this.name = '';
+      this.round = 1;
       this.heroes = [];
       this.monsters = [];
     }

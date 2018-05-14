@@ -14,15 +14,14 @@
         <th class="number-column">Init</th>
       </tr>
       <ng-container formArrayName="heroes">
-      <tr *ngFor="let h of tempEncounter.heroes; let i = index" [formGroupName]="i">
-        <td class="number-column" (click)="removeHero(i)"><img src="../../../../assets/images/close-24.png"></td>
-        <td class="text-column">{{h.name}}</td>
-        <td class="text-column" *ngIf="h.type==='hero'"><input type="text" required #Name="ngModel"
-                                                               [(ngModel)]="h.player" name="Name-{{i}}"></td>
-        <td class="number-column">{{h.hp}}</td>
-        <td class="number-column">{{h.ac}}</td>
-        <td class="number-column">{{h.init_mod}}</td>
-      </tr>
+        <tr *ngFor="let h of heroes.controls; let i = index" [formGroupName]="i">
+          <td class="number-column" (click)="removeHero(i)"><img src="../../../../assets/images/close-24.png"></td>
+          <td class="text-column"><input class="disabled-input" type="text" formControlName="name"></td>
+          <td class="text-column"><input type="text" formControlName="player"></td>
+          <td class="number-column"><input class="disabled-input" type="text" formControlName="hp"></td>
+          <td class="number-column"><input class="disabled-input" type="text" formControlName="ac"></td>
+          <td class="number-column"><input class="disabled-input" type="text" formControlName="init_mod"></td>
+        </tr>
       </ng-container>
     </table>
     <table id="monster-field" *ngIf="tempEncounter">
@@ -34,18 +33,17 @@
         <th class="number-column">AC</th>
         <th class="number-column">Init</th>
       </tr>
-      <ng-container>
-      <tr *ngFor="let m of tempEncounter.monsters; let i = index" [formGroupName]="i">
-        <td class="number-column" (click)="removeMonster(i)"><img src="../../../../assets/images/close-24.png"></td>
-        <td class="text-column">{{m.name}}</td>
-        <td class="number-column">{{m.hp}}</td>
-        <td class="number-column">{{m.ac}}</td>
-        <td class="number-column">{{m.init_mod}}</td>
-      </tr>
+      <ng-container formArrayName="monsters">
+        <tr *ngFor="let h of monsters.controls; let i = index" [formGroupName]="i">
+          <td class="number-column" (click)="removeMonster(i)"><img src="../../../../assets/images/close-24.png"></td>
+          <td class="text-column"><input class="disabled-input" type="text" formControlName="name"></td>
+          <td class="number-column"><input class="disabled-input" type="text" formControlName="hp"></td>
+          <td class="number-column"><input class="disabled-input" type="text" formControlName="ac"></td>
+          <td class="number-column"><input class="disabled-input" type="text" formControlName="init_mod"></td>
+        </tr>
       </ng-container>
     </table>
 
-    <button [disabled]="!encounterForm.form.valid" (click)="save()" class="btn btn-success">Save
-    </button>
+    <button [disabled]="!encounterForm.valid" (click)="save()" class="btn btn-success">Save</button>
   </form>
 </div>

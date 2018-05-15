@@ -24,7 +24,7 @@ export class OverviewSidebarComponent implements OnDestroy {
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe((item: Monster | Hero | Encounter) => {
       this.item = item;
       this.tempItem = Object.assign({}, this.item);
-      this.editable = false;
+      this.editable = !this.item.name;
     });
     this.storeService.selectFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(() => {
       // this.editable = true;
@@ -41,6 +41,23 @@ export class OverviewSidebarComponent implements OnDestroy {
   cancel() {
     this.tempItem = Object.assign({}, this.item);
     this.editable = false;
+  }
+
+  handleFileSelect(evt) {
+    const files = evt.target.files;
+    const file = files[0];
+
+    if (files && file) {
+      const reader = new FileReader();
+
+      reader.onload = (readerEvt) => {
+        const binaryString = (readerEvt.target as any).result;
+        const btoaString = btoa(binaryString);
+        this.tempItem.avatar = 'data:image/png;base64,' + btoaString;
+      };
+
+      reader.readAsBinaryString(file);
+    }
   }
 
   save() {

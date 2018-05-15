@@ -21,6 +21,7 @@ export class Hero {
   id?: string;
   type = 'hero';
   name: string;
+  avatar?: string;
   player?: string;
   creature_class?: string;
   description?: string;
@@ -37,6 +38,9 @@ export class Hero {
       this.ac = json.ac;
       if (json.player) {
         this.player = json.player;
+      }
+      if (json.avatar) {
+        this.avatar = json.avatar;
       }
       if (json.creature_class) {
         this.init_mod = json.init_mod;

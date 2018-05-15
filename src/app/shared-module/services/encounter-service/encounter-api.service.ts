@@ -31,7 +31,7 @@ export class EncounterApiService {
   }
 
   getEncounterById(id): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/getEncounterById', {'id': id})
+    return this.http.post(this.backend + '/api/getEncounter', {'id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

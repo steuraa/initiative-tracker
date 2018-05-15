@@ -3,8 +3,8 @@ const Monster = require('../models/monster').Monster;
 exports.saveMonster = function (req, res) {
   const mod = new Monster(req.body);
   if (!req.body.id) {
-    Monster.findOne({'name': req.body.name}, function (err, monster) {
-      if (err) {
+    Monster.findOne({'name': req.body.name}, function (err) {
+      if (!err) {
         mod.save(function (err, data) {
           if (err) {
             res.status(400).send(err);

@@ -22,6 +22,7 @@ exports.saveHero = function (req, res) {
     if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
       Hero.findByIdAndUpdate(req.body.id, {
           name: req.body.name,
+          avatar: req.body.avatar,
           player: req.body.player,
           creature_class: req.body.creature_class,
           description: req.body.description,

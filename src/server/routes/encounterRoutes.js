@@ -7,7 +7,7 @@ router.post('/saveEncounter', encounterController.saveEncounter);
 
 // router.post('/deleteEncounter', encounterController.deleteEncounter);
 
-router.post('/getEncounterById', encounterController.getEncounterById);
+router.post('/getEncounter', encounterController.getEncounter);
 
 router.get('/getAllEncounters', encounterController.getAllEncounters);
 

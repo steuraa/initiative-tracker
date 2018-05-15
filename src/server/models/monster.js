@@ -3,6 +3,7 @@ const Schema = mongo.Schema;
 
 const MonsterSchema = new Schema({
   name: {type: String, required: true},
+  avatar: {type: String},
   creature_class: {type: String, required: true},
   description: {type: String, required: true},
   hp: {type: Number, required: true},

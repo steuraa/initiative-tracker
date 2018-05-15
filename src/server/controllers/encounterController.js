@@ -36,7 +36,7 @@ exports.saveEncounter = function (req, res) {
   }
 };
 
-exports.getEncounterById = function (req, res) {
+exports.getEncounter = function (req, res) {
   if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
     Encounter.findById(req.body.id)
     // .populate('heroes')

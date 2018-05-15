@@ -22,6 +22,7 @@ exports.saveMonster = function (req, res) {
     if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
       Monster.findByIdAndUpdate(req.body.id, {
           name: req.body.name,
+          avatar: req.body.avatar,
           creature_class: req.body.creature_class,
           description: req.body.description,
           hp: req.body.hp,

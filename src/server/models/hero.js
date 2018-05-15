@@ -3,6 +3,7 @@ const Schema = mongo.Schema;
 
 const HeroSchema = new Schema({
   name: {type: String, required: true},
+  avatar: {type: String},
   player: {type: String},
   creature_class: {type: String, required: true},
   description: {type: String, required: true},

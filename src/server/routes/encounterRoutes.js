@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var encounterController = require('../controllers/encounterController');
+const encounterController = require('../controllers/encounterController');
 
 router.post('/saveEncounter', encounterController.saveEncounter);
 

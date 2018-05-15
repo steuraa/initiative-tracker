@@ -39,7 +39,7 @@ export class EncounterDomainService {
     this.encounterApiService.saveEncounter(encounter)
       .subscribe(res => {
         if (res.data && !res.data.status) {
-          // this.storeService.passSingleItem(new Encounter(res.data));
+          this.storeService.passEncounter(new Encounter(res.data));
         } else {
           this.storeService.passError(res.data);
         }

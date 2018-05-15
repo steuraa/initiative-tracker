@@ -1,19 +1,20 @@
 import { Hero } from './hero';
 import { Monster } from './monster';
 
-export class Encounter {
+export class ProgressEncounter {
   id?: string;
-  type = 'encounter';
-  // TODO: remove round from encounter, serves no purpose
+  type ? = 'progressEncounter';
+  original: string;
   round: number;
   name: string;
-  heroes?: Array<Hero>;
-  monsters?: Array<Monster>;
+  heroes: Array<Hero>;
+  monsters: Array<Monster>;
 
   constructor(json?) {
     if (json && json._id) {
       this.id = json._id;
       this.name = json.name;
+      this.original = json.original;
       if (!json.round) {
         this.round = 1;
       }
@@ -29,11 +30,6 @@ export class Encounter {
           this.monsters.push(new Monster(m));
         });
       }
-    } else {
-      this.name = '';
-      this.round = 1;
-      this.heroes = [];
-      this.monsters = [];
     }
   }
 }

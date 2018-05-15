@@ -10,13 +10,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class EncounterApiService {
+export class ProgressEncounterApiService {
   backend = environment.backendUri;
 
   constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {
   }
-  getAllEncounters(): Observable<PromiseSingleResult<any>> {
-    return this.http.get(this.backend + '/api/getAllEncounters')
+  getAllProgressEncounters(): Observable<PromiseSingleResult<any>> {
+    return this.http.get(this.backend + '/api/getAllProgressEncounters')
       .map((res: any) => {
         if (res.body && res.body.length) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -30,8 +30,8 @@ export class EncounterApiService {
       });
   }
 
-  getEncounterById(id): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/getEncounter', {'id': id})
+  getProgressEncounterById(id): Observable<PromiseSingleResult<any>> {
+    return this.http.post(this.backend + '/api/getProgressEncounter', {'id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -45,8 +45,8 @@ export class EncounterApiService {
       });
   }
 
-  saveEncounter(encounter): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/saveEncounter', encounter)
+  saveProgressEncounter(encounter): Observable<PromiseSingleResult<any>> {
+    return this.http.post(this.backend + '/api/saveProgressEncounter', encounter)
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -59,8 +59,8 @@ export class EncounterApiService {
       );
   }
 
-  deleteEncounter(id: string): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/deleteEncounter', {'id': id})
+  deleteProgressEncounter(id: string): Observable<PromiseSingleResult<any>> {
+    return this.http.post(this.backend + '/api/deleteProgressEncounter', {'id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

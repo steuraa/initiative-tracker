@@ -22,7 +22,7 @@ export class MonsterApiService {
         if (res.body && res.body.length) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
         } else {
-          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.data.body.report);
+          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.data.body);
         }
       })
       .catch(error => {

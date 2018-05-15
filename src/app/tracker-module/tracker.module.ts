@@ -7,7 +7,6 @@ import { ControlPanelComponent } from './components/control-panel/control-panel.
 import { OverviewSidebarComponent } from './components/overview-sidebar/overview-sidebar.component';
 import { SelectionSidebarComponent } from './components/selection-sidebar/selection-sidebar.component';
 import { TrackerComponent } from './components/tracker.component';
-import { EncounterItemComponent } from './components/central-field/encounter-item/encounter-item.component';
 
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import { EncounterItemComponent } from './components/central-field/encounter-ite
   declarations: [
     CentralFieldComponent,
     ControlPanelComponent,
-    EncounterItemComponent,
     OverviewSidebarComponent,
     SelectionSidebarComponent,
     TrackerComponent
@@ -26,7 +24,6 @@ import { EncounterItemComponent } from './components/central-field/encounter-ite
   exports: [
     CentralFieldComponent,
     ControlPanelComponent,
-    EncounterItemComponent,
     OverviewSidebarComponent,
     SelectionSidebarComponent,
     TrackerComponent

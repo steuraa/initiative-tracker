@@ -28,7 +28,7 @@ export class CentralFieldComponent {
       this.tempEncounter = Object.assign({}, this.encounter);
       this.populateForm();
     });
-    this.storeService.startEncounterSubject.subscribe(() => {
+    this.storeService.saveEncounterSubject.subscribe(() => {
       this.tempEncounter = new Encounter();
       this.populateForm();
     });
@@ -77,23 +77,21 @@ export class CentralFieldComponent {
     this.encounterForm.get('name').setValue(this.tempEncounter.name);
     this.encounterForm.get('round').setValue(this.tempEncounter.round);
     const heroesFG = this.tempEncounter.heroes.map(h => {
-      const fg = this.fb.group({
+      return this.fb.group({
         'ac': new FormControl({value: h.ac, disabled: true}),
         'hp': new FormControl({value: h.hp, disabled: true}),
         'name': new FormControl({value: h.name, disabled: true}),
         'player': new FormControl(h.player, Validators.required),
         'init_mod': new FormControl({value: h.init_mod, disabled: true}),
       });
-      return fg;
     });
     const monstersFG = this.tempEncounter.monsters.map(m => {
-      const fg = this.fb.group({
+      return this.fb.group({
         'ac': new FormControl({value: m.ac, disabled: true}),
         'hp': new FormControl({value: m.hp, disabled: true}),
         'name': new FormControl({value: m.name, disabled: true}),
         'init_mod': new FormControl({value: m.init_mod, disabled: true}),
       });
-      return fg;
     });
 
     const heroesArray = this.fb.array((heroesFG));

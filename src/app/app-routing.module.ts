@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: './tracker-module/tracker.module#TrackerModule'
   },
   {
-    path: 'encounter',
+    path: 'encounters',
     loadChildren: './encounter-module/encounter.module#EncounterModule'
   }
 ];
@@ -25,7 +25,8 @@ const routes: Routes = [
   imports: [
     TrackerModule,
     EncounterModule,
-    RouterModule.forRoot(routes)],
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

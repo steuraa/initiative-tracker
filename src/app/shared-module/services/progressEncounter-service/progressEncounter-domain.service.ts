@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { ProgressEncounter } from '../../models/progressEncounter';
 import { ProgressEncounterApiService } from './progressEncounter-api.service';
 import { StoreService } from '../store-service/store.service';
@@ -24,20 +25,20 @@ export class ProgressEncounterDomainService {
       });
   }
 
-  getProgressEncounterById(id: string): void {
-    this.encounterApiService.getProgressEncounterById(id)
-      .subscribe(res => {
-        if (res.data && !res.data.status) {
-          this.storeService.passEncounter(new ProgressEncounter(res.data));
-        } else {
+  getProgressEncounterById(id: string): Observable<any> {
+    return this.encounterApiService.getProgressEncounterById(id)
+      .map(res => {
+        if (res.data && res.data.status) {
           this.storeService.passError(res.data);
+        } else {
+          return res;
         }
       });
   }
 
-  saveProgressEncounter(encounter: ProgressEncounter): void {
-    this.encounterApiService.saveProgressEncounter(encounter)
-      .subscribe(res => {
+  saveProgressEncounter(encounter: ProgressEncounter): Observable<any> {
+    return this.encounterApiService.saveProgressEncounter(encounter)
+      .map(res => {
         if (res.data && !res.data.status) {
           // this.storeService.passSingleItem(new Encounter(res.data));
         } else {

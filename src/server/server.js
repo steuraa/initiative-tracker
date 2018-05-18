@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongo = require('mongoose');
 
 const encounterRouter = require('./routes/encounterRoutes');
+const progressEncounterRouter = require('./routes/progressEncounterRoutes');
 const heroRouter = require('./routes/heroRoutes');
 const monsterRouter = require('./routes/monsterRoutes');
 
@@ -27,6 +28,7 @@ app.use(function (req, res, next) {
 app.use('/api', heroRouter);
 app.use('/api', monsterRouter);
 app.use('/api', encounterRouter);
+app.use('/api', progressEncounterRouter);
 
 app.listen(8080, function () {
 

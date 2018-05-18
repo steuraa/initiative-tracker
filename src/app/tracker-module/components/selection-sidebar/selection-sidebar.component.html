@@ -1,7 +1,13 @@
 <div id="selection-sidebar-container">
-  <!--<app-selection-sidebar-overview [itemsToDisplay]="itemsToDisplay" (featureSelected)="featureSelected($event)"></app-selection-sidebar-overview>-->
-  <ng-container *ngFor="let item of itemsToDisplay">
-    <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
-  </ng-container>
-
+  <div class="list-item-container">
+    <ng-container *ngFor="let item of itemsToDisplay">
+      <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
+    </ng-container>
+    <button (click)="createNew()">Add new</button>
+  </div>
+  <div class="list-item-container" *ngIf="progressList">
+    <ng-container *ngFor="let item of progressList">
+      <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
+    </ng-container>
+  </div>
 </div>

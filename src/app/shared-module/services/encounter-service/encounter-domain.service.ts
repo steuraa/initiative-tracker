@@ -12,12 +12,12 @@ export class EncounterDomainService {
   getAllEncounters(): void {
     this.encounterApiService.getAllEncounters()
       .subscribe(res => {
-        if (res.data.length && !res.data.status) {
+        if (!res.data.status) {
           const encounters = [];
           res.data.forEach(r => {
             encounters.push(new Encounter(r));
           });
-          this.storeService.passList(encounters);
+          this.storeService.passList(encounters, 'encounter');
         } else {
           this.storeService.passError(res.data);
         }
@@ -39,7 +39,7 @@ export class EncounterDomainService {
     this.encounterApiService.saveEncounter(encounter)
       .subscribe(res => {
         if (res.data && !res.data.status) {
-          // this.storeService.passSingleItem(new Encounter(res.data));
+          this.storeService.passEncounter(new Encounter(res.data));
         } else {
           this.storeService.passError(res.data);
         }

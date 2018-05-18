@@ -17,7 +17,7 @@ export class HeroDomainService {
           res.data.forEach(r => {
             heroes.push(new Hero(r));
           });
-          this.storeService.passList(heroes);
+          this.storeService.passList(heroes, 'hero');
           return heroes;
         } else {
           this.storeService.passError(res.data);

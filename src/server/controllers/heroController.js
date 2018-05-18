@@ -2,9 +2,9 @@ const Hero = require('../models/hero.js').Hero;
 
 exports.saveHero = function (req, res) {
   const mod = new Hero(req.body);
-  if (!req.body.id) {
-    Hero.findOne({'name': req.body.name}, function (err, hero) {
-      if (err) {
+  if (!req.body._id) {
+    Hero.findOne({'name': req.body.name}, function (err) {
+      if (!err) {
         mod.save(function (err, data) {
           if (err) {
             res.status(400).send(err);
@@ -19,9 +19,10 @@ exports.saveHero = function (req, res) {
     })
   }
   else {
-    if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-      Hero.findByIdAndUpdate(req.body.id, {
+    if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+      Hero.findByIdAndUpdate(req.body._id, {
           name: req.body.name,
+          avatar: req.body.avatar,
           player: req.body.player,
           creature_class: req.body.creature_class,
           description: req.body.description,
@@ -45,7 +46,7 @@ exports.saveHero = function (req, res) {
 };
 
 exports.deleteHero = function (req, res) {
-  Hero.findByIdAndRemove(req.body.id, function (err) {
+  Hero.findByIdAndRemove(req.body._id, function (err) {
     if (err) {
       res.send(err);
     }
@@ -56,8 +57,8 @@ exports.deleteHero = function (req, res) {
 };
 
 exports.getHero = function (req, res) {
-  if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-    Hero.findById(req.body.id, function (err, data) {
+  if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+    Hero.findById(req.body._id, function (err, data) {
       if (err) {
         res.status(204).send(err);
       } else {

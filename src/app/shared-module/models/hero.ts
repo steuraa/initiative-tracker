@@ -1,26 +1,42 @@
 export class EncounterHero {
   type = 'hero';
+  _id: string;
+  original_id: string;
   name: string;
   player: string;
   hp: number;
+  max_hp: number;
   ac: number;
+  max_ac: number;
   init_mod: number;
+  initiative: number;
 
   constructor(json) {
     if (json) {
+      if (json.original_id) {
+        this._id = json._id;
+        this.original_id = json.original_id;
+      }
+      if (!json.original_id) {
+        this.original_id = json._id;
+      }
+      this.player = json.player;
       this.name = json.name;
       this.hp = json.hp;
+      this.max_hp = (json.max_hp) ? json.max_hp : json.hp;
       this.ac = json.ac;
-      this.player = json.player;
+      this.max_ac = (json.max_ac) ? json.max_ac : json.ac;
       this.init_mod = json.init_mod;
+      this.initiative = (json.initiative) ? json.initiative : 0;
     }
   }
 }
 
 export class Hero {
-  id?: string;
+  _id?: string;
   type = 'hero';
   name: string;
+  avatar?: string;
   player?: string;
   creature_class?: string;
   description?: string;
@@ -31,12 +47,15 @@ export class Hero {
 
   constructor(json) {
     if (json && json._id) {
-      this.id = json._id;
+      this._id = json._id;
       this.name = json.name;
       this.hp = json.hp;
       this.ac = json.ac;
       if (json.player) {
         this.player = json.player;
+      }
+      if (json.avatar) {
+        this.avatar = json.avatar;
       }
       if (json.creature_class) {
         this.init_mod = json.init_mod;

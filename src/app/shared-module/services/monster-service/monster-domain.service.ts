@@ -17,7 +17,7 @@ export class MonsterDomainService {
           res.data.forEach(r => {
             monsters.push(new Monster(r));
           });
-          this.storeService.passList(monsters);
+          this.storeService.passList(monsters, 'monster');
           // return monsters;
         } else {
           this.storeService.passError(res.data);

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EncounterComponent} from './components/encounter-component/encounter.component';
+import { EncounterResolverService } from '../shared-module/services/encounter-resolver/encounter-resolver.service';
+import { EncounterComponent} from './components/encounter.component';
 
 const routes: Routes = [
-    {path: '', component: EncounterComponent}
+    {path: ':id', component: EncounterComponent, resolve: {encounter: EncounterResolverService}}
 ];
 
 

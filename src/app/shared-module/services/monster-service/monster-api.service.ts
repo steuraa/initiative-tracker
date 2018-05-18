@@ -22,7 +22,7 @@ export class MonsterApiService {
         if (res.body && res.body.length) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
         } else {
-          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.data.body.report);
+          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.data.body);
         }
       })
       .catch(error => {
@@ -32,7 +32,7 @@ export class MonsterApiService {
   }
 
   getMonsterById(id): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/getMonster', {'id': id})
+    return this.http.post(this.backend + '/api/getMonster', {'_id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -61,7 +61,7 @@ export class MonsterApiService {
   }
 
   deleteMonster(id: string): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/deleteMonster', {'id': id})
+    return this.http.post(this.backend + '/api/deleteMonster', {'_id': id})
       .map((res: any) => {
         if (res.body && res.body.length) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

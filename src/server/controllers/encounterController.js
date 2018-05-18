@@ -2,9 +2,9 @@ const Encounter = require('../models/encounter.js').Encounter;
 
 exports.saveEncounter = function (req, res) {
   const mod = new Encounter(req.body);
-  if (!req.body.id) {
-    Encounter.findOne({'name': req.body.name}, function (err, hero) {
-      if (err) {
+  if (!req.body._id) {
+    Encounter.findOne({'name': req.body.name}, function (err, encounter) {
+      if (!encounter) {
         mod.save(function (err, data) {
           if (err) {
             res.send(err);
@@ -19,7 +19,7 @@ exports.saveEncounter = function (req, res) {
     })
   }
   else {
-    Encounter.findByIdAndUpdate(req.body.id, {
+    Encounter.findByIdAndUpdate(req.body._id, {
         name: req.body.name,
         round: req.body.round,
         heroes: req.body.heroes,
@@ -36,9 +36,9 @@ exports.saveEncounter = function (req, res) {
   }
 };
 
-exports.getEncounterById = function (req, res) {
-  if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-    Encounter.findById(req.body.id)
+exports.getEncounter = function (req, res) {
+  if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+    Encounter.findById(req.body._id)
     // .populate('heroes')
     // .populate('monsters')
       .exec(function (err, data) {

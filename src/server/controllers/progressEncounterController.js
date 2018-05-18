@@ -2,7 +2,7 @@ const Encounter = require('../models/progressEncounter').ProgressEncounter;
 
 exports.saveProgressEncounter = function (req, res) {
   const mod = new Encounter(req.body);
-  if (!req.body.id) {
+  if (!req.body._id) {
     Encounter.findOne({'name': req.body.name}, function (err, encounter) {
       if (!encounter) {
         mod.save(function (err, data) {
@@ -19,7 +19,7 @@ exports.saveProgressEncounter = function (req, res) {
     })
   }
   else {
-    Encounter.findByIdAndUpdate(req.body.id, {
+    Encounter.findByIdAndUpdate(req.body._id, {
         name: req.body.name,
         round: req.body.round,
         heroes: req.body.heroes,
@@ -37,8 +37,8 @@ exports.saveProgressEncounter = function (req, res) {
 };
 
 exports.getProgressEncounter = function (req, res) {
-  if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-    Encounter.findById(req.body.id)
+  if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+    Encounter.findById(req.body._id)
     // .populate('heroes')
     // .populate('monsters')
       .exec(function (err, data) {

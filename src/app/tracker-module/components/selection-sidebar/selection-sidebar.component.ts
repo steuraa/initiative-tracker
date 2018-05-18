@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Encounter } from '../../../shared-module/models/encounter';
 import { Hero } from '../../../shared-module/models/hero';
@@ -6,6 +6,7 @@ import { Monster } from '../../../shared-module/models/monster';
 import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
+import { ProgressEncounterDomainService } from '../../../shared-module/services/progressEncounter-service/progressEncounter-domain.service';
 import { StoreService } from '../../../shared-module/services/store-service/store.service';
 import 'rxjs/add/operator/takeUntil';
 
@@ -17,16 +18,26 @@ import 'rxjs/add/operator/takeUntil';
 export class SelectionSidebarComponent implements OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   itemsToDisplay: Array<any>;
+  progressList: Array<any>;
+  progressType: string;
   type: string;
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
-              private encounterService: EncounterDomainService) {
+              private encounterService: EncounterDomainService, private progressEncounterService: ProgressEncounterDomainService) {
     this.storeService.listSubject.takeUntil(this.ngUnsubscribe).subscribe(list => {
       if (list) {
-        this.itemsToDisplay = list;
-        if (this.itemsToDisplay[0] && this.itemsToDisplay[0].type) {
-          this.type = this.itemsToDisplay[0].type;
+        this.itemsToDisplay = list.values;
+        this.type = list.type;
+        if (this.type !== 'encounter') {
+          this.progressType = '';
+          this.progressList = undefined;
         }
+      }
+    });
+    this.storeService.progressEncounterListSubject.takeUntil(this.ngUnsubscribe).subscribe(list => {
+      if (list) {
+        this.progressList = list.values;
+        this.progressType = list.type;
       }
     });
   }
@@ -49,11 +60,13 @@ export class SelectionSidebarComponent implements OnDestroy {
 
   itemSelected(evt: Monster | Hero) {
     if (evt.type === 'monster') {
-      this.monsterService.getMonsterById(evt.id);
+      this.monsterService.getMonsterById(evt._id);
     } else if (evt.type === 'hero') {
-      this.heroService.getHeroById(evt.id);
+      this.heroService.getHeroById(evt._id);
+    } else if (evt.type === 'encounter') {
+      this.encounterService.getEncounterById(evt._id);
     } else {
-      this.encounterService.getEncounterById(evt.id);
+      this.progressEncounterService.getProgressEncounterById(evt._id).subscribe();
     }
   }
 

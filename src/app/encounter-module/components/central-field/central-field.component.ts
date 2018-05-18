@@ -73,7 +73,7 @@ export class CentralFieldComponent {
   }
 
   populateForm() {
-    this.encounterForm.get('id').setValue(this.tempEncounter.id);
+    this.encounterForm.get('_id').setValue(this.tempEncounter._id);
     this.encounterForm.get('name').setValue(this.tempEncounter.name);
     this.encounterForm.get('round').setValue(this.tempEncounter.round);
     const heroesFG = this.tempEncounter.heroes.map(h => {

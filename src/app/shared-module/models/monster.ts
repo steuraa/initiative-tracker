@@ -1,6 +1,6 @@
 export class EncounterMonster {
   type = 'monster';
-  id: string;
+  _id: string;
   original_id: string;
   name: string;
   hp: number;
@@ -13,13 +13,12 @@ export class EncounterMonster {
   constructor(json: any) {
     if (json) {
       if (json.original_id) {
-        this.id = json.id;
+        this._id = json._id;
         this.original_id = json.original_id;
       }
       if (!json.original_id) {
-        this.original_id = json.id;
+        this.original_id = json._id;
       }
-      this.original_id = json.id;
       this.name = json.name;
       this.hp = json.hp;
       this.max_hp = (json.max_hp) ? json.max_hp : json.hp;
@@ -32,7 +31,7 @@ export class EncounterMonster {
 }
 
 export class Monster {
-  id: string;
+  _id?: string;
   type = 'monster';
   name: string;
   avatar?: string;
@@ -45,7 +44,7 @@ export class Monster {
 
   constructor(json: any) {
     if (json && json._id) {
-      this.id = json._id;
+      this._id = json._id;
       this.name = json.name;
       this.hp = json.hp;
       this.ac = json.ac;

@@ -21,7 +21,7 @@ export class ProgressEncounterApiService {
         if (res.body && res.body.length) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
         } else {
-          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.data.body);
+          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.body);
         }
       })
       .catch(error => {
@@ -31,7 +31,7 @@ export class ProgressEncounterApiService {
   }
 
   getProgressEncounterById(id): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/getProgressEncounter', {'id': id})
+    return this.http.post(this.backend + '/api/getProgressEncounter', {'_id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -60,7 +60,7 @@ export class ProgressEncounterApiService {
   }
 
   deleteProgressEncounter(id: string): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/deleteProgressEncounter', {'id': id})
+    return this.http.post(this.backend + '/api/deleteProgressEncounter', {'_id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

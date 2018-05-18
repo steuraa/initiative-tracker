@@ -21,7 +21,7 @@ export class EncounterApiService {
         if (res.body && res.body.length) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
         } else {
-          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.data.body);
+          return new PromiseSingleResult<any>(RequestResultType.NoDataFound, res.body);
         }
       })
       .catch(error => {
@@ -31,7 +31,7 @@ export class EncounterApiService {
   }
 
   getEncounterById(id): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/getEncounter', {'id': id})
+    return this.http.post(this.backend + '/api/getEncounter', {'_id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);
@@ -60,7 +60,7 @@ export class EncounterApiService {
   }
 
   deleteEncounter(id: string): Observable<PromiseSingleResult<any>> {
-    return this.http.post(this.backend + '/api/deleteEncounter', {'id': id})
+    return this.http.post(this.backend + '/api/deleteEncounter', {'_id': id})
       .map((res: any) => {
         if (res.body) {
           return new PromiseSingleResult(RequestResultType.Success, res.body);

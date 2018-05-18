@@ -61,7 +61,7 @@ export class ControlPanelComponent implements OnDestroy {
     console.log('selectedEncounter:: ', this.selectedEncounter);
     const progEnc: ProgressEncounter = {
       name: this.selectedEncounter.name,
-      original: this.selectedEncounter.id,
+      original: this.selectedEncounter._id,
       round: 1,
       heroes: this.selectedEncounter.heroes,
       monsters: this.selectedEncounter.monsters

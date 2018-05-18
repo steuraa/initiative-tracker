@@ -1,6 +1,6 @@
 export class EncounterHero {
   type = 'hero';
-  id: string;
+  _id: string;
   original_id: string;
   name: string;
   player: string;
@@ -14,12 +14,13 @@ export class EncounterHero {
   constructor(json) {
     if (json) {
       if (json.original_id) {
-        this.id = json.id;
+        this._id = json._id;
         this.original_id = json.original_id;
       }
       if (!json.original_id) {
-        this.original_id = json.id;
+        this.original_id = json._id;
       }
+      this.player = json.player;
       this.name = json.name;
       this.hp = json.hp;
       this.max_hp = (json.max_hp) ? json.max_hp : json.hp;
@@ -32,7 +33,7 @@ export class EncounterHero {
 }
 
 export class Hero {
-  id?: string;
+  _id?: string;
   type = 'hero';
   name: string;
   avatar?: string;
@@ -46,7 +47,7 @@ export class Hero {
 
   constructor(json) {
     if (json && json._id) {
-      this.id = json._id;
+      this._id = json._id;
       this.name = json.name;
       this.hp = json.hp;
       this.ac = json.ac;

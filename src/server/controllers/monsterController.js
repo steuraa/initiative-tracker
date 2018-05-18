@@ -2,7 +2,7 @@ const Monster = require('../models/monster').Monster;
 
 exports.saveMonster = function (req, res) {
   const mod = new Monster(req.body);
-  if (!req.body.id) {
+  if (!req.body._id) {
     Monster.findOne({'name': req.body.name}, function (err) {
       if (!err) {
         mod.save(function (err, data) {
@@ -19,8 +19,8 @@ exports.saveMonster = function (req, res) {
     })
   }
   else {
-    if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-      Monster.findByIdAndUpdate(req.body.id, {
+    if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+      Monster.findByIdAndUpdate(req.body._id, {
           name: req.body.name,
           avatar: req.body.avatar,
           creature_class: req.body.creature_class,
@@ -45,7 +45,7 @@ exports.saveMonster = function (req, res) {
 };
 
 exports.deleteMonster = function (req, res) {
-  Monster.findByIdAndRemove(req.body.id, function (err) {
+  Monster.findByIdAndRemove(req.body._id, function (err) {
     if (err) {
       res.send(err);
     }
@@ -56,8 +56,8 @@ exports.deleteMonster = function (req, res) {
 };
 
 exports.getMonster = function (req, res) {
-  if (req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-    Monster.findById(req.body.id, function (err, data) {
+  if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
+    Monster.findById(req.body._id, function (err, data) {
       if (err) {
         res.status(400).send(err);
       } else {

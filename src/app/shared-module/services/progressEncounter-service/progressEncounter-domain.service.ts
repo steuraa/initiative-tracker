@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Encounter } from '../../models/encounter';
 import { ProgressEncounter } from '../../models/progressEncounter';
 import { ProgressEncounterApiService } from './progressEncounter-api.service';
 import { StoreService } from '../store-service/store.service';
@@ -13,12 +14,12 @@ export class ProgressEncounterDomainService {
   getAllProgressEncounters(): void {
     this.encounterApiService.getAllProgressEncounters()
       .subscribe(res => {
-        if (res.data && res.data.length && !res.data.status) {
+        if (!res.data.status) {
           const encounters = [];
           res.data.forEach(r => {
             encounters.push(new ProgressEncounter(r));
           });
-          this.storeService.passList(encounters);
+          this.storeService.passProgressList(encounters, 'progressEncounter');
         } else {
           this.storeService.passError(res.data);
         }
@@ -31,15 +32,17 @@ export class ProgressEncounterDomainService {
         if (res.data && res.data.status) {
           this.storeService.passError(res.data);
         } else {
+          this.storeService.passEncounter(new ProgressEncounter(res.data));
           return res;
         }
       });
   }
 
-  saveProgressEncounter(encounter: ProgressEncounter): Observable<any> {
+  saveProgressEncounter(encounter: Encounter | ProgressEncounter): Observable<any> {
     return this.encounterApiService.saveProgressEncounter(encounter)
       .map(res => {
         if (res.data && !res.data.status) {
+          return res.data;
           // this.storeService.passSingleItem(new Encounter(res.data));
         } else {
           this.storeService.passError(res.data);

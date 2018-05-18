@@ -3,6 +3,9 @@
     <div class="form-group">
       <label>Encounter name: <input type="text" class="form-control" formControlName="name"></label>
     </div>
+    <div class="form-group">
+      <label>Encounter in progress: <input type="checkbox" class="form-control" [ngModel]="progress" [ngModelOptions]="{standalone: true}"></label>
+    </div>
     <table id="hero-field" *ngIf="tempEncounter">
       <h3>Heroes:</h3>
       <tr>
@@ -44,6 +47,6 @@
       </ng-container>
     </table>
 
-    <button [disabled]="!encounterForm.valid" (click)="save()" class="btn btn-success">Save</button>
+    <button *ngIf="!progress" [disabled]="!encounterForm.valid" (click)="save()" class="btn btn-success">Save</button>
   </form>
 </div>

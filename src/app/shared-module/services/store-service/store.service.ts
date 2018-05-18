@@ -15,6 +15,8 @@ export class StoreService {
   startEncounterSubject: Observable<any> = this.startEncounterSubjectSource.asObservable();
   private listSubjectSource: Subject<any> = new Subject<any>();
   listSubject: Observable<any> = this.listSubjectSource.asObservable();
+  private progressEncounterListSubjectSource: Subject<any> = new Subject<any>();
+  progressEncounterListSubject: Observable<any> = this.progressEncounterListSubjectSource.asObservable();
   private singleItemSubjectSource: Subject<any> = new Subject<any>();
   singleItemSubject: Observable<any> = this.singleItemSubjectSource.asObservable();
   private selectFeatureSubjectSource: Subject<any> = new Subject<any>();
@@ -35,21 +37,24 @@ export class StoreService {
 
   passEncounter(encounter) {
     if (encounter) {
+      console.log('storeService::passEnconter::encounter:: ', encounter);
       this.encounterSubjectSource.next(encounter);
     }
-  }
-
-  saveEncounter() {
-    this.saveEncounterSubjectSource.next('save');
   }
 
   startEncounter() {
     this.startEncounterSubjectSource.next('start');
   }
 
-  passList(list) {
+  passList(list, type) {
     if (list) {
-      this.listSubjectSource.next(list);
+      this.listSubjectSource.next({values: list, type: type});
+    }
+  }
+
+  passProgressList(progList, type) {
+    if (progList) {
+      this.progressEncounterListSubjectSource.next({values: progList, type: type});
     }
   }
 

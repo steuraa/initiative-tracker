@@ -11,12 +11,13 @@ import { StoreService } from '../../../shared-module/services/store-service/stor
 })
 export class CentralFieldComponent {
   encounter: Encounter;
-  tempEncounter: any;
   encounterForm: FormGroup;
+  progress: boolean;
+  tempEncounter: any;
 
   constructor(private fb: FormBuilder, private encounterService: EncounterDomainService, private storeService: StoreService) {
     this.encounterForm = this.fb.group({
-      id: [''],
+      _id: [''],
       name: ['', Validators.required],
       round: [''],
       heroes: this.fb.array([], Validators.minLength(1)),
@@ -26,6 +27,7 @@ export class CentralFieldComponent {
     this.storeService.encounterSubject.subscribe((enc: Encounter) => {
       this.encounter = enc;
       this.tempEncounter = Object.assign({}, this.encounter);
+      this.progress = !!this.tempEncounter.original;
       this.populateForm();
     });
     this.storeService.saveEncounterSubject.subscribe(() => {
@@ -44,23 +46,62 @@ export class CentralFieldComponent {
   }
 
   addHero(h) {
-    const fg = this.fb.group({
-      'ac': new FormControl({value: h.ac, disabled: true}),
-      'hp': new FormControl({value: h.hp, disabled: true}),
-      'name': new FormControl({value: h.name, disabled: true}),
-      'player': new FormControl(h.player, Validators.required),
-      'init_mod': new FormControl({value: h.init_mod, disabled: true}),
-    });
+    let fg;
+    if (h._id) {
+      fg = this.fb.group({
+        '_id': h._id,
+        'initiative': h.initiative,
+        'max_ac': h.max_ac,
+        'max_hp': h.max_hp,
+        'original_id': h.original_id,
+        'ac': new FormControl({value: h.ac, disabled: true}),
+        'hp': new FormControl({value: h.hp, disabled: true}),
+        'name': new FormControl({value: h.name, disabled: true}),
+        'player': new FormControl(h.player, Validators.required),
+        'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+      });
+    } else {
+      fg = this.fb.group({
+        'initiative': h.initiative,
+        'max_ac': h.max_ac,
+        'max_hp': h.max_hp,
+        'original_id': h.original_id,
+        'ac': new FormControl({value: h.ac, disabled: true}),
+        'hp': new FormControl({value: h.hp, disabled: true}),
+        'name': new FormControl({value: h.name, disabled: true}),
+        'player': new FormControl(h.player, Validators.required),
+        'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+      });
+    }
     this.heroes.push(fg);
   }
 
   addMonster(m) {
-    const fg = this.fb.group({
-      'ac': new FormControl({value: m.ac, disabled: true}),
-      'hp': new FormControl({value: m.hp, disabled: true}),
-      'name': new FormControl({value: m.name, disabled: true}),
-      'init_mod': new FormControl({value: m.init_mod, disabled: true}),
-    });
+    let fg;
+    if (m._id) {
+      fg = this.fb.group({
+        '_id': m._id,
+        'initiative': m.initiative,
+        'max_ac': m.max_ac,
+        'max_hp': m.max_hp,
+        'original_id': m.original_id,
+        'ac': new FormControl({value: m.ac, disabled: true}),
+        'hp': new FormControl({value: m.hp, disabled: true}),
+        'name': new FormControl({value: m.name, disabled: true}),
+        'init_mod': new FormControl({value: m.init_mod, disabled: true})
+      });
+    } else {
+      fg = this.fb.group({
+        'initiative': m.initiative,
+        'max_ac': m.max_ac,
+        'max_hp': m.max_hp,
+        'original_id': m.original_id,
+        'ac': new FormControl({value: m.ac, disabled: true}),
+        'hp': new FormControl({value: m.hp, disabled: true}),
+        'name': new FormControl({value: m.name, disabled: true}),
+        'init_mod': new FormControl({value: m.init_mod, disabled: true})
+      });
+    }
     this.monsters.push(fg);
   }
 
@@ -73,26 +114,69 @@ export class CentralFieldComponent {
   }
 
   populateForm() {
-    this.encounterForm.get('id').setValue(this.tempEncounter.id);
+    this.encounterForm.get('_id').setValue(this.tempEncounter._id);
     this.encounterForm.get('name').setValue(this.tempEncounter.name);
     this.encounterForm.get('round').setValue(this.tempEncounter.round);
-    const heroesFG = this.tempEncounter.heroes.map(h => {
-      return this.fb.group({
-        'ac': new FormControl({value: h.ac, disabled: true}),
-        'hp': new FormControl({value: h.hp, disabled: true}),
-        'name': new FormControl({value: h.name, disabled: true}),
-        'player': new FormControl(h.player, Validators.required),
-        'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+    let heroesFG = [];
+    let monstersFG = [];
+    if (this.tempEncounter.heroes && this.tempEncounter.heroes.length) {
+      heroesFG = this.tempEncounter.heroes.map(h => {
+        if (h._id) {
+          return this.fb.group({
+            '_id': h._id,
+            'initiative': h.initiative,
+            'max_ac': h.max_ac,
+            'max_hp': h.max_hp,
+            'original_id': h.original_id,
+            'ac': new FormControl({value: h.ac, disabled: true}),
+            'hp': new FormControl({value: h.hp, disabled: true}),
+            'name': new FormControl({value: h.name, disabled: true}),
+            'player': new FormControl(h.player, Validators.required),
+            'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+          });
+        } else {
+          return this.fb.group({
+            'initiative': h.initiative,
+            'max_ac': h.max_ac,
+            'max_hp': h.max_hp,
+            'original_id': h.original_id,
+            'ac': new FormControl({value: h.ac, disabled: true}),
+            'hp': new FormControl({value: h.hp, disabled: true}),
+            'name': new FormControl({value: h.name, disabled: true}),
+            'player': new FormControl(h.player, Validators.required),
+            'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+          });
+        }
       });
-    });
-    const monstersFG = this.tempEncounter.monsters.map(m => {
-      return this.fb.group({
-        'ac': new FormControl({value: m.ac, disabled: true}),
-        'hp': new FormControl({value: m.hp, disabled: true}),
-        'name': new FormControl({value: m.name, disabled: true}),
-        'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+    }
+    if (this.tempEncounter.monsters && this.tempEncounter.monsters.length) {
+      monstersFG = this.tempEncounter.monsters.map(m => {
+        if (m._id) {
+          return this.fb.group({
+            '_id': m._id,
+            'initiative': m.initiative,
+            'max_ac': m.max_ac,
+            'max_hp': m.max_hp,
+            'original_id': m.original_id,
+            'ac': new FormControl({value: m.ac, disabled: true}),
+            'hp': new FormControl({value: m.hp, disabled: true}),
+            'name': new FormControl({value: m.name, disabled: true}),
+            'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+          });
+        } else {
+          return this.fb.group({
+            'initiative': m.initiative,
+            'max_ac': m.max_ac,
+            'max_hp': m.max_hp,
+            'original_id': m.original_id,
+            'ac': new FormControl({value: m.ac, disabled: true}),
+            'hp': new FormControl({value: m.hp, disabled: true}),
+            'name': new FormControl({value: m.name, disabled: true}),
+            'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+          });
+        }
       });
-    });
+    }
 
     const heroesArray = this.fb.array((heroesFG));
     const monstersArray = this.fb.array((monstersFG));
@@ -110,6 +194,7 @@ export class CentralFieldComponent {
   }
 
   save() {
+    console.log(this.encounterForm.getRawValue());
     this.encounterService.saveEncounter(this.encounterForm.getRawValue());
   }
 }

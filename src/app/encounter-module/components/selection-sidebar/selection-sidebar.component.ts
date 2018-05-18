@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Encounter } from '../../../shared-module/models/encounter';
 import { Hero } from '../../../shared-module/models/hero';
@@ -49,11 +49,11 @@ export class SelectionSidebarComponent implements OnDestroy {
 
   itemSelected(evt: Monster | Hero) {
     if (evt.type === 'monster') {
-      this.monsterService.getMonsterById(evt.id);
+      this.monsterService.getMonsterById(evt._id);
     } else if (evt.type === 'hero') {
-      this.heroService.getHeroById(evt.id);
+      this.heroService.getHeroById(evt._id);
     } else {
-      this.encounterService.getEncounterById(evt.id);
+      this.encounterService.getEncounterById(evt._id);
     }
   }
 

@@ -28,7 +28,7 @@ export class SelectionSidebarComponent implements OnDestroy {
       if (list) {
         this.itemsToDisplay = list.values;
         this.type = list.type;
-        if (this.type !== 'encounter') {
+        if (this.type !== 'encounters') {
           this.progressType = '';
           this.progressList = undefined;
         }
@@ -44,11 +44,11 @@ export class SelectionSidebarComponent implements OnDestroy {
 
   createNew() {
     switch (this.type) {
-      case 'monster': {
+      case 'monsters': {
         this.storeService.passSingleItem(new Monster({}));
         break;
       }
-      case 'hero': {
+      case 'heroes': {
         this.storeService.passSingleItem(new Hero({}));
         break;
       }
@@ -59,11 +59,11 @@ export class SelectionSidebarComponent implements OnDestroy {
   }
 
   itemSelected(evt: Monster | Hero) {
-    if (evt.type === 'monster') {
+    if (evt.type === 'monsters') {
       this.monsterService.getMonsterById(evt._id);
-    } else if (evt.type === 'hero') {
+    } else if (evt.type === 'heroes') {
       this.heroService.getHeroById(evt._id);
-    } else if (evt.type === 'encounter') {
+    } else if (evt.type === 'encounters') {
       this.encounterService.getEncounterById(evt._id);
     } else {
       this.progressEncounterService.getProgressEncounterById(evt._id).subscribe();

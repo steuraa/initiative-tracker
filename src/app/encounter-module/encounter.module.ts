@@ -6,10 +6,9 @@ import { EncounterResolverService } from '../shared-module/services/encounter-re
 import { CentralFieldComponent } from './components/central-field/central-field.component';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 import { EncounterComponent } from './components/encounter.component';
-import { EncounterItemComponent } from './components/central-field/encounter-item/encounter-item.component';
-import { OverviewSidebarComponent } from './components/overview-sidebar/overview-sidebar.component';
-import { OverviewCharScreenComponent } from './components/overview-sidebar/overview-char-screen/overview-char-screen.component';
-import { SelectionSidebarComponent } from './components/selection-sidebar/selection-sidebar.component';
+import { InitiativeComponent } from './components/central-field/initiative/initiative.component';
+import { PlayerSidebarComponent } from './components/player-sidebar/player-sidebar.component';
+import { TargetSidebarComponent } from './components/target-sidebar/target-sidebar.component';
 
 @NgModule({
   imports: [
@@ -24,19 +23,17 @@ import { SelectionSidebarComponent } from './components/selection-sidebar/select
     CentralFieldComponent,
     ControlPanelComponent,
     EncounterComponent,
-    EncounterItemComponent,
-    OverviewSidebarComponent,
-    OverviewCharScreenComponent,
-    SelectionSidebarComponent
+    InitiativeComponent,
+    PlayerSidebarComponent,
+    TargetSidebarComponent
   ],
   exports: [
     CentralFieldComponent,
     ControlPanelComponent,
     EncounterComponent,
-    EncounterItemComponent,
-    OverviewSidebarComponent,
-    OverviewCharScreenComponent,
-    SelectionSidebarComponent
+    InitiativeComponent,
+    PlayerSidebarComponent,
+    TargetSidebarComponent
   ]
 })
 export class EncounterModule {

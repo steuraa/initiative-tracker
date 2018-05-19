@@ -17,7 +17,7 @@ export class EncounterDomainService {
           res.data.forEach(r => {
             encounters.push(new Encounter(r));
           });
-          this.storeService.passList(encounters, 'encounter');
+          this.storeService.passList(encounters, 'encounters');
         } else {
           this.storeService.passError(res.data);
         }

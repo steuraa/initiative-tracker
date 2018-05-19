@@ -1,6 +1,6 @@
 <div class="overview-sidebar-container">
   <form *ngIf="tempItem" #characterForm="ngForm" id="charForm">
-    <fieldset [disabled]="!editable">
+    <fieldset [disabled]>
       <div class="form-group" >
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="tempItem.name" required>
@@ -8,8 +8,6 @@
       <div *ngIf="tempItem.avatar">
         <img src="{{tempItem.avatar}}">
       </div>
-      <input *ngIf="editable" type="file"  id="fileInput" name="class" (change)="handleFileSelect($event)" required>
-
 
       <div class="form-group">
         <label for="class">Class</label>
@@ -30,8 +28,6 @@
         <input type="number" class="form-control number-control" id="init" name="init" [(ngModel)]="tempItem.init_mod" required>
       </div>
 
-      <button [disabled]="!characterForm.form.valid" (click)="save()" class="btn btn-success" *ngIf="editable">Save</button>
-      <button (click)="cancel()" class="btn btn-warning" *ngIf="editable">Cancel</button>
     </fieldset>
   </form>
   <div *ngIf="!tempItem">placeholder</div>

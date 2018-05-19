@@ -32,54 +32,8 @@ export class ControlPanelComponent implements OnDestroy {
     this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: Encounter) => {
       this.selectedEncounter = res;
     });
-    this.heroService.getAllHeroes();
   }
 
-  selectFeature() {
-    let encounterFeature;
-    if (this.selectedFeature.type === 'monster') {
-      encounterFeature = new EncounterMonster(this.selectedFeature);
-    } else {
-      encounterFeature = new EncounterHero(this.selectedFeature);
-    }
-    this.storeService.selectFeature(encounterFeature);
-  }
-
-  closeFeature(evt) {
-    this.storeService.closeFeature(evt);
-  }
-
-  editFeature(evt) {
-    this.storeService.editFeature(evt);
-  }
-
-  addEncounter() {
-    this.storeService.startEncounter();
-  }
-
-  startEncounter(evt) {
-    console.log('selectedEncounter:: ', this.selectedEncounter);
-    const progEnc: ProgressEncounter = {
-      name: this.selectedEncounter.name,
-      original: this.selectedEncounter._id,
-      round: 1,
-      heroes: this.selectedEncounter.heroes,
-      monsters: this.selectedEncounter.monsters
-    };
-
-    this.progressEncounterService.saveProgressEncounter(progEnc);
-  }
-
-  selectType(evt) {
-    if (evt === 'monster') {
-      this.monsterService.getAllMonsters();
-    } else if (evt === 'hero') {
-      this.heroService.getAllHeroes();
-    } else {
-      this.encounterService.getAllEncounters();
-      this.progressEncounterService.getAllProgressEncounters();
-    }
-  }
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();

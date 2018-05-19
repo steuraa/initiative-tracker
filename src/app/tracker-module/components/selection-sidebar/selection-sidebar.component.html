@@ -1,11 +1,13 @@
 <div id="selection-sidebar-container">
   <div class="list-item-container">
+    <h2>{{type | titlecase}}:</h2>
     <ng-container *ngFor="let item of itemsToDisplay">
       <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
     </ng-container>
     <button (click)="createNew()">Add new</button>
   </div>
   <div class="list-item-container" *ngIf="progressList">
+    <h2>Busy encounters:</h2>
     <ng-container *ngFor="let item of progressList">
       <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
     </ng-container>

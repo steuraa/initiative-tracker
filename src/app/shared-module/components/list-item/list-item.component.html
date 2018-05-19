@@ -1,3 +1,5 @@
-<p (click)="selectItem()">
-  {{item.name}}
-</p>
+<div (click)="selectItem()" class="list-item">
+  <span class="name-block">{{item.name}}</span>
+  <span class="hp-block" *ngIf="item.hp">HP: {{item.hp}}</span>
+  <span class="hp-block" *ngIf="item.ac">AC: {{item.ac}}</span>
+</div>

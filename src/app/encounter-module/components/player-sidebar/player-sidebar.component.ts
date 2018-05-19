@@ -21,10 +21,10 @@ export class PlayerSidebarComponent implements OnDestroy {
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
               private encounterService: EncounterDomainService) {
-    this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe((item: Monster | Hero) => {
-      this.item = item;
-      this.tempItem = Object.assign({}, this.item);
-    });
+    // this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe((item: Monster | Hero) => {
+    //   this.item = item;
+    //   this.tempItem = Object.assign({}, this.item);
+    // });
   }
 
   ngOnDestroy() {

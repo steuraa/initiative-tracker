@@ -1,0 +1,50 @@
+<div class="central-field-container">
+  <div class="form-group">
+    <label>Encounter: {{encounter.name}}</label>
+  </div>
+  <div id="encounter-field" *ngIf="participants">
+    <div id="encounter-header-row">
+      <span class="name-span">Name</span>
+      <span class="hp-span">HP</span>
+      <span class="init-span">Init</span>
+    </div>
+    <div class="encounter-row" *ngFor="let p of participants; let i = index" (click)="selectTarget(p, i)"  [ngClass]="{'active': i === currentIndex, 'selected': i === selected}">
+      <span class="name-span">{{p.name}}</span>
+      <div class="hp-span">
+        <span>{{p.hp}}</span>
+        <input *ngIf="i===selected" type="number">
+      </div>
+      <div class="init-span">
+        <span>{{p.initiative}}</span>
+        <span class="optional-span" *ngIf="p.type === 'hero'">{{p.player}}</span>
+        <div class="optional-span" *ngIf="p.type !== 'hero' && i ===selected">
+          <span><i class="fa fa-times"></i></span>
+          <span><i class="fa fa-diamond"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<table id="hero-field" *ngIf="participants">-->
+    <!--<tr>-->
+      <!--<th class="text-column">Name</th>-->
+      <!--<th class="number-column">HP</th>-->
+      <!--<th class="number-column">AC</th>-->
+      <!--<th class="number-column">Init</th>-->
+      <!--<th class="text-column"> </th>-->
+    <!--</tr>-->
+    <!--<ng-container>-->
+      <!--<tr class="encounter-row" *ngFor="let p of participants; let i = index" (click)="selectTarget(p, i)" [ngClass]="{'active': i === currentIndex}">-->
+        <!--<td class="text-column">{{p.name}}</td>-->
+        <!--<td class="number-column" *ngIf="i===selected"><input type="number"></td>-->
+        <!--<td class="number-column">{{p.hp}}</td>-->
+        <!--<td class="number-column">{{p.ac}}</td>-->
+        <!--<td class="number-column">{{p.initiative}}</td>-->
+        <!--<td class="text-column">{{p.player}}</td>-->
+      <!--</tr>-->
+    <!--</ng-container>-->
+  <!--</table>-->
+  <div class="modal-container" *ngIf="showInitiative">
+    <app-initiative-modal *ngIf="showInitiative" [heroes]="tempHeroes" [monsters]="tempMonsters"
+                          (setOrder)="handleParticipantsOrder($event)"></app-initiative-modal>
+  </div>
+</div>

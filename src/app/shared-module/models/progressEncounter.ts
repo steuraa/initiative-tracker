@@ -17,6 +17,8 @@ export class ProgressEncounter {
       this.original = json.original;
       if (!json.round) {
         this.round = 1;
+      } else {
+        this.round = json.round;
       }
       if (json.heroes && json.heroes.length) {
         this.heroes = [];

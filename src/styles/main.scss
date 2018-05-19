@@ -8,7 +8,10 @@
 //@import 'layout/layout';
 // Components and modules
 @import 'components/base';
+@import 'components/control-bar';
+@import 'components/encounter';
 @import 'components/header';
-@import 'components/overwrites';
+@import 'components/modal';
 @import 'components/shared';
 @import 'components/tracker';
+@import 'components/overwrites';

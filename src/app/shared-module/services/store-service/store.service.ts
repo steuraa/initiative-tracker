@@ -19,12 +19,14 @@ export class StoreService {
   progressEncounterListSubject: Observable<any> = this.progressEncounterListSubjectSource.asObservable();
   private singleItemSubjectSource: Subject<any> = new Subject<any>();
   singleItemSubject: Observable<any> = this.singleItemSubjectSource.asObservable();
-  private selectFeatureSubjectSource: Subject<any> = new Subject<any>();
-  selectFeatureSubject: Observable<any> = this.selectFeatureSubjectSource.asObservable();
   private editFeatureSubjectSource: Subject<any> = new Subject<any>();
   editFeatureSubject: Observable<any> = this.editFeatureSubjectSource.asObservable();
   private closeFeatureSubjectSource: Subject<any> = new Subject<any>();
   closeFeatureSubject: Observable<any> = this.closeFeatureSubjectSource.asObservable();
+  private selectFeatureSubjectSource: Subject<any> = new Subject<any>();
+  selectFeatureSubject: Observable<any> = this.selectFeatureSubjectSource.asObservable();
+  private targetSubjectSource: Subject<any> = new Subject<any>();
+  targetSubject: Observable<any> = this.targetSubjectSource.asObservable();
 
   constructor() {
   }
@@ -37,7 +39,6 @@ export class StoreService {
 
   passEncounter(encounter) {
     if (encounter) {
-      console.log('storeService::passEnconter::encounter:: ', encounter);
       this.encounterSubjectSource.next(encounter);
     }
   }
@@ -64,9 +65,14 @@ export class StoreService {
     }
   }
 
+  passTarget(target) {
+    if (target) {
+      this.targetSubjectSource.next(target);
+    }
+  }
+
   selectFeature(feature) {
     if (feature) {
-      console.log('storeService::selectFeature::feature::', feature);
       this.selectFeatureSubjectSource.next(feature);
     }
   }

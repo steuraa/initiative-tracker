@@ -14,23 +14,31 @@ import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'app-control-panel',
-  templateUrl: './control-panel.component.html',
-  styleUrls: ['./control-panel.component.scss']
+  templateUrl: './encounter-control-panel.component.html',
+  styleUrls: ['./encounter-control-panel.component.scss']
 })
-export class ControlPanelComponent implements OnDestroy {
+export class EncounterControlPanelComponent implements OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  selectedType = 'hero';
+  currentIndex = 0;
   selectedFeature: Hero | Monster;
   selectedEncounter: Encounter;
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
-              private encounterService: EncounterDomainService, private progressEncounterService: ProgressEncounterDomainService,
               private router: Router) {
+    this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: Encounter) => {
+      this.selectedEncounter = res;
+    });
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.selectedFeature = res;
     });
-    this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: Encounter) => {
-      this.selectedEncounter = res;
+    this.storeService.targetSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
+      if (res) {
+        if (res.type === 'hero') {
+          this.heroService.getHeroById(res.original_id);
+        } else {
+          this.monsterService.getMonsterById(res.original_id);
+        }
+      }
     });
   }
 

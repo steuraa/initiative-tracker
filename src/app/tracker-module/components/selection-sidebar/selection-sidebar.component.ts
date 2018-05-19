@@ -59,11 +59,12 @@ export class SelectionSidebarComponent implements OnDestroy {
   }
 
   itemSelected(evt: Monster | Hero) {
-    if (evt.type === 'monsters') {
+    console.log(evt);
+    if (evt.type === 'monster') {
       this.monsterService.getMonsterById(evt._id);
-    } else if (evt.type === 'heroes') {
+    } else if (evt.type === 'hero') {
       this.heroService.getHeroById(evt._id);
-    } else if (evt.type === 'encounters') {
+    } else if (evt.type === 'encounter') {
       this.encounterService.getEncounterById(evt._id);
     } else {
       this.progressEncounterService.getProgressEncounterById(evt._id).subscribe();

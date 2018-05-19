@@ -1,0 +1,57 @@
+.modal-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.hide-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: auto;
+  bottom: auto;
+  background-color: transparent;
+}
+
+.modal-disclaimer-container {
+  max-width: 80%;
+  margin: 0;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+header.modal-disclaimer-header-wrapper {
+  background: $dark-gray;
+  padding: 10px;
+  //color: #fff
+}
+
+.modal-disclaimer-content-container p {
+  padding: 5px 30px 10px 30px
+}
+
+.modal-disclaimer-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px
+}
+
+.bt-modal {
+  border-radius: unset;
+  background-color: $light-gray;
+  border: 1px solid $dark-gray;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 10px 25px;
+  margin-top: 0px;
+}

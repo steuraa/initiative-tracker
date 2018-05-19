@@ -1,0 +1,71 @@
+.central-field-container {
+  .initiative-block {
+    width: 10rem;
+    display: inline-block;
+    padding: 1rem;
+    span {
+      line-height: 1rem;
+    }
+    .initiative-row {
+      height: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $light-gray;
+      .initiative-input {
+        height: 1.5rem;
+        padding: unset;
+        width: 3rem;
+      }
+    }
+    .initiative-row:last-of-type {
+      border-bottom: none;
+    }
+  }
+  #encounter-field {
+    width: 100%;
+
+    #encounter-header-row {
+      width: 100%;
+      height: 2rem;
+      line-height: 1.5rem;
+
+    }
+    .name-span {
+      display: inline-block;
+       width: 30%;
+     }
+    .hp-span {
+      display: inline-block;
+      width: 30%;
+      input {
+        width: 25%;
+        margin-left: 1rem;
+      }
+    }
+    .init-span {
+      display: inline-block;
+      width: 35%;
+    }
+    .optional-span {
+      display: inline-block;
+      float: right;
+    }
+  }
+  .encounter-row {
+    height: 3rem;
+    background: #b89700;
+    border: 0.1rem solid;
+    display: flex;
+    align-items: center;
+  }
+  .active {
+    border-left: solid 0.2rem green;
+    border-right: solid 0.2rem green;
+  }
+
+  .selected {
+    background-color: #9b7b00;
+  }
+}
+

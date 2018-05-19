@@ -19,7 +19,7 @@ export class TargetSidebarComponent implements OnDestroy {
   tempItem: any;
 
 
-  constructor(private heroService: HeroDomainService, private monsterService: MonsterDomainService, private storeService: StoreService) {
+  constructor(private storeService: StoreService) {
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe((item: Monster | Hero) => {
       this.item = item;
       this.tempItem = Object.assign({}, this.item);

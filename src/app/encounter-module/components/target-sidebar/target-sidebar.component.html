@@ -2,30 +2,30 @@
   <form *ngIf="tempItem" #characterForm="ngForm" id="charForm">
     <fieldset [disabled]>
       <div class="form-group" >
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="tempItem.name" required>
+        <label>Name</label>
+        <span>{{tempItem.name}}</span>
       </div>
       <div *ngIf="tempItem.avatar">
         <img src="{{tempItem.avatar}}">
       </div>
 
       <div class="form-group">
-        <label for="class">Class</label>
-        <input type="text" class="form-control" id="class" name="class" [(ngModel)]="tempItem.creature_class" required>
+        <label>Class</label>
+        <span>{{tempItem.creature_class}}</span>
       </div>
 
       <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description" required></textarea>
+        <label>Description</label>
+        <span>{{tempItem.description}}</span>
       </div>
 
       <div class="form-group">
-        <label for="hp">HP</label>
-        <input type="number" class="form-control number-control" id="hp" name="hp" [(ngModel)]="tempItem.hp" required>
-        <label for="ac">AC</label>
-        <input type="number" class="form-control number-control" id="ac" name="ac" [(ngModel)]="tempItem.ac" required>
-        <label for="init">Init</label>
-        <input type="number" class="form-control number-control" id="init" name="init" [(ngModel)]="tempItem.init_mod" required>
+        <label>HP</label>
+        <span>{{tempItem.hp}}</span>
+        <label>AC</label>
+        <span>{{tempItem.ac}}</span>
+        <label>Init</label>
+        <span>{{tempItem.init_mod}}</span>
       </div>
 
     </fieldset>

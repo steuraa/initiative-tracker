@@ -1,0 +1,22 @@
+<div class="flex-container">
+  <div class="modal-disclaimer-container">
+    <div class="modal-disclaimer-content-container">
+      <header class="modal-disclaimer-header-wrapper">
+        <label>Initiave rolls:</label>
+      </header>
+      <div class="initiative-block">
+        <h3>Heroes:</h3>
+        <div *ngFor="let h of heroes" class="initiative-row"><span>{{h.name}}: </span><input type="number" class="initiative-input" [(ngModel)]="h.initiative"></div>
+      </div>
+      <div  class="initiative-block">
+        <h3>Monsters:</h3>
+        <div *ngFor="let m of monsters" class="initiative-row"><span>{{m.name}}: </span><span>{{m.initiative}}</span></div>
+      </div>
+
+    </div>
+
+    <div class="modal-disclaimer-button-wrapper">
+      <button (click)="close()" class="bt-modal">OK</button>
+    </div>
+  </div>
+</div>

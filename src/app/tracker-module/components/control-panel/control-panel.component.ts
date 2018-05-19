@@ -30,7 +30,6 @@ export class ControlPanelComponent implements OnDestroy {
     });
     this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: Encounter) => {
       this.selectedEncounter = res;
-      console.log('selectedEncounter::', this.selectedEncounter);
     });
     this.heroService.getAllHeroes();
   }

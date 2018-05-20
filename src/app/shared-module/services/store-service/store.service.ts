@@ -11,8 +11,8 @@ export class StoreService {
   encounterSubject: Observable<any> = this.encounterSubjectSource.asObservable();
   private saveEncounterSubjectSource: Subject<any> = new Subject<any>();
   saveEncounterSubject: Observable<any> = this.saveEncounterSubjectSource.asObservable();
-  private healthSubjectSource: Subject<number> = new Subject<any>();
-  healthSubject: Observable<any> = this.healthSubjectSource.asObservable();
+  private playerValuesSubjectSource: Subject<number> = new Subject<any>();
+  playerValuesSubject: Observable<any> = this.playerValuesSubjectSource.asObservable();
   private indexSubjectSource: Subject<number> = new Subject<any>();
   indexSubject: Observable<any> = this.indexSubjectSource.asObservable();
   private listSubjectSource: Subject<any> = new Subject<any>();
@@ -49,9 +49,9 @@ export class StoreService {
     }
   }
 
-  passHealth(values: any) {
+  passPlayerValues(values: any) {
     if (values) {
-      this.healthSubjectSource.next(values);
+      this.playerValuesSubjectSource.next(values);
     }
   }
 

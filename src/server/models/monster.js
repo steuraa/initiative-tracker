@@ -20,7 +20,8 @@ const EncounterMonsterSchema = new Schema({
   ac: {type: Number, required: true},
   max_ac: {type: Number, required: true},
   init_mod: {type: Number, required: true},
-  initiative: {type: Number, required: true}
+  initiative: {type: Number, required: true},
+  disabled: {type: Boolean, required: true}
 });
 
 module.exports.EncounterMonster = EncounterMonsterSchema;

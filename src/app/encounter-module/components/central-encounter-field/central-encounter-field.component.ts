@@ -43,8 +43,17 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
   changeHp(hp: string, index: number) {
     this.selected = undefined;
     if (hp) {
-      this.storeService.passHealth({
+      this.storeService.passPlayerValues({
         hp: hp,
+        index: index
+      });
+    }
+  }
+
+  disablePlayer(player, index: number) {
+    if (player) {
+      this.storeService.passPlayerValues({
+        disabled: !player.disabled,
         index: index
       });
     }

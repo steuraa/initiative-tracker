@@ -9,6 +9,7 @@ export class EncounterMonster {
   max_ac: number;
   init_mod: number;
   initiative: number;
+  disabled = false;
 
   constructor(json: any) {
     if (json) {
@@ -26,6 +27,9 @@ export class EncounterMonster {
       this.max_ac = (json.max_ac) ? json.max_ac : json.ac;
       this.init_mod = json.init_mod;
       this.initiative = (json.initiative) ? json.initiative : 0;
+      if (json.disabled) {
+        this.disabled = json.disabled;
+      }
     }
   }
 }

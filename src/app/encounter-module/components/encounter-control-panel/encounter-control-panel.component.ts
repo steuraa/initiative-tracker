@@ -24,8 +24,8 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   participants = Array<(EncounterHero | EncounterMonster)>();
   selectedFeature: (EncounterHero | EncounterMonster);
   showInitiative = false;
-  tempHeroes = Array<EncounterHero>();
-  tempMonsters = Array<EncounterMonster>();
+  tempHeroes: Array<EncounterHero> = [];
+  tempMonsters: Array<EncounterMonster> = [];
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
               private route: ActivatedRoute, private encounterService: ProgressEncounterDomainService) {
@@ -36,8 +36,12 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: ProgressEncounter) => {
       this.encounter = res;
     });
-    this.storeService.healthSubject.takeUntil(this.ngUnsubscribe).subscribe((res: any) => {
-      this.changeHp(res.hp, res.index);
+    this.storeService.playerValuesSubject.takeUntil(this.ngUnsubscribe).subscribe((res: any) => {
+      if (res && res.hp) {
+        this.changeHp(res.hp, res.index);
+      } else {
+        this.handleDisable(res.disabled, res.index);
+      }
     });
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.selectedFeature = res;
@@ -69,21 +73,24 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
       const cHp = cP.hp + parseInt(hp, 10);
       cP.hp = (cHp > mHp) ? mHp : (cHp < 0) ? 0 : cHp;
       this.participants[index].hp = cP.hp;
-      this.storeService.passParticipants(this.participants);
-      this.handleHpChange(cP);
+      this.handlePlayerChange(cP);
     }
   }
 
-  handleHpChange(cP: (EncounterHero | EncounterMonster)): void {
+  handleDisable(disabled, i) {
+    (this.participants[i] as EncounterMonster).disabled = disabled;
+    this.handlePlayerChange(this.participants[i]);
+  }
+
+  handlePlayerChange(cP: (EncounterHero | EncounterMonster)): void {
+    this.storeService.passParticipants(this.participants);
     const cA = (cP.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
-    const i = cA.findIndex((p: (EncounterHero | EncounterMonster)) => {
-      return p._id === cP._id;
-    });
-    cA[i].hp = cP.hp;
+    const i = (cA as  Array<any>).findIndex(p => p._id === cP._id);
+    cA[i] = cP;
     this.encounterService.saveProgressEncounter(this.encounter);
   }
 
-  getFeature(res: (EncounterHero|EncounterMonster), player?: boolean): void {
+  getFeature(res: (EncounterHero | EncounterMonster), player?: boolean): void {
     if (res.type === 'hero') {
       this.heroService.getHeroById(res.original_id, player);
     } else {

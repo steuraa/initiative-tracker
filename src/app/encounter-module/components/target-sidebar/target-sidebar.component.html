@@ -1,7 +1,6 @@
 <div class="overview-sidebar-container">
-  <form *ngIf="tempItem" #characterForm="ngForm" id="charForm">
-    <fieldset [disabled]>
-      <div class="form-group" >
+  <div *ngIf="tempItem" class="charForm">
+      <div class="form-group text-group" >
         <label>Name</label>
         <span>{{tempItem.name}}</span>
       </div>
@@ -9,12 +8,12 @@
         <img src="{{tempItem.avatar}}">
       </div>
 
-      <div class="form-group">
+      <div class="form-group text-group">
         <label>Class</label>
         <span>{{tempItem.creature_class}}</span>
       </div>
 
-      <div class="form-group">
+      <div class="form-group text-group">
         <label>Description</label>
         <span>{{tempItem.description}}</span>
       </div>
@@ -27,8 +26,6 @@
         <label>Init</label>
         <span>{{tempItem.init_mod}}</span>
       </div>
-
-    </fieldset>
-  </form>
+  </div>
   <div *ngIf="!tempItem">placeholder</div>
 </div>

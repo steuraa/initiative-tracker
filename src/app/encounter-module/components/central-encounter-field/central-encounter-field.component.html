@@ -12,7 +12,7 @@
       <span class="name-span">{{p.name}}</span>
       <div class="hp-span">
         <span>{{p.hp}}</span>
-        <input *ngIf="i===selected" type="number">
+        <input #hpInput *ngIf="i===selected" type="number" (blur)="changeHp(hpInput.value, i)">
       </div>
       <div class="init-span">
         <span>{{p.initiative}}</span>

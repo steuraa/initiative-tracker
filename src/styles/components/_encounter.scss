@@ -53,11 +53,12 @@
     }
   }
   .encounter-row {
-    height: 3rem;
+    align-items: center;
     background: #b89700;
     border: 0.1rem solid;
     display: flex;
-    align-items: center;
+    height: 3rem;
+    margin: 0.6rem;
   }
   .active {
     border-left: solid 0.2rem green;
@@ -66,6 +67,16 @@
 
   .selected {
     background-color: #9b7b00;
+  }
+}
+
+.overview-sidebar-container {
+  .charForm {
+    .text-group {
+      > span {
+        display: block;
+      }
+    }
   }
 }
 

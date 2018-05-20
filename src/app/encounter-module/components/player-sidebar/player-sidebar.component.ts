@@ -19,12 +19,12 @@ export class PlayerSidebarComponent implements OnDestroy {
   item: (Monster | Hero);
   tempItem: any;
 
-  constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
-              private encounterService: EncounterDomainService) {
-    // this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe((item: Monster | Hero) => {
-    //   this.item = item;
-    //   this.tempItem = Object.assign({}, this.item);
-    // });
+  constructor(private storeService: StoreService) {
+    this.storeService.playerSubject.takeUntil(this.ngUnsubscribe).subscribe((item: Monster | Hero) => {
+      console.log('player:: ', item);
+      this.item = item;
+      this.tempItem = Object.assign({}, this.item);
+    });
   }
 
   ngOnDestroy() {

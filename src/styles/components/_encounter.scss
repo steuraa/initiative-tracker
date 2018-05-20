@@ -1,27 +1,4 @@
 .central-field-container {
-  .initiative-block {
-    width: 10rem;
-    display: inline-block;
-    padding: 1rem;
-    span {
-      line-height: 1rem;
-    }
-    .initiative-row {
-      height: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid $light-gray;
-      .initiative-input {
-        height: 1.5rem;
-        padding: unset;
-        width: 3rem;
-      }
-    }
-    .initiative-row:last-of-type {
-      border-bottom: none;
-    }
-  }
   #encounter-field {
     width: 100%;
 

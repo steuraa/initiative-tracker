@@ -25,11 +25,11 @@ export class MonsterDomainService {
       });
   }
 
-  getMonsterById(id: string): void {
+  getMonsterById(id: string, player?: boolean): void {
     this.monsterApiService.getMonsterById(id)
       .subscribe(res => {
         if (res.data && !res.data.status) {
-          this.storeService.passSingleItem(new Monster(res.data));
+          !player ? this.storeService.passSingleItem(new Monster(res.data)) : this.storeService.passPlayer(new Monster(res.data));
         } else {
           this.storeService.passError(res.data);
         }

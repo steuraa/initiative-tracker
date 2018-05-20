@@ -11,10 +11,16 @@ export class StoreService {
   encounterSubject: Observable<any> = this.encounterSubjectSource.asObservable();
   private saveEncounterSubjectSource: Subject<any> = new Subject<any>();
   saveEncounterSubject: Observable<any> = this.saveEncounterSubjectSource.asObservable();
-  private startEncounterSubjectSource: Subject<any> = new Subject<any>();
-  startEncounterSubject: Observable<any> = this.startEncounterSubjectSource.asObservable();
+  private healthSubjectSource: Subject<number> = new Subject<any>();
+  healthSubject: Observable<any> = this.healthSubjectSource.asObservable();
+  private indexSubjectSource: Subject<number> = new Subject<any>();
+  indexSubject: Observable<any> = this.indexSubjectSource.asObservable();
   private listSubjectSource: Subject<any> = new Subject<any>();
   listSubject: Observable<any> = this.listSubjectSource.asObservable();
+  private participantsSubjectSource: Subject<any> = new Subject<any>();
+  participantsSubject: Observable<any> = this.participantsSubjectSource.asObservable();
+  private playerSubjectSource: Subject<any> = new Subject<any>();
+  playerSubject: Observable<any> = this.playerSubjectSource.asObservable();
   private progressEncounterListSubjectSource: Subject<any> = new Subject<any>();
   progressEncounterListSubject: Observable<any> = this.progressEncounterListSubjectSource.asObservable();
   private singleItemSubjectSource: Subject<any> = new Subject<any>();
@@ -43,19 +49,45 @@ export class StoreService {
     }
   }
 
-  startEncounter() {
-    this.startEncounterSubjectSource.next('start');
+  passHealth(values: any) {
+    if (values) {
+      this.healthSubjectSource.next(values);
+    }
+  }
+
+  passIndex(index: number) {
+    if (index !== undefined) {
+      this.indexSubjectSource.next(index);
+    }
   }
 
   passList(list, type) {
     if (list) {
-      this.listSubjectSource.next({values: list, type: type});
+      this.listSubjectSource.next({
+        values: list,
+        type: type
+      });
+    }
+  }
+
+  passParticipants(participants: Array<any>) {
+    if (participants) {
+      this.participantsSubjectSource.next(participants);
+    }
+  }
+
+  passPlayer(player: any) {
+    if (player) {
+      this.playerSubjectSource.next(player);
     }
   }
 
   passProgressList(progList, type) {
     if (progList) {
-      this.progressEncounterListSubjectSource.next({values: progList, type: type});
+      this.progressEncounterListSubjectSource.next({
+        values: progList,
+        type: type
+      });
     }
   }
 

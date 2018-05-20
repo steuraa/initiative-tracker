@@ -76,7 +76,6 @@ export class ControlPanelComponent implements OnDestroy {
   }
 
   addEncounter() {
-    this.storeService.startEncounter();
   }
 
   selectType(evt) {

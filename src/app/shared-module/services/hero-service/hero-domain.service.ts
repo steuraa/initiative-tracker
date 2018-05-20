@@ -25,11 +25,11 @@ export class HeroDomainService {
       });
   }
 
-  getHeroById(id: string): void {
+  getHeroById(id: string, player?: boolean): void {
     this.heroApiService.getHeroById(id)
       .subscribe(res => {
         if (res.data && !res.data.status) {
-          this.storeService.passSingleItem(new Hero(res.data));
+          !player ? this.storeService.passSingleItem(new Hero(res.data)) : this.storeService.passPlayer(new Hero(res.data));
           return new Hero(res.data);
         } else {
           this.storeService.passError(res.data);

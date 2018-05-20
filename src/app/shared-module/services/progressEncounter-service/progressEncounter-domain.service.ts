@@ -38,12 +38,12 @@ export class ProgressEncounterDomainService {
       });
   }
 
-  saveProgressEncounter(encounter: Encounter | ProgressEncounter): Observable<any> {
-    return this.encounterApiService.saveProgressEncounter(encounter)
-      .map(res => {
+  saveProgressEncounter(encounter: Encounter | ProgressEncounter): void {
+    this.encounterApiService.saveProgressEncounter(encounter)
+      .subscribe(res => {
         if (res.data && !res.data.status) {
-          return res.data;
-          // this.storeService.passSingleItem(new Encounter(res.data));
+          this.storeService.passEncounter(new Encounter(res.data));
+          // return res.data;
         } else {
           this.storeService.passError(res.data);
         }

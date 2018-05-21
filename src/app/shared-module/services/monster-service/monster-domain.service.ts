@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Monster } from '../../models/monster';
 import { MonsterApiService } from './monster-api.service';
-import { StoreService } from '../store-service/store.service';
+import { StoreService } from '../stores/store.service';
 
 @Injectable()
 export class MonsterDomainService {

@@ -16,10 +16,10 @@
       </div>
       <div class="init-span">
         <span>{{p.initiative}}</span>
-        <span class="optional-span" *ngIf="p.type === 'hero'">{{p.player}}</span>
-        <div class="optional-span" *ngIf="p.type !== 'hero' && i ===selected">
+        <span class="player-span" *ngIf="p.type === 'hero'">{{p.player}}</span>
+        <div class="optional-span" *ngIf="p.type !== 'hero' && i === selected && i !== currentIndex">
           <span><i class="fa fa-eye-slash" (click)="disablePlayer(p, i)"></i></span>
-          <span><i class="fa fa-times"></i></span>
+          <span><i class="fa fa-times" (click)="deletePlayer(i)"></i></span>
         </div>
       </div>
     </div>

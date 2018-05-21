@@ -1,6 +1,9 @@
 <div id="selection-sidebar-container">
   <div class="list-item-container">
-    <h2>{{type | titlecase}}:</h2>
+    <div class="list-item-header">
+      <h2>{{type | titlecase}}:</h2> <span (click)="toggleInput()"><i class="fa fa-search"></i></span>
+    </div>
+    <input type="text" [value]="filter" [formControl]="filterControl" *ngIf="input">
     <ng-container *ngFor="let item of itemsToDisplay">
       <app-list-item [item]="item" (itemSelected)="itemSelected(item)"></app-list-item>
     </ng-container>

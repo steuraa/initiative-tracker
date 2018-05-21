@@ -5,7 +5,7 @@ import { EncounterHero } from '../../../shared-module/models/hero';
 import { EncounterMonster } from '../../../shared-module/models/monster';
 import { ProgressEncounter } from '../../../shared-module/models/progressEncounter';
 import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
+import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
 @Component({
@@ -19,17 +19,12 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
   encounter: ProgressEncounter;
   participants = Array<(EncounterHero | EncounterMonster)>();
   selected: number;
-  showInitiative = false;
-  tempHeroes = Array<EncounterHero>();
-  tempMonsters = Array<EncounterMonster>();
-
 
   constructor(private encounterService: EncounterDomainService, private storeService: StoreService, private route: ActivatedRoute) {
     this.route.data.takeUntil(this.ngUnsubscribe).subscribe((data: { encounter: any }) => {
       this.encounter = new ProgressEncounter(data.encounter.data);
     });
     this.storeService.indexSubject.takeUntil(this.ngUnsubscribe).subscribe((i: number) => {
-      console.log(i);
       this.currentIndex = i;
     });
     this.storeService.participantsSubject.takeUntil(this.ngUnsubscribe).subscribe((p: Array<any>) => {
@@ -45,6 +40,15 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
     if (hp) {
       this.storeService.passPlayerValues({
         hp: hp,
+        index: index
+      });
+    }
+  }
+
+  deletePlayer(index: number) {
+    if (index !== undefined) {
+      this.storeService.passPlayerValues({
+        toDelete: true,
         index: index
       });
     }

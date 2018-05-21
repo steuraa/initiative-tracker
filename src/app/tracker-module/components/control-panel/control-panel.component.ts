@@ -8,7 +8,7 @@ import { EncounterDomainService } from '../../../shared-module/services/encounte
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
 import { ProgressEncounterDomainService } from '../../../shared-module/services/progressEncounter-service/progressEncounter-domain.service';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
+import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
 @Component({
@@ -41,7 +41,7 @@ export class ControlPanelComponent implements OnDestroy {
     } else {
       encounterFeature = new EncounterHero(this.selectedFeature);
     }
-    this.storeService.selectFeature(encounterFeature);
+    this.storeService.addFeatureToEncounter(encounterFeature);
   }
 
   closeFeature(evt) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Hero } from '../../models/hero';
 import { HeroApiService } from './hero-api.service';
-import { StoreService } from '../store-service/store.service';
+import { StoreService } from '../stores/store.service';
 
 @Injectable()
 export class HeroDomainService {

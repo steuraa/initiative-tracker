@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Encounter } from '../../models/encounter';
 import { ProgressEncounter } from '../../models/progressEncounter';
 import { ProgressEncounterApiService } from './progressEncounter-api.service';
-import { StoreService } from '../store-service/store.service';
+import { StoreService } from '../stores/store.service';
 
 @Injectable()
 export class ProgressEncounterDomainService {
@@ -38,12 +38,12 @@ export class ProgressEncounterDomainService {
       });
   }
 
-  saveProgressEncounter(encounter: Encounter | ProgressEncounter): void {
-    this.encounterApiService.saveProgressEncounter(encounter)
-      .subscribe(res => {
+  saveProgressEncounter(encounter: Encounter | ProgressEncounter): Observable<any> {
+    return this.encounterApiService.saveProgressEncounter(encounter)
+      .map(res => {
         if (res.data && !res.data.status) {
           this.storeService.passEncounter(new Encounter(res.data));
-          // return res.data;
+          return res.data;
         } else {
           this.storeService.passError(res.data);
         }

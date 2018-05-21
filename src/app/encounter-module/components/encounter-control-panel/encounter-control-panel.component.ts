@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { EncounterHero } from '../../../shared-module/models/hero';
 import { EncounterMonster } from '../../../shared-module/models/monster';
 import { ProgressEncounter } from '../../../shared-module/models/progressEncounter';
-import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
 import { ProgressEncounterDomainService } from '../../../shared-module/services/progressEncounter-service/progressEncounter-domain.service';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
+import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
 @Component({
@@ -22,29 +21,27 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   encounter: ProgressEncounter;
   maxIndex: number;
   participants = Array<(EncounterHero | EncounterMonster)>();
-  selectedFeature: (EncounterHero | EncounterMonster);
+  selectedFeature: any;
   showInitiative = false;
+  showDelete = false;
+  showModal = false;
   tempHeroes: Array<EncounterHero> = [];
   tempMonsters: Array<EncounterMonster> = [];
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
-              private route: ActivatedRoute, private encounterService: ProgressEncounterDomainService) {
+              private route: ActivatedRoute, private encounterService: ProgressEncounterDomainService, private router: Router) {
     this.route.data.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.encounter = new ProgressEncounter(res.encounter.data);
       this.maxIndex = [...this.encounter.heroes, ...this.encounter.monsters].length - 1;
     });
-    this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: ProgressEncounter) => {
-      this.encounter = res;
-    });
     this.storeService.playerValuesSubject.takeUntil(this.ngUnsubscribe).subscribe((res: any) => {
       if (res && res.hp) {
         this.changeHp(res.hp, res.index);
-      } else {
+      } else if (res && res.hasOwnProperty('disabled')) {
         this.handleDisable(res.disabled, res.index);
+      } else {
+        this.handleDelete(res.index);
       }
-    });
-    this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
-      this.selectedFeature = res;
     });
     this.storeService.targetSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
       if (res) {
@@ -77,6 +74,42 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     }
   }
 
+  deletePlayer(doDelete: boolean) {
+    this.showModal = false;
+    this.showDelete = false;
+    if (doDelete) {
+      this.participants.splice(this.selectedFeature.tempIndex, 1);
+      this.maxIndex = this.participants.length - 1;
+      let cA = (this.selectedFeature.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
+      const i = (cA as  Array<any>).findIndex(p => p._id === this.selectedFeature._id);
+      cA = cA.splice(i, 1);
+      this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe(res => {
+        this.encounter = res;
+      });
+    }
+  }
+
+  endEncounter() {
+    this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe();
+    this.router.navigate(['']);
+  }
+
+  findCurrentIndex() {
+    if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
+      this.currentIndex += 1;
+      this.findCurrentIndex();
+    } else {
+      this.passIndex(this.currentIndex);
+    }
+  }
+
+  handleDelete(i) {
+    this.selectedFeature = this.participants[i];
+    this.selectedFeature.tempIndex = i;
+    this.showModal = true;
+    this.showDelete = true;
+  }
+
   handleDisable(disabled, i) {
     (this.participants[i] as EncounterMonster).disabled = disabled;
     this.handlePlayerChange(this.participants[i]);
@@ -87,7 +120,9 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     const cA = (cP.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
     const i = (cA as  Array<any>).findIndex(p => p._id === cP._id);
     cA[i] = cP;
-    this.encounterService.saveProgressEncounter(this.encounter);
+    this.encounterService.saveProgressEncounter(this.encounter).subscribe(res => {
+      this.encounter = res;
+    });
   }
 
   getFeature(res: (EncounterHero | EncounterMonster), player?: boolean): void {
@@ -101,6 +136,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   handleParticipantsOrder(heroes: any, monsters?: Array<EncounterMonster>): void {
     if (!monsters) {
       this.showInitiative = false;
+      this.showModal = false;
       this.tempMonsters = heroes.monsters;
       this.tempHeroes = heroes.heroes;
     } else {
@@ -125,8 +161,9 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
         return 0;
       }
     });
+    this.findCurrentIndex();
     this.storeService.passParticipants(this.participants);
-    this.getFeature(this.participants[0], true);
+    this.getFeature(this.participants[this.currentIndex], true);
     this.encounter.heroes = this.tempHeroes;
     this.encounter.monsters = this.tempMonsters;
     this.encounterService.saveProgressEncounter(this.encounter);
@@ -134,9 +171,13 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
 
   nextPlayer(): void {
     this.currentIndex = (this.currentIndex !== this.maxIndex) ? (this.currentIndex + 1) : 0;
-    this.passIndex(this.currentIndex);
-    const cP = this.participants[this.currentIndex];
-    this.getFeature(cP, true);
+    if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
+      this.nextPlayer();
+    } else {
+      this.passIndex(this.currentIndex);
+      const cP = this.participants[this.currentIndex];
+      this.getFeature(cP, true);
+    }
   }
 
   rollForInitiative(): void {
@@ -154,14 +195,19 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
       tM.initiative = init;
       this.tempMonsters.push(tM);
     });
+    this.showModal = true;
     this.showInitiative = true;
   }
 
   prevPlayer(): void {
     this.currentIndex = (this.currentIndex !== 0) ? (this.currentIndex - 1) : this.maxIndex;
-    this.passIndex(this.currentIndex);
-    const cP = this.participants[this.currentIndex];
-    this.getFeature(cP, true);
+    if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
+      this.prevPlayer();
+    } else {
+      this.passIndex(this.currentIndex);
+      const cP = this.participants[this.currentIndex];
+      this.getFeature(cP, true);
+    }
   }
 
   passIndex(i) {

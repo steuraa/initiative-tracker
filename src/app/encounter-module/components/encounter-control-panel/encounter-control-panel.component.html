@@ -1,18 +1,20 @@
 <div id="encounter-control-panel-container">
   <div class="btn-group encounter-buttons">
-    <button value="endRound" class="btn btn-success button option-button"><label
-      tabindex="0"><i class="fa fa-check"></i></label></button>
+    <!--<button value="endRound" class="btn btn-success button option-button"><label-->
+      <!--tabindex="0"><i class="fa fa-check"></i></label></button>-->
     <button value="prevPlayer" class="btn btn-success button option-button" (click)="prevPlayer($event)"><label
       tabindex="0"><i class="fa fa-caret-left"></i></label></button>
     <button value="nextPlayer" class="btn btn-success button option-button" (click)="nextPlayer($event)"><label
       tabindex="0"><i class="fa fa-caret-right"></i></label></button>
-    <button value="saveEnc" class="btn btn-success button option-button"><label
+    <button value="saveEnc" class="btn btn-success button option-button" (click)="endEncounter($event)"><label
       tabindex="0"><i class="fa fa-save"></i></label></button>
-    <button value="endEnc" class="btn btn-success button option-button"><label
-      tabindex="0"><i class="fa fa-times"></i></label></button>
   </div>
-  <div class="modal-container" *ngIf="showInitiative">
+  <div class="modal-container" *ngIf="showModal">
     <app-initiative-modal *ngIf="showInitiative" [heroes]="tempHeroes" [monsters]="tempMonsters"
                           (setOrder)="handleParticipantsOrder($event)"></app-initiative-modal>
+    <app-delete-modal *ngIf="showDelete" [player]="selectedFeature" [last]="encounter.monsters.length === 1"
+                          (deletePlayer)="deletePlayer($event)"></app-delete-modal>
   </div>
 </div>
+
+

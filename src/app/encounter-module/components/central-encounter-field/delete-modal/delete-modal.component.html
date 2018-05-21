@@ -1,0 +1,24 @@
+<div class="flex-container">
+  <div class="modal-disclaimer-container">
+    <div class="modal-disclaimer-content-container">
+      <header class="modal-disclaimer-header-wrapper">
+        <label>Delete player:</label>
+      </header>
+      <ng-container *ngIf="!last">
+        <p>
+          Are you sure you want to delete {{player.name}} from this encounter?
+        </p>
+      </ng-container>
+      <ng-container *ngIf="last">
+        <p>
+          Can't delete {{player.name}} because it is the last monster in the encounter
+        </p>
+      </ng-container>
+
+    </div>
+    <div class="modal-disclaimer-button-wrapper">
+      <button  *ngIf="!last" (click)="close(true)" class="bt-modal">OK</button>
+      <button (click)="close(false)" class="bt-modal">Cancel</button>
+    </div>
+  </div>
+</div>

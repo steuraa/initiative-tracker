@@ -5,7 +5,7 @@ import { Hero } from '../../../shared-module/models/hero';
 import { Monster } from '../../../shared-module/models/monster';
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
+import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
 @Component({
@@ -26,7 +26,7 @@ export class OverviewSidebarComponent implements OnDestroy {
       this.tempItem = Object.assign({}, this.item);
       this.editable = !this.item.name;
     });
-    this.storeService.selectFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(() => {
+    this.storeService.addFeatureToEncounterSubject.takeUntil(this.ngUnsubscribe).subscribe(() => {
       // this.editable = true;
     });
     this.storeService.editFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(() => {

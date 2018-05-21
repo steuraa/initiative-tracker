@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Encounter } from '../../../shared-module/models/encounter';
 import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
+import { StoreService } from '../../../shared-module/services/stores/store.service';
 
 @Component({
   selector: 'app-central-field',
@@ -34,7 +34,7 @@ export class CentralFieldComponent {
       this.tempEncounter = new Encounter();
       this.populateForm();
     });
-    this.storeService.selectFeatureSubject.subscribe(feature => {
+    this.storeService.addFeatureToEncounterSubject.subscribe(feature => {
       if (feature && feature.type) {
         if (feature.type === 'hero') {
           this.addHero(feature);

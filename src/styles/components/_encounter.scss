@@ -24,7 +24,12 @@
       display: inline-block;
       width: 35%;
     }
-    .optional-span {
+
+    .player-span {
+      //margin-bottom: 1rem;
+      //margin-right: -1rem;
+    }
+    .optional-span, .player-span {
       display: inline-block;
       float: right;
     }

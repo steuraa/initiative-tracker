@@ -1,11 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Encounter } from '../../../shared-module/models/encounter';
 import { Hero } from '../../../shared-module/models/hero';
 import { Monster } from '../../../shared-module/models/monster';
-import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
-import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
-import { StoreService } from '../../../shared-module/services/store-service/store.service';
+import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
 @Component({

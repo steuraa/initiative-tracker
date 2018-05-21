@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Encounter } from '../../models/encounter';
 import { EncounterApiService } from './encounter-api.service';
-import { StoreService } from '../store-service/store.service';
+import { StoreService } from '../stores/store.service';
 
 @Injectable()
 export class EncounterDomainService {

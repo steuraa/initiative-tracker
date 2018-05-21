@@ -61,16 +61,17 @@ export class OverviewSidebarComponent implements OnDestroy {
   }
 
   save() {
-    switch (this.tempItem.type) {
-      case 'hero': {
-        this.heroService.saveHero(this.tempItem);
-        break;
-      }
-      case 'monster': {
-        this.monsterService.saveMonster(this.tempItem);
-        break;
-      }
-    }
+    this.storeService.passFeatureToSave(this.tempItem);
+    // switch (this.tempItem.type) {
+    //   case 'hero': {
+    //     this.heroService.saveHero(this.tempItem);
+    //     break;
+    //   }
+    //   case 'monster': {
+    //     this.monsterService.saveMonster(this.tempItem);
+    //     break;
+    //   }
+    // }
   }
 
   ngOnDestroy() {

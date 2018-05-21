@@ -42,6 +42,9 @@ export class StoreService {
   /* passes an select command from the tracker controller to the overview side panel*/
   private addFeatureToEncounterSubjectSource: Subject<any> = new Subject<any>();
   addFeatureToEncounterSubject: Observable<any> = this.addFeatureToEncounterSubjectSource.asObservable();
+  /* passes the to save feature from the overview side panel to the controller*/
+  private saveFeatureSubjectSource: Subject<any> = new Subject<any>();
+  saveFeatureSubject: Observable<any> = this.saveFeatureSubjectSource.asObservable();
   /* passes an selected feature from the select sidepanel to the controller*/
   private selectedFeatureSubjectSource: Subject<any> = new Subject<any>();
   selectedFeatureSubject: Observable<any> = this.selectedFeatureSubjectSource.asObservable();
@@ -55,6 +58,12 @@ export class StoreService {
   passError(error) {
     if (error) {
       this.errorSubjectSource.next(error);
+    }
+  }
+
+  passFeatureToSave(feat) {
+    if (feat) {
+      this.saveFeatureSubjectSource.next(feat);
     }
   }
 

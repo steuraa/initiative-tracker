@@ -1,5 +1,5 @@
 <div id="control-panel-container">
-  <div class="btn-group feature-buttons" (ngModelChange)="selectType($event)" id="button-group" btnRadioGroup
+  <div class="btn-group feature-buttons" (ngModelChange)="getList($event)" id="button-group" btnRadioGroup
        [ngModel]="selectedType">
     <div><label class="btn btn-success option-button" btnRadio="hero" tabindex="0"><img class="btn-image"
                                                                                         src="../../../../assets/images/hero-24.png"></label>
@@ -12,9 +12,9 @@
     </div>
   </div>
   <div class="btn-group encounter-buttons">
-    <button value="saveEnc" class="btn btn-success button option-button" (click)="addEncounter()"><label
-      tabindex="0"><img
-      class="btn-image" src="../../../../assets/images/plus-24.png"></label></button>
+    <!--<button value="saveEnc" class="btn btn-success button option-button" (click)="addEncounter()"><label-->
+      <!--tabindex="0"><img-->
+      <!--class="btn-image" src="../../../../assets/images/plus-24.png"></label></button>-->
     <button value="startEnc" class="btn btn-success button option-button" (click)="startEncounter()"><label
       tabindex="0"><img
       class="btn-image" src="../../../../assets/images/play-24.png"></label></button>

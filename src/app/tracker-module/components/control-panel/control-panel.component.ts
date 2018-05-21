@@ -27,12 +27,18 @@ export class ControlPanelComponent implements OnDestroy {
               private router: Router) {
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.selectedFeature = res;
+      if (this.selectedType = this.selectedFeature.type) {
+        this.getList(this.selectedType);
+      }
     });
     this.storeService.selectedFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(feat => {
       this.getFeature(feat);
     });
     this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: Encounter) => {
       this.selectedEncounter = res;
+    });
+    this.storeService.saveFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe((feat: (Hero | Monster)) => {
+      this.saveFeature(feat);
     });
     this.heroService.getAllHeroes();
   }
@@ -78,7 +84,7 @@ export class ControlPanelComponent implements OnDestroy {
     }
   }
 
-  getFeature(feat) {
+  getFeature(feat: (Hero | Monster)) {
     if (feat._id) {
       if (feat.type === 'monster') {
         this.monsterService.getMonsterById(feat._id);
@@ -100,7 +106,11 @@ export class ControlPanelComponent implements OnDestroy {
     }
   }
 
-  selectType(evt) {
+  saveFeature(feat: (Hero | Monster)) {
+    (feat.type === 'hero') ? this.heroService.saveHero(feat) : this.monsterService.saveMonster(feat);
+  }
+
+  getList(evt) {
     if (evt === 'monster') {
       this.monsterService.getAllMonsters();
     } else if (evt === 'hero') {
@@ -109,6 +119,7 @@ export class ControlPanelComponent implements OnDestroy {
       this.encounterService.getAllEncounters();
       this.progressEncounterService.getAllProgressEncounters();
     }
+    this.selectedType = evt;
   }
 
   ngOnDestroy() {

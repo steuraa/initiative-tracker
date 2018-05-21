@@ -42,6 +42,9 @@ export class StoreService {
   /* passes an select command from the tracker controller to the overview side panel*/
   private addFeatureToEncounterSubjectSource: Subject<any> = new Subject<any>();
   addFeatureToEncounterSubject: Observable<any> = this.addFeatureToEncounterSubjectSource.asObservable();
+  /* passes an selected feature from the select sidepanel to the controller*/
+  private selectedFeatureSubjectSource: Subject<any> = new Subject<any>();
+  selectedFeatureSubject: Observable<any> = this.selectedFeatureSubjectSource.asObservable();
   /* passes a new target to the target sidebar*/
   private targetSubjectSource: Subject<any> = new Subject<any>();
   targetSubject: Observable<any> = this.targetSubjectSource.asObservable();
@@ -100,6 +103,12 @@ export class StoreService {
         values: progList,
         type: type
       });
+    }
+  }
+
+  passSelectedFeature(feature) {
+    if (feature) {
+      this.selectedFeatureSubjectSource.next(feature);
     }
   }
 

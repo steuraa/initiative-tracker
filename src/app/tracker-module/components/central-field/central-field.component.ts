@@ -182,7 +182,6 @@ export class CentralFieldComponent {
     const monstersArray = this.fb.array((monstersFG));
     this.encounterForm.setControl('heroes', heroesArray);
     this.encounterForm.setControl('monsters', monstersArray);
-    console.log('monsterArray::', monstersArray);
   }
 
   removeHero(index: number) {

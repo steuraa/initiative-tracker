@@ -28,6 +28,9 @@ export class ControlPanelComponent implements OnDestroy {
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.selectedFeature = res;
     });
+    this.storeService.selectedFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(feat => {
+      this.getFeature(feat);
+    });
     this.storeService.encounterSubject.takeUntil(this.ngUnsubscribe).subscribe((res: Encounter) => {
       this.selectedEncounter = res;
     });
@@ -75,7 +78,26 @@ export class ControlPanelComponent implements OnDestroy {
     }
   }
 
-  addEncounter() {
+  getFeature(feat) {
+    if (feat._id) {
+      if (feat.type === 'monster') {
+        this.monsterService.getMonsterById(feat._id);
+      } else if (feat.type === 'hero') {
+        this.heroService.getHeroById(feat._id);
+      } else if (feat.type === 'encounter') {
+        this.encounterService.getEncounterById(feat._id);
+      } else {
+        this.progressEncounterService.getProgressEncounterById(feat._id).subscribe();
+      }
+    } else {
+      if (feat.type === 'monsters') {
+        this.storeService.passSingleItem(new Monster({}));
+      } else if (feat.type === 'heroes') {
+        this.storeService.passSingleItem(new Hero({}));
+      } else {
+        this.storeService.passEncounter(new Encounter({}));
+      }
+    }
   }
 
   selectType(evt) {

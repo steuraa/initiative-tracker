@@ -8,18 +8,24 @@
       <span class="hp-span">HP</span>
       <span class="init-span">Init</span>
     </div>
-    <div class="encounter-row" *ngFor="let p of participants; let i = index" (click)="selectTarget($event, p, i)"  [ngClass]="{'active': i === currentIndex, 'selected': i === selected}">
-      <span class="name-span">{{p.name}}</span>
-      <div class="hp-span">
-        <span>{{p.hp}}</span>
-        <input #hpInput *ngIf="i===selected" type="number" (blur)="changeHp(hpInput.value, i)">
-      </div>
-      <div class="init-span">
-        <span>{{p.initiative}}</span>
-        <span class="player-span" *ngIf="p.type === 'hero'">{{p.player}}</span>
-        <div class="optional-span" *ngIf="p.type !== 'hero' && i === selected && i !== currentIndex">
-          <span><i class="fa fa-eye-slash" (click)="disablePlayer(p, i)"></i></span>
-          <span><i class="fa fa-times" (click)="deletePlayer(i)"></i></span>
+    <div class="encounter-row-container" *ngFor="let p of participants; let i = index"
+         [ngClass]="{'border-bad': (p.hp < (p.max_hp/2))}">
+      <!--<meter class="progress-bar" [min]="0" [low]="(p.max_hp/10)" [optimum]="(p.max_hp/2)" [high]="((p.max_hp/100)*75)" [value]="p.hp" [max]="p.max_hp"></meter>-->
+      <progress class="progress-bar" [value]="p.hp" [max]="p.max_hp"></progress>
+      <div class="encounter-row" (click)="selectTarget($event, p, i)"
+           [ngClass]="{'active': i === currentIndex, 'selected': i === selected}">
+        <span class="name-span">{{p.name}}</span>
+        <div class="hp-span">
+          <span>{{p.hp}}</span>
+          <input #hpInput *ngIf="i===selected" type="number" (blur)="changeHp(hpInput.value, i)">
+        </div>
+        <div class="init-span">
+          <span>{{p.initiative}}</span>
+          <span class="player-span" *ngIf="p.type === 'hero'">{{p.player}}</span>
+          <div class="optional-span" *ngIf="p.type !== 'hero' && i === selected && i !== currentIndex">
+            <span><i class="fa fa-eye-slash" (click)="disablePlayer(p, i)"></i></span>
+            <span><i class="fa fa-times" (click)="deletePlayer(i)"></i></span>
+          </div>
         </div>
       </div>
     </div>

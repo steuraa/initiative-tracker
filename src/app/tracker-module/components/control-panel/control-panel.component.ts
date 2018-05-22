@@ -27,7 +27,7 @@ export class ControlPanelComponent implements OnDestroy {
               private router: Router) {
     this.storeService.singleItemSubject.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.selectedFeature = res;
-      if (this.selectedType = this.selectedFeature.type) {
+      if (this.selectedType === this.selectedFeature.type) {
         this.getList(this.selectedType);
       }
     });
@@ -54,6 +54,7 @@ export class ControlPanelComponent implements OnDestroy {
   }
 
   closeFeature(evt) {
+    this.selectedFeature = undefined;
     this.storeService.closeFeature(evt);
   }
 
@@ -62,7 +63,7 @@ export class ControlPanelComponent implements OnDestroy {
   }
 
   startEncounter() {
-    if (!this.selectedEncounter.original) {
+    if (this.selectedEncounter && !this.selectedEncounter.original) {
       if (this.selectedEncounter.name && this.selectedEncounter.heroes.length && this.selectedEncounter.monsters.length) {
         const progEnc = {
           name: this.selectedEncounter.name,

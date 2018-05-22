@@ -1,10 +1,14 @@
 #app-header {
   margin: 0.3rem;
+  display: flex;
+  align-items: center;
+  background-image: url("/assets/images/header_image.jpg");
   background-color: $light-brown;
   border-radius: 0.38rem;
   box-shadow: inset 0px 0px 10px 5px $black;
-  height: 7%;
+  height: 8%;
   #left-header-img {
-    height: 100%;
+    margin-left: 1rem;
+    height: 80%;
   }
 }

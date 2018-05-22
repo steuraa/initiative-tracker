@@ -27,7 +27,6 @@ export class OverviewSidebarComponent implements OnDestroy {
       this.editable = !this.item.name;
     });
     this.storeService.addFeatureToEncounterSubject.takeUntil(this.ngUnsubscribe).subscribe(() => {
-      // this.editable = true;
     });
     this.storeService.editFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(() => {
       this.editable = true;
@@ -62,16 +61,6 @@ export class OverviewSidebarComponent implements OnDestroy {
 
   save() {
     this.storeService.passFeatureToSave(this.tempItem);
-    // switch (this.tempItem.type) {
-    //   case 'hero': {
-    //     this.heroService.saveHero(this.tempItem);
-    //     break;
-    //   }
-    //   case 'monster': {
-    //     this.monsterService.saveMonster(this.tempItem);
-    //     break;
-    //   }
-    // }
   }
 
   ngOnDestroy() {

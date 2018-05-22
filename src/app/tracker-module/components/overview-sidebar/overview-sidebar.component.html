@@ -1,15 +1,17 @@
 <div>
   <form *ngIf="tempItem" #characterForm="ngForm" class="charForm">
     <fieldset [disabled]="!editable">
-      <div class="form-group" >
+      <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="tempItem.name" required>
       </div>
       <div *ngIf="tempItem.avatar">
         <img src="{{tempItem.avatar}}">
       </div>
-      <input *ngIf="editable" type="file"  id="fileInput" name="class" (change)="handleFileSelect($event)" required>
-
+      <label class="file-input-container">
+        Select avatar
+        <input *ngIf="editable" type="file" name="class" (change)="handleFileSelect($event)" required>
+      </label>
 
       <div class="form-group">
         <label for="class">Class</label>
@@ -18,7 +20,8 @@
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description" required></textarea>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description"
+                  required></textarea>
       </div>
 
       <div class="form-group">
@@ -27,10 +30,12 @@
         <label for="ac">AC</label>
         <input type="number" class="form-control number-control" id="ac" name="ac" [(ngModel)]="tempItem.ac" required>
         <label for="init">Init</label>
-        <input type="number" class="form-control number-control" id="init" name="init" [(ngModel)]="tempItem.init_mod" required>
+        <input type="number" class="form-control number-control" id="init" name="init" [(ngModel)]="tempItem.init_mod"
+               required>
       </div>
 
-      <button [disabled]="!characterForm.form.valid" (click)="save()" class="btn btn-success" *ngIf="editable">Save</button>
+      <button [disabled]="!characterForm.form.valid" (click)="save()" class="btn btn-success" *ngIf="editable">Save
+      </button>
       <button (click)="cancel()" class="btn btn-warning" *ngIf="editable">Cancel</button>
     </fieldset>
   </form>

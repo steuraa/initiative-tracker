@@ -33,7 +33,7 @@ export class ProgressEncounterDomainService {
           this.storeService.passError(res.data);
         } else {
           this.storeService.passEncounter(new ProgressEncounter(res.data));
-          return res;
+          return res.data;
         }
       });
   }

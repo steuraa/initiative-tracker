@@ -31,7 +31,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
               private route: ActivatedRoute, private encounterService: ProgressEncounterDomainService, private router: Router) {
     this.route.data.takeUntil(this.ngUnsubscribe).subscribe(res => {
-      this.encounter = new ProgressEncounter(res.encounter.data);
+      this.encounter = new ProgressEncounter(res.encounter);
       this.maxIndex = [...this.encounter.heroes, ...this.encounter.monsters].length - 1;
     });
     this.storeService.playerValuesSubject.takeUntil(this.ngUnsubscribe).subscribe((res: any) => {

@@ -30,10 +30,6 @@ export class CentralFieldComponent {
       this.progress = !!this.tempEncounter.original;
       this.populateForm();
     });
-    this.storeService.saveEncounterSubject.subscribe(() => {
-      this.tempEncounter = new Encounter();
-      this.populateForm();
-    });
     this.storeService.addFeatureToEncounterSubject.subscribe(feature => {
       if (feature && feature.type) {
         if (feature.type === 'hero') {
@@ -194,6 +190,7 @@ export class CentralFieldComponent {
 
   save() {
     console.log(this.encounterForm.getRawValue());
-    this.encounterService.saveEncounter(this.encounterForm.getRawValue());
+    this.storeService.saveEncounter(this.encounterForm.getRawValue());
+    // this.encounterService.saveEncounter(this.encounterForm.getRawValue());
   }
 }

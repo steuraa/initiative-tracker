@@ -150,4 +150,10 @@ export class StoreService {
       this.closeFeatureSubjectSource.next(feature);
     }
   }
+
+  saveEncounter(encounter) {
+    if (encounter) {
+      this.saveEncounterSubjectSource.next(encounter);
+    }
+  }
 }

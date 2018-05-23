@@ -1,0 +1,16 @@
+<div class="flex-container">
+  <div class="modal-disclaimer-container">
+    <div class="modal-disclaimer-content-container">
+      <header class="modal-disclaimer-header-wrapper">
+        <label>Encounter already in progress:</label>
+      </header>
+        <p>
+          This encounter is already in progress. Do you want to continue or restart it?
+        </p>
+    </div>
+    <div class="modal-disclaimer-button-wrapper">
+      <button (click)="restart(true)" class="bt-modal">Restart</button>
+      <button (click)="restart(false)" class="bt-modal">Continue</button>
+    </div>
+  </div>
+</div>

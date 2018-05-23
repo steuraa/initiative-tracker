@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { EncounterRoutingModule } from './encounter-routing.module';
 import { EncounterResolverService } from '../shared-module/services/encounter-resolver/encounter-resolver.service';
 import { CentralEncounterFieldComponent } from './components/central-encounter-field/central-encounter-field.component';
-import { DeleteModalComponent } from './components/central-encounter-field/delete-modal/delete-modal.component';
+import { DeleteModalComponent } from './components/encounter-control-panel/modals/delete-modal/delete-modal.component';
 import { EncounterControlPanelComponent } from './components/encounter-control-panel/encounter-control-panel.component';
 import { EncounterComponent } from './components/encounter.component';
-import { InitiativeModalComponent } from './components/central-encounter-field/initiative-modal/initiative-modal.component';
+import { InitiativeModalComponent } from './components/encounter-control-panel/modals/initiative-modal/initiative-modal.component';
 import { PlayerSidebarComponent } from './components/player-sidebar/player-sidebar.component';
 import { TargetSidebarComponent } from './components/target-sidebar/target-sidebar.component';
 

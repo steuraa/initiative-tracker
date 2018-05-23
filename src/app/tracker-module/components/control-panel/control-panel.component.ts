@@ -21,6 +21,8 @@ export class ControlPanelComponent implements OnDestroy {
   selectedType = 'hero';
   selectedFeature: Hero | Monster;
   selectedEncounter: any;
+  showModal = false;
+  showRestart = false;
 
   constructor(private storeService: StoreService, private monsterService: MonsterDomainService, private heroService: HeroDomainService,
               private encounterService: EncounterDomainService, private progressEncounterService: ProgressEncounterDomainService,
@@ -39,6 +41,9 @@ export class ControlPanelComponent implements OnDestroy {
     });
     this.storeService.saveFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe((feat: (Hero | Monster)) => {
       this.saveFeature(feat);
+    });
+    this.storeService.saveEncounterSubject.subscribe((res) => {
+      this.saveEncounter(res);
     });
     this.heroService.getAllHeroes();
   }
@@ -62,6 +67,28 @@ export class ControlPanelComponent implements OnDestroy {
     this.storeService.editFeature(evt);
   }
 
+  handleProgressEncounter(restart) {
+    if (!restart) {
+      this.showModal = false;
+      this.showRestart = false;
+      this.router.navigate(['/encounters/' + this.selectedEncounter._id]);
+    } else {
+      this.encounterService.getEncounterById(this.selectedEncounter.original).subscribe((res: Encounter) => {
+        const progEnc = {
+          name: res.name + '-take2',
+          original: res._id,
+          round: 1,
+          heroes: res.heroes.map(h => new EncounterHero(h)),
+          monsters: res.monsters.map(m => new EncounterMonster(m))
+        };
+        this.progressEncounterService.saveProgressEncounter(progEnc).subscribe(enc => {
+            this.router.navigate(['/encounters/' + enc._id]);
+          }
+        );
+      });
+    }
+  }
+
   startEncounter() {
     if (this.selectedEncounter && !this.selectedEncounter.original) {
       if (this.selectedEncounter.name && this.selectedEncounter.heroes.length && this.selectedEncounter.monsters.length) {
@@ -72,7 +99,6 @@ export class ControlPanelComponent implements OnDestroy {
           heroes: this.selectedEncounter.heroes.map(h => new EncounterHero(h)),
           monsters: this.selectedEncounter.monsters.map(m => new EncounterMonster(m))
         };
-        console.log(progEnc);
         this.progressEncounterService.saveProgressEncounter(progEnc).subscribe(res => {
             this.router.navigate(['/encounters/' + res._id]);
           }
@@ -81,7 +107,8 @@ export class ControlPanelComponent implements OnDestroy {
         console.log('ERROR! SAVE ENCOUNTER!');
       }
     } else {
-      this.router.navigate(['/encounters/' + this.selectedEncounter._id]);
+      this.showModal = true;
+      this.showRestart = true;
     }
   }
 
@@ -92,7 +119,7 @@ export class ControlPanelComponent implements OnDestroy {
       } else if (feat.type === 'hero') {
         this.heroService.getHeroById(feat._id);
       } else if (feat.type === 'encounter') {
-        this.encounterService.getEncounterById(feat._id);
+        this.encounterService.getEncounterById(feat._id).subscribe();
       } else {
         this.progressEncounterService.getProgressEncounterById(feat._id).subscribe();
       }
@@ -105,6 +132,10 @@ export class ControlPanelComponent implements OnDestroy {
         this.storeService.passEncounter(new Encounter({}));
       }
     }
+  }
+
+  saveEncounter(encounter) {
+    this.encounterService.saveEncounter(encounter);
   }
 
   saveFeature(feat: (Hero | Monster)) {

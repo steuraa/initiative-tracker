@@ -28,5 +28,9 @@
       class="btn-image" src="../../../../assets/images/close-24.png"></label></button>
   </div>
   <div class="placeholder-block" *ngIf="!selectedFeature"></div>
+  <div class="modal-container" *ngIf="showModal">
+    <app-restart-encounter-modal *ngIf="showRestart"
+                      (restartEncounter)="handleProgressEncounter($event)"></app-restart-encounter-modal>
+  </div>
 
 </div>

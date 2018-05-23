@@ -13,6 +13,7 @@
     .name-span {
       display: inline-block;
       width: 30%;
+      padding-left: 1rem;
     }
     .hp-span {
       display: inline-block;
@@ -33,7 +34,9 @@
     }
     .optional-span, .player-span {
       display: inline-block;
-      float: right;
+    }
+    .optional-span {
+      float: right
     }
   }
   .encounter-row-container {

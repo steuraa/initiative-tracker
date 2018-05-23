@@ -13,7 +13,7 @@
     <app-initiative-modal *ngIf="showInitiative" [heroes]="tempHeroes" [monsters]="tempMonsters"
                           (setOrder)="handleParticipantsOrder($event)"></app-initiative-modal>
     <app-delete-modal *ngIf="showDelete" [player]="selectedFeature" [last]="encounter.monsters.length === 1"
-                      (restartEncounter)="deletePlayer($event)"></app-delete-modal>
+                      (deletePlayer)="deletePlayer($event)"></app-delete-modal>
   </div>
 </div>
 

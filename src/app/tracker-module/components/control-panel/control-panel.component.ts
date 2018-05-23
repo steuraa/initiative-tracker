@@ -73,9 +73,17 @@ export class ControlPanelComponent implements OnDestroy {
       this.showRestart = false;
       this.router.navigate(['/encounters/' + this.selectedEncounter._id]);
     } else {
+      let realName = this.selectedEncounter.name;
+      if (isNaN(parseInt(realName.substr(-1), 10))) {
+        realName = realName + 2;
+      } else {
+        const i = parseInt(realName.substr(-1), 10) + 1;
+        realName = realName.slice(0, -1);
+        realName = realName + i;
+      }
       this.encounterService.getEncounterById(this.selectedEncounter.original).subscribe((res: Encounter) => {
         const progEnc = {
-          name: res.name + '-take2',
+          name: realName,
           original: res._id,
           round: 1,
           heroes: res.heroes.map(h => new EncounterHero(h)),
@@ -93,7 +101,7 @@ export class ControlPanelComponent implements OnDestroy {
     if (this.selectedEncounter && !this.selectedEncounter.original) {
       if (this.selectedEncounter.name && this.selectedEncounter.heroes.length && this.selectedEncounter.monsters.length) {
         const progEnc = {
-          name: this.selectedEncounter.name,
+          name: this.selectedEncounter.name + ' - progress',
           original: this.selectedEncounter._id,
           round: 1,
           heroes: this.selectedEncounter.heroes.map(h => new EncounterHero(h)),

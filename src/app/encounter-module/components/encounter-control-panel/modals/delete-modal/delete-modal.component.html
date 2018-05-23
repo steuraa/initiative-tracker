@@ -17,8 +17,8 @@
 
     </div>
     <div class="modal-disclaimer-button-wrapper">
-      <button  *ngIf="!last" (click)="close(true)" class="bt-modal">OK</button>
-      <button (click)="close(false)" class="bt-modal">Cancel</button>
+      <button  *ngIf="!last" (click)="close('yes')" class="bt-modal">OK</button>
+      <button (click)="close('no')" class="bt-modal">Cancel</button>
     </div>
   </div>
 </div>

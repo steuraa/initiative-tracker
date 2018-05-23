@@ -74,10 +74,10 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     }
   }
 
-  deletePlayer(doDelete: boolean) {
+  deletePlayer(doDelete: string) {
     this.showModal = false;
     this.showDelete = false;
-    if (doDelete) {
+    if (doDelete === 'yes') {
       this.participants.splice(this.selectedFeature.tempIndex, 1);
       this.maxIndex = this.participants.length - 1;
       let cA = (this.selectedFeature.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;

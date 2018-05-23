@@ -16,7 +16,7 @@ export class DeleteModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  close(doDelete: boolean) {
+  close(doDelete: string) {
     this.deletePlayer.emit(doDelete);
   }
 

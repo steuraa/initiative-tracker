@@ -22,7 +22,7 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
 
   constructor(private encounterService: EncounterDomainService, private storeService: StoreService, private route: ActivatedRoute) {
     this.route.data.takeUntil(this.ngUnsubscribe).subscribe((data: { encounter: any }) => {
-      this.encounter = new ProgressEncounter(data.encounter.data);
+      this.encounter = new ProgressEncounter(data.encounter);
     });
     this.storeService.indexSubject.takeUntil(this.ngUnsubscribe).subscribe((i: number) => {
       this.currentIndex = i;
@@ -69,6 +69,9 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
     }
     this.storeService.passTarget(target);
     this.selected = index;
+    setTimeout(() => {
+      this.selected = undefined;
+    }, 10000);
   }
 
   ngOnDestroy() {

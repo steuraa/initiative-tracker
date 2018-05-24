@@ -12,7 +12,7 @@
          [ngClass]="{'border-bad': (p.hp < (p.max_hp/2))}">
       <progress class="progress-bar" [value]="p.hp" [max]="p.max_hp"></progress>
       <div class="encounter-row" (click)="selectTarget($event, p, i)"
-           [ngClass]="{'active': i === currentIndex, 'selected': i === selected}">
+           [ngClass]="{'active': i === currentIndex, 'selected': i === selected, 'disabled': p.disabled}">
         <span class="name-span">{{p.name}}</span>
         <div class="hp-span">
           <span>{{p.hp}}</span>

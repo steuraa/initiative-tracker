@@ -7,6 +7,7 @@ import { ProgressEncounter } from '../../../shared-module/models/progressEncount
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
 import { ProgressEncounterDomainService } from '../../../shared-module/services/progressEncounter-service/progressEncounter-domain.service';
+import { RequestError } from '../../../shared-module/services/requestResult/requestError';
 import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
@@ -19,11 +20,15 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   currentIndex = 0;
   encounter: ProgressEncounter;
+  errorMessage: string;
+  losers: string;
   maxIndex: number;
   participants = Array<(EncounterHero | EncounterMonster)>();
   selectedFeature: any;
   showInitiative = false;
   showDelete = false;
+  showError = false;
+  showFinished = false;
   showModal = false;
   tempHeroes: Array<EncounterHero> = [];
   tempMonsters: Array<EncounterMonster> = [];
@@ -33,6 +38,9 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.route.data.takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.encounter = new ProgressEncounter(res.encounter);
       this.maxIndex = [...this.encounter.heroes, ...this.encounter.monsters].length - 1;
+    });
+    this.storeService.errorSubject.takeUntil(this.ngUnsubscribe).subscribe((error: RequestError) => {
+      this.handleError(error.errors[0].message);
     });
     this.storeService.playerValuesSubject.takeUntil(this.ngUnsubscribe).subscribe((res: any) => {
       if (res && res.hp) {
@@ -74,15 +82,21 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     }
   }
 
+  closeError() {
+    this.errorMessage = undefined;
+    this.showModal = false;
+    this.showError = false;
+  }
+
   deletePlayer(doDelete: string) {
     this.showModal = false;
     this.showDelete = false;
     if (doDelete === 'yes') {
       this.participants.splice(this.selectedFeature.tempIndex, 1);
       this.maxIndex = this.participants.length - 1;
-      let cA = (this.selectedFeature.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
+      const cA = (this.selectedFeature.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
       const i = (cA as  Array<any>).findIndex(p => p._id === this.selectedFeature._id);
-      cA = cA.splice(i, 1);
+      cA.splice(i, 1);
       this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe(res => {
         this.encounter = res;
       });
@@ -92,6 +106,12 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   endEncounter() {
     this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe();
     this.router.navigate(['']);
+  }
+
+  handleError(error) {
+    this.errorMessage = error;
+    this.showModal = true;
+    this.showError = true;
   }
 
   findCurrentIndex() {
@@ -115,6 +135,15 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.handlePlayerChange(this.participants[i]);
   }
 
+  handleFinish(finish: boolean) {
+    if (finish) {
+      this.router.navigate(['/']);
+    } else {
+      this.showModal = false;
+      this.showFinished = false;
+    }
+  }
+
   handlePlayerChange(cP: (EncounterHero | EncounterMonster)): void {
     this.storeService.passParticipants(this.participants);
     const cA = (cP.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
@@ -123,6 +152,12 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.encounterService.saveProgressEncounter(this.encounter).subscribe(res => {
       this.encounter = res;
     });
+    if ((cA as  Array<any>).findIndex((p: EncounterHero) => p.hp > 0) === -1) {
+      this.showModal = true;
+      this.showFinished = true;
+      this.losers = cP.type;
+    }
+    this.nextPlayer();
   }
 
   getFeature(res: (EncounterHero | EncounterMonster), player?: boolean): void {

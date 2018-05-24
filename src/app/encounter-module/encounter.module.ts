@@ -7,6 +7,8 @@ import { CentralEncounterFieldComponent } from './components/central-encounter-f
 import { DeleteModalComponent } from './components/encounter-control-panel/modals/delete-modal/delete-modal.component';
 import { EncounterControlPanelComponent } from './components/encounter-control-panel/encounter-control-panel.component';
 import { EncounterComponent } from './components/encounter.component';
+// tslint:disable-next-line
+import { EncounterFinishedModalComponent} from './components/encounter-control-panel/modals/encounter-finished-modal/encounter-finished-modal.component';
 import { InitiativeModalComponent } from './components/encounter-control-panel/modals/initiative-modal/initiative-modal.component';
 import { PlayerSidebarComponent } from './components/player-sidebar/player-sidebar.component';
 import { TargetSidebarComponent } from './components/target-sidebar/target-sidebar.component';
@@ -25,6 +27,7 @@ import { TargetSidebarComponent } from './components/target-sidebar/target-sideb
     DeleteModalComponent,
     EncounterControlPanelComponent,
     EncounterComponent,
+    EncounterFinishedModalComponent,
     InitiativeModalComponent,
     PlayerSidebarComponent,
     TargetSidebarComponent
@@ -34,6 +37,7 @@ import { TargetSidebarComponent } from './components/target-sidebar/target-sideb
     DeleteModalComponent,
     EncounterControlPanelComponent,
     EncounterComponent,
+    EncounterFinishedModalComponent,
     InitiativeModalComponent,
     PlayerSidebarComponent,
     TargetSidebarComponent

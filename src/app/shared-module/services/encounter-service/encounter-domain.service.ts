@@ -13,7 +13,7 @@ export class EncounterDomainService {
   getAllEncounters(): void {
     this.encounterApiService.getAllEncounters()
       .subscribe(res => {
-        if (!res.data.status) {
+        if (res.data && !res.data.status) {
           const encounters = [];
           res.data.forEach(r => {
             encounters.push(new Encounter(r));

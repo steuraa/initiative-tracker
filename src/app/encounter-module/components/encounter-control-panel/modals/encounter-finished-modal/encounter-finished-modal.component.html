@@ -1,0 +1,25 @@
+<div class="flex-container">
+  <div class="modal-disclaimer-container">
+    <div class="modal-disclaimer-content-container">
+      <header class="modal-disclaimer-header-wrapper">
+        <label>Encounter finished!</label>
+      </header>
+      <ng-container *ngIf="losers==='hero'">
+        <p>
+          All heroes have died! Do you want to finish the encounter or continue gazing at the massacre?
+        </p>
+      </ng-container>
+      <ng-container *ngIf="losers==='monster'">
+        <p>
+          All monsters are dead! To the victor go the spoils! Do you want to finish the encounter or continue
+          gloating over the corpses of the enemy?
+        </p>
+      </ng-container>
+
+    </div>
+    <div class="modal-disclaimer-button-wrapper">
+      <button *ngIf="!last" (click)="finishEncounter(true)" class="bt-modal">Finish</button>
+      <button (click)="finishEncounter(false)" class="bt-modal">Continue</button>
+    </div>
+  </div>
+</div>

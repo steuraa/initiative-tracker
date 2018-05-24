@@ -19,7 +19,7 @@ import 'rxjs/add/operator/takeUntil';
 })
 export class ControlPanelComponent implements OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  erroMessage: string;
+  errorMessage: string;
   selectedType = 'hero';
   selectedFeature: Hero | Monster;
   selectedEncounter: any;
@@ -65,6 +65,7 @@ export class ControlPanelComponent implements OnDestroy {
   }
 
   closeError() {
+    this.errorMessage = undefined;
     this.showModal = false;
     this.showError = false;
   }
@@ -79,7 +80,7 @@ export class ControlPanelComponent implements OnDestroy {
   }
 
   handleError(error) {
-    this.erroMessage = error;
+    this.errorMessage = error;
     this.showModal = true;
     this.showError = true;
   }

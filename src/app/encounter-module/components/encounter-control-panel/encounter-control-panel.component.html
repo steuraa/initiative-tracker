@@ -14,6 +14,8 @@
                           (setOrder)="handleParticipantsOrder($event)"></app-initiative-modal>
     <app-delete-modal *ngIf="showDelete" [player]="selectedFeature" [last]="encounter.monsters.length === 1"
                       (deletePlayer)="deletePlayer($event)"></app-delete-modal>
+    <app-encounter-finished-modal *ngIf="showFinished" [losers]="losers" (finishEmit)="handleFinish($event)"></app-encounter-finished-modal>
+    <app-error-modal *ngIf="showError" [errorMessage]="errorMessage" (closeError)="closeError()"></app-error-modal>
   </div>
 </div>
 

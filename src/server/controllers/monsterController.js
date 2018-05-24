@@ -14,9 +14,9 @@ exports.saveMonster = function (req, res) {
           }
         });
       } else {
-        res.status(404).json('Duplicate monster');
+        res.status(400).json('A monster with this name already exist');
       }
-    })
+    });
   }
   else {
     if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -39,7 +39,7 @@ exports.saveMonster = function (req, res) {
           }
         });
     } else {
-      res.status(404).json({error: {message: 'Wrong id-format'}});
+      res.status(400).json({error: {message: 'Wrong id-format'}});
     }
   }
 };
@@ -69,7 +69,7 @@ exports.getMonster = function (req, res) {
       }
     });
   } else {
-    res.status(404).json({error: {message: 'Wrong id-format'}});
+    res.status(400).json({error: {message: 'Wrong id-format'}});
   }
 };
 

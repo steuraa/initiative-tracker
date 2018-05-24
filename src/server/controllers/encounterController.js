@@ -14,7 +14,7 @@ exports.saveEncounter = function (req, res) {
           }
         });
       } else {
-        res.status(404).json('Duplicate encounter');
+        res.status(400).json('An encounter with this name already exists or is in progress');
       }
     })
   }
@@ -39,8 +39,6 @@ exports.saveEncounter = function (req, res) {
 exports.getEncounter = function (req, res) {
   if (req.body._id.match(/^[0-9a-fA-F]{24}$/)) {
     Encounter.findById(req.body._id)
-    // .populate('heroes')
-    // .populate('monsters')
       .exec(function (err, data) {
         if (err) {
           res.status(204).send(err);
@@ -53,7 +51,7 @@ exports.getEncounter = function (req, res) {
         }
       });
   } else {
-    res.status(404).json({error: {message: 'Wrong id-format'}});
+    res.status(400).json({error: {message: 'Wrong id-format'}});
   }
 };
 

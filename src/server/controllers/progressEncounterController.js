@@ -14,9 +14,9 @@ exports.saveProgressEncounter = function (req, res) {
           }
         });
       } else {
-        res.status(404).json('Duplicate encounter');
+        res.status(400).json('A encounter in progress with this name already exists');
       }
-    })
+    });
   }
   else {
     Encounter.findByIdAndUpdate(req.body._id, {
@@ -53,7 +53,7 @@ exports.getProgressEncounter = function (req, res) {
         }
       });
   } else {
-    res.status(404).json({error: {message: 'Wrong id-format'}});
+    res.status(400).json({error: {message: 'Wrong id-format'}});
   }
 };
 

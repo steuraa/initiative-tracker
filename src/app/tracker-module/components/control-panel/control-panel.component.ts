@@ -8,6 +8,7 @@ import { EncounterDomainService } from '../../../shared-module/services/encounte
 import { HeroDomainService } from '../../../shared-module/services/hero-service/hero-domain.service';
 import { MonsterDomainService } from '../../../shared-module/services/monster-service/monster-domain.service';
 import { ProgressEncounterDomainService } from '../../../shared-module/services/progressEncounter-service/progressEncounter-domain.service';
+import { RequestError } from '../../../shared-module/services/requestResult/requestError';
 import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
@@ -18,9 +19,11 @@ import 'rxjs/add/operator/takeUntil';
 })
 export class ControlPanelComponent implements OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  errorMessage: string;
   selectedType = 'hero';
   selectedFeature: Hero | Monster;
   selectedEncounter: any;
+  showError = false;
   showModal = false;
   showRestart = false;
 
@@ -32,6 +35,9 @@ export class ControlPanelComponent implements OnDestroy {
       if (this.selectedType === this.selectedFeature.type) {
         this.getList(this.selectedType);
       }
+    });
+    this.storeService.errorSubject.takeUntil(this.ngUnsubscribe).subscribe((error: RequestError) => {
+      this.handleError(error.errors[0].message);
     });
     this.storeService.selectedFeatureSubject.takeUntil(this.ngUnsubscribe).subscribe(feat => {
       this.getFeature(feat);
@@ -58,6 +64,12 @@ export class ControlPanelComponent implements OnDestroy {
     this.storeService.addFeatureToEncounter(encounterFeature);
   }
 
+  closeError() {
+    this.errorMessage = undefined;
+    this.showModal = false;
+    this.showError = false;
+  }
+
   closeFeature(evt) {
     this.selectedFeature = undefined;
     this.storeService.closeFeature(evt);
@@ -65,6 +77,12 @@ export class ControlPanelComponent implements OnDestroy {
 
   editFeature(evt) {
     this.storeService.editFeature(evt);
+  }
+
+  handleError(error) {
+    this.errorMessage = error;
+    this.showModal = true;
+    this.showError = true;
   }
 
   handleProgressEncounter(restart) {

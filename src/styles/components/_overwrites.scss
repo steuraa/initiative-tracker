@@ -1,23 +1,15 @@
 @import "../helpers/variables";
-//.btn {
-//  border-radius: unset;
-//
-//}
-//
 
 .btn-success {
-  border-color: saddlebrown;
+  border-color: $saddle-brown;
+  color: $black;
 }
 .btn-success:not(:disabled):not(.disabled) {
-  border-color: saddlebrown;
-  //height: 100%;
-  //color: black;
+  border-color: $saddle-brown;
 }
 
 .btn-success:not(:disabled):not(.disabled).active {
-  //background-color: $dark-gray;
-  border-color: saddlebrown;
-  //color: black;
+  border-color: $saddle-brown;
 }
 
 .form-control {
@@ -26,6 +18,5 @@
 }
 
 .btn-image {
-  //width: 100%;
   height: auto;
 }

@@ -12,7 +12,7 @@ export class MonsterDomainService {
   getAllMonsters(): void {
     this.monsterApiService.getAllMonsters()
       .subscribe(res => {
-        if (res.data.length) {
+        if (res.data && !res.data.status) {
           const monsters = [];
           res.data.forEach(r => {
             monsters.push(new Monster(r));

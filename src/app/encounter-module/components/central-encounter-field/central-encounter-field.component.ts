@@ -71,7 +71,7 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
     this.selected = index;
     setTimeout(() => {
       this.selected = undefined;
-    }, 10000);
+    }, 20000);
   }
 
   ngOnDestroy() {

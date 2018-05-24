@@ -14,7 +14,7 @@ exports.saveHero = function (req, res) {
           }
         });
       } else {
-        res.status(404).json('Duplicate hero');
+        res.status(400).json('A hero with this name already exist');
       }
     })
   }
@@ -40,7 +40,7 @@ exports.saveHero = function (req, res) {
           }
         });
     } else {
-      res.status(404).json({error: {message: 'Wrong id-format'}});
+      res.status(400).json({error: {message: 'Wrong id-format'}});
     }
   }
 };
@@ -70,7 +70,7 @@ exports.getHero = function (req, res) {
       }
     });
   } else {
-    res.status(404).json({error: {message: 'Wrong id-format'}});
+    res.status(400).json({error: {message: 'Wrong id-format'}});
   }
 };
 

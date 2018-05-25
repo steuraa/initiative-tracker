@@ -1,0 +1,15 @@
+<div class="flex-container">
+  <div class="modal-disclaimer-container">
+    <div class="modal-disclaimer-content-container">
+      <header class="modal-disclaimer-header-wrapper">
+        <label>End of round</label>
+      </header>
+      <p>Every player has had a turn in this round. Do you want to start a new round or
+       continue and restart the round manually?</p>
+    </div>
+    <div class="modal-disclaimer-button-wrapper">
+      <button  *ngIf="!last" (click)="end(true)" class="bt-modal">End round</button>
+      <button (click)="end(false)" class="bt-modal">Continue</button>
+    </div>
+  </div>
+</div>

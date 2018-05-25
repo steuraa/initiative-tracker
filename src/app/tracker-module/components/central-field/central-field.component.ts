@@ -47,7 +47,7 @@ export class CentralFieldComponent {
       fg = this.fb.group({
         '_id': h._id,
         'initiative': h.initiative,
-        'max_ac': h.max_ac,
+        'played': h.played ? h.played : false,
         'max_hp': h.max_hp,
         'original_id': h.original_id,
         'ac': new FormControl({value: h.ac, disabled: true}),
@@ -59,7 +59,7 @@ export class CentralFieldComponent {
     } else {
       fg = this.fb.group({
         'initiative': h.initiative,
-        'max_ac': h.max_ac,
+        'played': false,
         'max_hp': h.max_hp,
         'original_id': h.original_id,
         'ac': new FormControl({value: h.ac, disabled: true}),
@@ -78,24 +78,26 @@ export class CentralFieldComponent {
       fg = this.fb.group({
         '_id': m._id,
         'initiative': m.initiative,
-        'max_ac': m.max_ac,
+        'played': m.played ? m.played : false,
         'max_hp': m.max_hp,
         'original_id': m.original_id,
         'ac': new FormControl({value: m.ac, disabled: true}),
         'hp': new FormControl({value: m.hp, disabled: true}),
         'name': new FormControl({value: m.name, disabled: true}),
-        'init_mod': new FormControl({value: m.init_mod, disabled: true})
+        'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+        'disabled': m.disabled ? m.disabled : false
       });
     } else {
       fg = this.fb.group({
         'initiative': m.initiative,
-        'max_ac': m.max_ac,
+        'played': false,
         'max_hp': m.max_hp,
         'original_id': m.original_id,
         'ac': new FormControl({value: m.ac, disabled: true}),
         'hp': new FormControl({value: m.hp, disabled: true}),
         'name': new FormControl({value: m.name, disabled: true}),
-        'init_mod': new FormControl({value: m.init_mod, disabled: true})
+        'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+        'disabled': false
       });
     }
     this.monsters.push(fg);
@@ -121,7 +123,7 @@ export class CentralFieldComponent {
           return this.fb.group({
             '_id': h._id,
             'initiative': h.initiative,
-            'max_ac': h.max_ac,
+            'played': (h.played) ? h.played : false,
             'max_hp': h.max_hp,
             'original_id': h.original_id,
             'ac': new FormControl({value: h.ac, disabled: true}),
@@ -133,7 +135,7 @@ export class CentralFieldComponent {
         } else {
           return this.fb.group({
             'initiative': h.initiative,
-            'max_ac': h.max_ac,
+            'played': false,
             'max_hp': h.max_hp,
             'original_id': h.original_id,
             'ac': new FormControl({value: h.ac, disabled: true}),
@@ -151,24 +153,26 @@ export class CentralFieldComponent {
           return this.fb.group({
             '_id': m._id,
             'initiative': m.initiative,
-            'max_ac': m.max_ac,
+            'played': (m.played) ? m.played : false,
             'max_hp': m.max_hp,
             'original_id': m.original_id,
             'ac': new FormControl({value: m.ac, disabled: true}),
             'hp': new FormControl({value: m.hp, disabled: true}),
             'name': new FormControl({value: m.name, disabled: true}),
             'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+            'disabled': m.disabled ? m.disabled : false
           });
         } else {
           return this.fb.group({
             'initiative': m.initiative,
-            'max_ac': m.max_ac,
+            'played': false,
             'max_hp': m.max_hp,
             'original_id': m.original_id,
             'ac': new FormControl({value: m.ac, disabled: true}),
             'hp': new FormControl({value: m.hp, disabled: true}),
             'name': new FormControl({value: m.name, disabled: true}),
             'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+            'disabled': false
           });
         }
       });

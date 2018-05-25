@@ -8,7 +8,7 @@
        continue and restart the round manually?</p>
     </div>
     <div class="modal-disclaimer-button-wrapper">
-      <button  *ngIf="!last" (click)="end(true)" class="bt-modal">End round</button>
+      <button (click)="end(true)" class="bt-modal">End round</button>
       <button (click)="end(false)" class="bt-modal">Continue</button>
     </div>
   </div>

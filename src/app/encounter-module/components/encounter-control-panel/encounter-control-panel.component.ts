@@ -22,11 +22,13 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   encounter: ProgressEncounter;
   errorMessage: string;
   losers: string;
+  manualEndRound = false;
   maxIndex: number;
   participants = Array<(EncounterHero | EncounterMonster)>();
   selectedFeature: any;
   showInitiative = false;
   showDelete = false;
+  showEndRound = false;
   showError = false;
   showFinished = false;
   showModal = false;
@@ -82,6 +84,10 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     }
   }
 
+  checkPlayed() {
+    return (this.participants.findIndex(p => !p.played) === -1);
+  }
+
   closeError() {
     this.errorMessage = undefined;
     this.showModal = false;
@@ -97,15 +103,23 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
       const cA = (this.selectedFeature.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
       const i = (cA as  Array<any>).findIndex(p => p._id === this.selectedFeature._id);
       cA.splice(i, 1);
-      this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe(res => {
-        this.encounter = res;
-      });
+      this.saveEncounter();
     }
   }
 
   endEncounter() {
-    this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe();
+    this.saveEncounter();
     this.router.navigate(['']);
+  }
+
+  endRound() {
+    this.encounter.round += 1;
+    this.manualEndRound = false;
+    this.participants.forEach(p => {
+      p.played = false;
+    });
+    this.nextPlayer(true);
+    this.saveEncounter();
   }
 
   handleError(error) {
@@ -135,6 +149,18 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.handlePlayerChange(this.participants[i]);
   }
 
+  handleEndRound(endRound) {
+    if (endRound) {
+      this.endRound();
+    } else {
+      this.manualEndRound = true;
+      this.nextPlayer();
+    }
+    this.showModal = false;
+    this.showEndRound = false;
+    console.log(this.participants);
+  }
+
   handleFinish(finish: boolean) {
     if (finish) {
       this.router.navigate(['/']);
@@ -149,9 +175,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     const cA = (cP.type === 'hero') ? this.encounter.heroes : this.encounter.monsters;
     const i = (cA as  Array<any>).findIndex(p => p._id === cP._id);
     cA[i] = cP;
-    this.encounterService.saveProgressEncounter(this.encounter).subscribe(res => {
-      this.encounter = res;
-    });
+    this.saveEncounter();
     if ((cA as  Array<any>).findIndex((p: EncounterHero) => p.hp > 0) === -1) {
       this.showModal = true;
       this.showFinished = true;
@@ -201,17 +225,23 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.getFeature(this.participants[this.currentIndex], true);
     this.encounter.heroes = this.tempHeroes;
     this.encounter.monsters = this.tempMonsters;
-    this.encounterService.saveProgressEncounter(this.encounter);
+    this.saveEncounter();
   }
 
-  nextPlayer(): void {
-    this.currentIndex = (this.currentIndex !== this.maxIndex) ? (this.currentIndex + 1) : 0;
-    if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
-      this.nextPlayer();
+  nextPlayer(start?: boolean): void {
+    this.participants[this.currentIndex].played = !(typeof start === 'boolean');
+    if (!this.checkPlayed() || this.manualEndRound) {
+      this.currentIndex = (typeof start === 'boolean') ? 0 : (this.currentIndex !== this.maxIndex) ? (this.currentIndex + 1) : 0;
+      if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
+        this.nextPlayer();
+      } else {
+        this.passIndex(this.currentIndex);
+        const cP = this.participants[this.currentIndex];
+        this.getFeature(cP, true);
+      }
     } else {
-      this.passIndex(this.currentIndex);
-      const cP = this.participants[this.currentIndex];
-      this.getFeature(cP, true);
+      this.showModal = true;
+      this.showEndRound = true;
     }
   }
 
@@ -235,6 +265,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   }
 
   prevPlayer(): void {
+    this.participants[this.currentIndex].played = true;
     this.currentIndex = (this.currentIndex !== 0) ? (this.currentIndex - 1) : this.maxIndex;
     if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
       this.prevPlayer();
@@ -255,6 +286,12 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     if (p) {
       this.storeService.passParticipants(p);
     }
+  }
+
+  saveEncounter() {
+    this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe(res => {
+      this.encounter = res;
+    });
   }
 
   ngOnDestroy() {

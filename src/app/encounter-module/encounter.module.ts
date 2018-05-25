@@ -1,6 +1,7 @@
 import { forwardRef, NgModule } from '@angular/core';
 import { SharedModule } from '../shared-module/shared.module';
 import { CommonModule } from '@angular/common';
+import { EndRoundModalComponent } from './components/encounter-control-panel/modals/end-round-modal/end-round-modal.component';
 import { EncounterRoutingModule } from './encounter-routing.module';
 import { EncounterResolverService } from '../shared-module/services/encounter-resolver/encounter-resolver.service';
 import { CentralEncounterFieldComponent } from './components/central-encounter-field/central-encounter-field.component';
@@ -28,6 +29,7 @@ import { TargetSidebarComponent } from './components/target-sidebar/target-sideb
     EncounterControlPanelComponent,
     EncounterComponent,
     EncounterFinishedModalComponent,
+    EndRoundModalComponent,
     InitiativeModalComponent,
     PlayerSidebarComponent,
     TargetSidebarComponent
@@ -38,6 +40,7 @@ import { TargetSidebarComponent } from './components/target-sidebar/target-sideb
     EncounterControlPanelComponent,
     EncounterComponent,
     EncounterFinishedModalComponent,
+    EndRoundModalComponent,
     InitiativeModalComponent,
     PlayerSidebarComponent,
     TargetSidebarComponent

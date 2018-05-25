@@ -6,7 +6,7 @@
       </header>
       <div class="initiative-block">
         <h3>Heroes:</h3>
-        <div *ngFor="let h of heroes" class="initiative-row"><span>{{h.name}}: </span><input type="number" class="initiative-input" [(ngModel)]="h.initiative"></div>
+        <div *ngFor="let h of heroes" class="initiative-row"><span>{{h.name}}: </span><input type="number" min="1" max="20" class="initiative-input" [(ngModel)]="h.initiative"></div>
       </div>
       <div  class="initiative-block">
         <h3>Monsters:</h3>

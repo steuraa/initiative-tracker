@@ -219,14 +219,14 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     this.encounter.heroes.forEach(h => {
       const tH = Object.assign({}, h);
       let init = this.calculateInitiative(tH.init_mod);
-      init = (init > 20) ? 20 : (init < 0) ? 0 : init;
+      init = (init > 20) ? 20 : (init < 1) ? 1 : init;
       tH.initiative = init;
       this.tempHeroes.push(tH);
     });
     this.encounter.monsters.forEach(m => {
       const tM = Object.assign({}, m);
       let init = this.calculateInitiative(tM.init_mod);
-      init = (init > 20) ? 20 : (init < 0) ? 0 : init;
+      init = (init > 20) ? 20 : (init < 1) ? 1 : init;
       tM.initiative = init;
       this.tempMonsters.push(tM);
     });

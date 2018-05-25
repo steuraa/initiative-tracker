@@ -6,7 +6,7 @@ export class EncounterMonster {
   hp: number;
   max_hp: number;
   ac: number;
-  max_ac: number;
+  played = false;
   init_mod: number;
   initiative: number;
   disabled = false;
@@ -24,7 +24,7 @@ export class EncounterMonster {
       this.hp = json.hp;
       this.max_hp = (json.max_hp) ? json.max_hp : json.hp;
       this.ac = json.ac;
-      this.max_ac = (json.max_ac) ? json.max_ac : json.ac;
+      this.played = json.played;
       this.init_mod = json.init_mod;
       this.initiative = (json.initiative) ? json.initiative : 0;
       if (json.disabled) {

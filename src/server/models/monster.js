@@ -18,7 +18,7 @@ const EncounterMonsterSchema = new Schema({
   hp: {type: Number, required: true},
   max_hp: {type: Number, required: true},
   ac: {type: Number, required: true},
-  max_ac: {type: Number, required: true},
+  played: {type: Boolean, required: true},
   init_mod: {type: Number, required: true},
   initiative: {type: Number, required: true},
   disabled: {type: Boolean, required: true}

@@ -8,9 +8,9 @@
       <div *ngIf="tempItem.avatar">
         <img src="{{tempItem.avatar}}">
       </div>
-      <label class="file-input-container">
+      <label *ngIf="editable" class="file-input-container">
         Select avatar
-        <input *ngIf="editable" type="file" name="class" (change)="handleFileSelect($event)" required>
+        <input type="file" name="class" (change)="handleFileSelect($event)" required>
       </label>
 
       <div class="form-group">
@@ -20,8 +20,8 @@
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description"
-                  required></textarea>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description" rows="3"
+                  spellcheck="false" required></textarea>
       </div>
 
       <div class="form-group">
@@ -29,9 +29,6 @@
         <input type="number" class="form-control number-control" id="hp" name="hp" [(ngModel)]="tempItem.hp" required>
         <label for="ac">AC</label>
         <input type="number" class="form-control number-control" id="ac" name="ac" [(ngModel)]="tempItem.ac" required>
-        <label for="init">Init</label>
-        <input type="number" class="form-control number-control" id="init" name="init" [(ngModel)]="tempItem.init_mod"
-               required>
       </div>
       <div class="form-group">
         <label for="init">Init</label>
@@ -39,9 +36,9 @@
                required>
       </div>
 
-      <button [disabled]="!characterForm.form.valid" (click)="save()" class="btn btn-success" *ngIf="editable">Save
+      <button [disabled]="!characterForm.form.valid" (click)="save()" *ngIf="editable">Save
       </button>
-      <button (click)="cancel()" class="btn btn-warning" *ngIf="editable">Cancel</button>
+      <button (click)="cancel()" *ngIf="editable">Cancel</button>
     </fieldset>
   </form>
 </div>

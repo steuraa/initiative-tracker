@@ -2,12 +2,10 @@
   <form [formGroup]="encounterForm" *ngIf="tempEncounter">
     <div class="form-group">
       <label *ngIf="!progress">Encounter name: <input type="text" class="form-control" formControlName="name"></label>
-      <label *ngIf="progress">Encounter name: {{tempEncounter.name}}</label>
+      <label *ngIf="progress">Encounter name: {{tempEncounter.name}} - Round: {{encounter.round}}</label>
+
     </div>
-    <!--<div class="form-group">-->
-      <!--<label>Progress: <input type="checkbox" disabled class="form-control" [ngModel]="progress"-->
-                                           <!--[ngModelOptions]="{standalone: true}"></label>-->
-    <!--</div>-->
+    <div class="table-container">
     <table id="hero-field" *ngIf="tempEncounter">
       <caption>Heroes:</caption>
       <tr>
@@ -15,21 +13,24 @@
         <th class="text-column">Name</th>
         <th class="number-column">HP</th>
         <th class="number-column">AC</th>
-        <th class="number-column">Init</th>
+        <th class="number-column" *ngIf="progress">Init</th>
+        <th class="number-column" *ngIf="!progress">Init-mod</th>
         <th class="text-column">Player</th>
       </tr>
       <ng-container formArrayName="heroes">
         <tr *ngFor="let h of heroes.controls; let i = index" [formGroupName]="i">
           <td class="disable-column" *ngIf="!progress" (click)="removeHero(i)"><img
             src="../../../../assets/images/close-24.png"></td>
-          <td class="text-column"><input class="disabled-input" type="text" formControlName="name"></td>
-          <td class="number-column"><input class="disabled-input" type="text" formControlName="hp"></td>
-          <td class="number-column"><input class="disabled-input" type="text" formControlName="ac"></td>
-          <td class="number-column"><input class="disabled-input" type="text" formControlName="init_mod"></td>
-          <td class="text-column"><input type="text" formControlName="player"></td>
+          <td class="text-column"><input class="disabled-input" label="name" type="text" formControlName="name"></td>
+          <td class="number-column"><input class="disabled-input" label="hp" type="text" formControlName="hp"></td>
+          <td class="number-column"><input class="disabled-input" label="ac" type="text" formControlName="ac"></td>
+          <td class="number-column"><input class="disabled-input" label="init_modifier" type="text" formControlName="init_mod"></td>
+          <td class="text-column"><input label="player" type="text" formControlName="player"></td>
         </tr>
       </ng-container>
     </table>
+    </div>
+    <div class="table-container">
     <table id="monster-field" *ngIf="tempEncounter">
       <caption>Monsters:</caption>
       <tr>
@@ -37,21 +38,23 @@
         <th class="text-column">Name</th>
         <th class="number-column">HP</th>
         <th class="number-column">AC</th>
-        <th class="number-column">Init</th>
+        <th class="number-column" *ngIf="progress">Init</th>
+        <th class="number-column" *ngIf="!progress">Init-mod</th>
         <th class="text-column"></th>
       </tr>
       <ng-container formArrayName="monsters">
         <tr *ngFor="let h of monsters.controls; let i = index" [formGroupName]="i">
           <td class="disable-column" *ngIf="!progress" (click)="removeMonster(i)"><img
             src="../../../../assets/images/close-24.png"></td>
-          <td class="text-column"><input class="disabled-input" type="text" formControlName="name"></td>
-          <td class="number-column"><input class="disabled-input" type="text" formControlName="hp"></td>
-          <td class="number-column"><input class="disabled-input" type="text" formControlName="ac"></td>
-          <td class="number-column"><input class="disabled-input" type="text" formControlName="init_mod"></td>
+          <td class="text-column"><input class="disabled-input" label="name" type="text" formControlName="name"></td>
+          <td class="number-column"><input class="disabled-input" label="hp" type="text" formControlName="hp"></td>
+          <td class="number-column"><input class="disabled-input" label="ac" type="text" formControlName="ac"></td>
+          <td class="number-column"><input class="disabled-input" label="init_modifier" type="text" formControlName="init_mod"></td>
           <td class="text-column"> </td>
         </tr>
       </ng-container>
     </table>
+    </div>
 
     <button *ngIf="!progress" [disabled]="!encounterForm.valid" (click)="save()">Save</button>
   </form>

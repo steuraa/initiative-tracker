@@ -179,7 +179,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
       this.showFinished = true;
       this.losers = cP.type;
     }
-    this.nextPlayer();
+    // this.nextPlayer();
   }
 
   handleSaveEncounter() {

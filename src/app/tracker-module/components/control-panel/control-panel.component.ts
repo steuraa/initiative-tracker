@@ -117,7 +117,8 @@ export class ControlPanelComponent implements OnDestroy {
 
   startEncounter() {
     if (this.selectedEncounter && !this.selectedEncounter.original) {
-      if (this.selectedEncounter.name && this.selectedEncounter.heroes.length && this.selectedEncounter.monsters.length) {
+      if (this.selectedEncounter.name && this.selectedEncounter. heroes && this.selectedEncounter.heroes.length &&
+        this.selectedEncounter.monsters && this.selectedEncounter.monsters.length) {
         const progEnc = {
           name: this.selectedEncounter.name + ' - progress',
           original: this.selectedEncounter._id,
@@ -130,7 +131,7 @@ export class ControlPanelComponent implements OnDestroy {
           }
         );
       } else {
-        console.log('ERROR! SAVE ENCOUNTER!');
+        this.handleError('Can\'t start encounter! Make sure that the encounter has a name and at least 1 hero and 1 monster!');
       }
     } else {
       this.showModal = true;

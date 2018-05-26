@@ -8,9 +8,9 @@
       <div *ngIf="tempItem.avatar">
         <img src="{{tempItem.avatar}}">
       </div>
-      <label class="file-input-container">
+      <label *ngIf="editable" class="file-input-container">
         Select avatar
-        <input *ngIf="editable" type="file" name="class" (change)="handleFileSelect($event)" required>
+        <input type="file" name="class" (change)="handleFileSelect($event)" required>
       </label>
 
       <div class="form-group">
@@ -20,8 +20,8 @@
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description"
-                  required></textarea>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="tempItem.description" rows="3"
+                  spellcheck="false" required></textarea>
       </div>
 
       <div class="form-group">

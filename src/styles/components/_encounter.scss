@@ -27,16 +27,15 @@
       display: inline-block;
       width: 35%;
     }
-
-    .player-span {
-      //margin-bottom: 1rem;
-      //margin-right: -1rem;
-    }
     .optional-span, .player-span {
       display: inline-block;
     }
     .optional-span {
       float: right
+    }
+    .player-span {
+      margin: 0 0 1rem 1rem;
+      width: 10%;
     }
   }
   .encounter-row-container {

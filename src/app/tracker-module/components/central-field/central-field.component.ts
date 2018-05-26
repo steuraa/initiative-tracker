@@ -54,7 +54,7 @@ export class CentralFieldComponent {
         'hp': new FormControl({value: h.hp, disabled: true}),
         'name': new FormControl({value: h.name, disabled: true}),
         'player': new FormControl(h.player, Validators.required),
-        'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+        'init_mod': new FormControl({value: (this.progress) ? h.initiative : h.init_mod, disabled: true}),
       });
     } else {
       fg = this.fb.group({
@@ -66,7 +66,7 @@ export class CentralFieldComponent {
         'hp': new FormControl({value: h.hp, disabled: true}),
         'name': new FormControl({value: h.name, disabled: true}),
         'player': new FormControl(h.player, Validators.required),
-        'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+        'init_mod': new FormControl({value: (this.progress) ? h.initiative : h.init_mod, disabled: true}),
       });
     }
     this.heroes.push(fg);
@@ -84,7 +84,7 @@ export class CentralFieldComponent {
         'ac': new FormControl({value: m.ac, disabled: true}),
         'hp': new FormControl({value: m.hp, disabled: true}),
         'name': new FormControl({value: m.name, disabled: true}),
-        'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+        'init_mod': new FormControl({value: (this.progress) ? m.initiative : m.init_mod, disabled: true}),
         'disabled': m.disabled ? m.disabled : false
       });
     } else {
@@ -96,7 +96,7 @@ export class CentralFieldComponent {
         'ac': new FormControl({value: m.ac, disabled: true}),
         'hp': new FormControl({value: m.hp, disabled: true}),
         'name': new FormControl({value: m.name, disabled: true}),
-        'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+        'init_mod': new FormControl({value: (this.progress) ? m.initiative : m.init_mod, disabled: true}),
         'disabled': false
       });
     }
@@ -130,7 +130,7 @@ export class CentralFieldComponent {
             'hp': new FormControl({value: h.hp, disabled: true}),
             'name': new FormControl({value: h.name, disabled: true}),
             'player': new FormControl(h.player, Validators.required),
-            'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+            'init_mod': new FormControl({value: (this.progress) ? h.initiative : h.init_mod, disabled: true}),
           });
         } else {
           return this.fb.group({
@@ -142,7 +142,7 @@ export class CentralFieldComponent {
             'hp': new FormControl({value: h.hp, disabled: true}),
             'name': new FormControl({value: h.name, disabled: true}),
             'player': new FormControl(h.player, Validators.required),
-            'init_mod': new FormControl({value: h.init_mod, disabled: true}),
+            'init_mod': new FormControl({value: (this.progress) ? h.initiative : h.init_mod, disabled: true}),
           });
         }
       });
@@ -159,7 +159,7 @@ export class CentralFieldComponent {
             'ac': new FormControl({value: m.ac, disabled: true}),
             'hp': new FormControl({value: m.hp, disabled: true}),
             'name': new FormControl({value: m.name, disabled: true}),
-            'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+            'init_mod': new FormControl({value: (this.progress) ? m.initiative : m.init_mod, disabled: true}),
             'disabled': m.disabled ? m.disabled : false
           });
         } else {
@@ -171,7 +171,7 @@ export class CentralFieldComponent {
             'ac': new FormControl({value: m.ac, disabled: true}),
             'hp': new FormControl({value: m.hp, disabled: true}),
             'name': new FormControl({value: m.name, disabled: true}),
-            'init_mod': new FormControl({value: m.init_mod, disabled: true}),
+            'init_mod': new FormControl({value: (this.progress) ? m.initiative : m.init_mod, disabled: true}),
             'disabled': false
           });
         }

@@ -4,7 +4,6 @@ import { Subject } from 'rxjs/Subject';
 import { EncounterHero } from '../../../shared-module/models/hero';
 import { EncounterMonster } from '../../../shared-module/models/monster';
 import { ProgressEncounter } from '../../../shared-module/models/progressEncounter';
-import { EncounterDomainService } from '../../../shared-module/services/encounter-service/encounter-domain.service';
 import { StoreService } from '../../../shared-module/services/stores/store.service';
 import 'rxjs/add/operator/takeUntil';
 
@@ -20,7 +19,7 @@ export class CentralEncounterFieldComponent implements OnInit, OnDestroy {
   participants = Array<(EncounterHero | EncounterMonster)>();
   selected: number;
 
-  constructor(private encounterService: EncounterDomainService, private storeService: StoreService, private route: ActivatedRoute) {
+  constructor(private storeService: StoreService, private route: ActivatedRoute) {
     this.route.data.takeUntil(this.ngUnsubscribe).subscribe((data: { encounter: any }) => {
       this.encounter = new ProgressEncounter(data.encounter);
     });

@@ -108,8 +108,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   }
 
   endEncounter() {
-    this.saveEncounter();
-    this.router.navigate(['']);
+    this.handleSaveEncounter();
   }
 
   endRound() {
@@ -129,7 +128,7 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
   }
 
   findCurrentIndex() {
-    if ((this.participants[this.currentIndex] as EncounterMonster).disabled) {
+    if ((this.participants[this.currentIndex] as EncounterMonster).disabled || this.participants[this.currentIndex].played) {
       this.currentIndex += 1;
       this.findCurrentIndex();
     } else {
@@ -158,7 +157,6 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     }
     this.showModal = false;
     this.showEndRound = false;
-    console.log(this.participants);
   }
 
   handleFinish(finish: boolean) {
@@ -182,6 +180,20 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
       this.losers = cP.type;
     }
     this.nextPlayer();
+  }
+
+  handleSaveEncounter() {
+    this.encounter.heroes.forEach((h: EncounterHero) => {
+      const cP = (this.participants.find(p => p._id === h._id) as EncounterHero);
+      h.played = cP.played;
+    });
+    this.encounter.monsters.forEach((m: EncounterMonster) => {
+      const cP = (this.participants.find(p => p._id === m._id) as EncounterMonster);
+      m.played = cP.played;
+    });
+    console.log('participants::', this.participants);
+    console.log('encounter:: ', this.encounter);
+    this.saveEncounter(true);
   }
 
   getFeature(res: (EncounterHero | EncounterMonster), player?: boolean): void {
@@ -282,15 +294,12 @@ export class EncounterControlPanelComponent implements OnDestroy, OnInit {
     }
   }
 
-  passParticipant(p) {
-    if (p) {
-      this.storeService.passParticipants(p);
-    }
-  }
-
-  saveEncounter() {
+  saveEncounter(final?: boolean) {
     this.encounterService.saveProgressEncounter(this.encounter).takeUntil(this.ngUnsubscribe).subscribe(res => {
       this.encounter = res;
+      if (final) {
+        this.router.navigate(['/']);
+      }
     });
   }
 
